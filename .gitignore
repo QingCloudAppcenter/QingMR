@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 version/
 
-=======
 # Compiled class file
 *.class
 
@@ -24,4 +22,3 @@ version/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
->>>>>>> 10233f7464120522c8d5ed7682e3bc98665ad7f5
