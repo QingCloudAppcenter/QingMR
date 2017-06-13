@@ -170,6 +170,7 @@
                                 "description": "Number of nodes for the cluster to create",
                                 "type": "integer",
                                 "default": 3,
+				"min":	3,
                                 "required": "yes"
                             },
                             {
