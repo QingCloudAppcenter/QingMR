@@ -55,15 +55,6 @@
                                 "required": "yes"
                             },
                             {
-                                "key": "count",
-                                "label": "count",
-                                "description": "Number of nodes for the cluster to create",
-                                "type": "integer",
-                                "default": 1,
-                                "range": [1],
-                                "required": "yes"
-                            },
-                            {
                                 "key": "instance_class",
                                 "label": "instance class",
                                 "description":"The instance type for the cluster to run, such as high performance, high performance plus",
@@ -116,15 +107,6 @@
                                 "type": "integer",
                                 "default": 2048,
                                 "range": [2048,4096,6144,8192,12288,16384,24576,32768,40960,49152,65536],
-                                "required": "yes"
-                            },
-                            {
-                                "key": "count",
-                                "label": "count",
-                                "description": "Number of nodes for the cluster to create",
-                                "type": "integer",
-                                "default": 1,
-                                "range": [1],
                                 "required": "yes"
                             },
                             {

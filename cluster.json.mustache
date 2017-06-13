@@ -8,10 +8,10 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-3ro2c8uj"
+                    "image": "img-lg8d0tj6"
                 },
                 "instance_class": {{cluster.spark-master.instance_class}},
-                "count": {{cluster.spark-master.count}},
+                "count": 1,
                 "cpu": {{cluster.spark-master.cpu}},
                 "memory": {{cluster.spark-master.memory}},
                 "volume": {
@@ -77,10 +77,10 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-k5dtjd8b"
+                    "image": "img-o08s8s7m"
                 },
                 "instance_class": {{cluster.hadoop-master.instance_class}},
-                "count": {{cluster.hadoop-master.count}},
+                "count": 1,
                 "cpu": {{cluster.hadoop-master.cpu}},
                 "memory": {{cluster.hadoop-master.memory}},
                 "volume": {
@@ -194,7 +194,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-uc6ldzi0"
+                    "image": "img-myye2spn"
                 },
                 "instance_class": {{cluster.worker.instance_class}},
                 "count": {{cluster.worker.count}},
@@ -296,7 +296,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-7ho0w9rz"
+                    "image": "img-efax830q"
                 },
                 "instance_class": {{cluster.spark-client.instance_class}},
                 "count": {{cluster.spark-client.count}},
