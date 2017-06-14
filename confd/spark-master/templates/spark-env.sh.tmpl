@@ -7,3 +7,8 @@ export SPARK_LOCAL_DIRS=/bigdata1/spark
 export HADOOP_HOME=/opt/hadoop/etc/hadoop
 {{range $dir := lsdir "/hosts/spark-master/"}}{{$ip := printf "/hosts/spark-master/%s/ip" $dir}}
 export SPARK_MASTER_IP={{getv $ip}}{{end}}
+{{$master_daemon_memory := getv "/env/spark_master_daemon_memory"}}{{$master_memory := div (div (getv "/host/memory") 1024) 2}}{{if and (ne $master_daemon_memory 0) (lt $master_daemon_memory $master_memory)}}
+export SPARK_DAEMON_MEMORY={{$master_daemon_memory}}g
+{{else}}
+export SPARK_DAEMON_MEMORY={{$master_memory}}g
+{{end}}

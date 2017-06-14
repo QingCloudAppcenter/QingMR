@@ -275,6 +275,24 @@
                 "description": "Spark service properties",
                 "type": "array",
                 "properties": [
+		    {
+                    	"key": "spark_master_daemon_memory",
+                        "label": "spark.master.SPARK_DAEMON_MEMORY",
+                        "description": "Memory(in GB) allocated to spark master daemon, 0 means half of total memory. It will be reset to half of total memory if it is larger than that.",
+                        "type": "integer",
+                        "default": 0,
+                        "range": [0,1,2,4,6,8,12,16,24,32],
+                        "required": "yes"
+                    },
+		    {
+                    	"key": "spark_worker_daemon_memory",
+                        "label": "spark.worker.SPARK_DAEMON_MEMORY",
+                        "description": "Memory(in GB) allocated to spark worker daemon, usually using the default value 1 is enough. It will be reset to half of total memory if it is larger than that.",
+                        "type": "integer",
+                        "default": 1,
+                        "range": [1,2,4,6,8,12,16,24,32],
+                        "required": "yes"
+                    },
                     {
                         "key": "spark_worker_cleanup_enabled",
                         "label": "spark.worker.cleanup.enabled",

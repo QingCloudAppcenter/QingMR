@@ -8,7 +8,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-lg8d0tj6"
+                    "image": "img-03smmxv1"
                 },
                 "instance_class": {{cluster.spark-master.instance_class}},
                 "count": 1,
@@ -194,7 +194,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-myye2spn"
+                    "image": "img-jtmflknc"
                 },
                 "instance_class": {{cluster.worker.instance_class}},
                 "count": {{cluster.worker.count}},
@@ -313,6 +313,8 @@
             }
         ],
         "env": {
+	    "spark_master_daemon_memory": {{env.spark_master_daemon_memory}},
+	    "spark_worker_daemon_memory": {{env.spark_worker_daemon_memory}},
 	    "spark.worker.cleanup.enabled": {{env.spark_worker_cleanup_enabled}},
 	    "spark.worker.cleanup.interval": {{env.spark_worker_cleanup_interval}},
 	    "spark.worker.cleanup.appDataTtl": {{env.spark_worker_cleanup_appDataTtl}},
