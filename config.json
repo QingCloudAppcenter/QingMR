@@ -345,13 +345,13 @@
                         "required": "no"
                     },
                     {
-                        "key": "dfs_datanode_handler_count",
-                        "label": "dfs.datanode.handler.count",
-                        "description": "The number of server threads for the data node",
+                        "key": "datanode_hadoop_heapsize",
+                        "label": "datanode.HADOOP_HEAPSIZE",
+                        "description": "The maximum amount of heap to use by datanode in MB, Default is 1000. It will be reset to half of total memory if it's set to a value larger than that.",
                         "type": "integer",
-                        "default": 10,
-			"min":	10,
-                        "required":"yes"
+                        "default": 1000,
+			"min":	1000,
+                        "required": "yes"
                     },
                     {
                         "key": "dfs_namenode_handler_count",
@@ -361,6 +361,15 @@
                         "default": 10,
 			"min":	10,
                         "required": "yes"
+                    },
+                    {
+                        "key": "dfs_datanode_handler_count",
+                        "label": "dfs.datanode.handler.count",
+                        "description": "The number of server threads for the data node",
+                        "type": "integer",
+                        "default": 10,
+			"min":	10,
+                        "required":"yes"
                     },
                     {
                         "key": "dfs_replication",

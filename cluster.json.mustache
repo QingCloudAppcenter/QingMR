@@ -194,7 +194,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-jtmflknc"
+                    "image": "img-sozeql56"
                 },
                 "instance_class": {{cluster.worker.instance_class}},
                 "count": {{cluster.worker.count}},
@@ -321,8 +321,9 @@
 	    "hadoop.proxyuser": {{env.hadoop_proxyuser}},
 	    "hadoop.proxyuser.hosts": {{env.hadoop_proxyuser_hosts}},
 	    "hadoop.proxyuser.groups": {{env.hadoop_proxyuser_groups}},
-            "dfs.datanode.handler.count": {{env.dfs_datanode_handler_count}},
+	    "datanode.HADOOP_HEAPSIZE": {{env.datanode_hadoop_heapsize}},
             "dfs.namenode.handler.count": {{env.dfs_namenode_handler_count}},
+            "dfs.datanode.handler.count": {{env.dfs_datanode_handler_count}},
             "dfs.replication":{{env.dfs_replication}},
             "fs.trash.interval": {{env.fs_trash_interval}}
         },
