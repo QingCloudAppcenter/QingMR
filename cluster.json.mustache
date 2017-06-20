@@ -8,7 +8,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-03smmxv1"
+                    "image": "img-ziepe20s"
                 },
                 "instance_class": {{cluster.spark-master.instance_class}},
                 "count": 1,
@@ -77,7 +77,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-o08s8s7m"
+                    "image": "img-b90gzqzd"
                 },
                 "instance_class": {{cluster.hadoop-master.instance_class}},
                 "count": 1,
@@ -194,7 +194,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-sozeql56"
+                    "image": "img-qi2owzrj"
                 },
                 "instance_class": {{cluster.worker.instance_class}},
                 "count": {{cluster.worker.count}},
@@ -296,7 +296,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-efax830q"
+                    "image": "img-s5awaxjh"
                 },
                 "instance_class": {{cluster.spark-client.instance_class}},
                 "count": {{cluster.spark-client.count}},
@@ -315,6 +315,7 @@
         "env": {
 	    "spark_master_daemon_memory": {{env.spark_master_daemon_memory}},
 	    "spark_worker_daemon_memory": {{env.spark_worker_daemon_memory}},
+	    "PYSPARK_PYTHON": {{env.PYSPARK_PYTHON}},
 	    "spark.worker.cleanup.enabled": {{env.spark_worker_cleanup_enabled}},
 	    "spark.worker.cleanup.interval": {{env.spark_worker_cleanup_interval}},
 	    "spark.worker.cleanup.appDataTtl": {{env.spark_worker_cleanup_appDataTtl}},

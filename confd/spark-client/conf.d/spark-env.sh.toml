@@ -1,0 +1,4 @@
+[template]
+src = "spark-env.sh.tmpl"
+dest = "/opt/spark/conf/spark-env.sh"
+keys = ["/",]
