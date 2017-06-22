@@ -8,7 +8,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-ziepe20s"
+                    "image": "img-qcirig1u"
                 },
                 "instance_class": {{cluster.spark-master.instance_class}},
                 "count": 1,
@@ -73,21 +73,21 @@
 	        }
             },
             {
-                "role": "hadoop-master",
+                "role": "hdfs-master",
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-b90gzqzd"
+                    "image": "img-yasv9fz5"
                 },
-                "instance_class": {{cluster.hadoop-master.instance_class}},
+                "instance_class": {{cluster.hdfs-master.instance_class}},
                 "count": 1,
-                "cpu": {{cluster.hadoop-master.cpu}},
-                "memory": {{cluster.hadoop-master.memory}},
+                "cpu": {{cluster.hdfs-master.cpu}},
+                "memory": {{cluster.hdfs-master.memory}},
                 "volume": {
-                    "size": {{cluster.hadoop-master.volume_size}},
+                    "size": {{cluster.hdfs-master.volume_size}},
                     "mount_point": "/bigdata1",
                     "filesystem": "ext4",
-                    "class": {{cluster.hadoop-master.volume_class}}
+                    "class": {{cluster.hdfs-master.volume_class}}
                 },
                 "passphraseless":"ssh-rsa",
                 "services": {
@@ -194,7 +194,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-qi2owzrj"
+                    "image": "img-79z6bfm0"
                 },
                 "instance_class": {{cluster.worker.instance_class}},
                 "count": {{cluster.worker.count}},
@@ -296,7 +296,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-x3rab0uc"
+                    "image": "img-ns7loqd0"
                 },
                 "instance_class": {{cluster.spark-client.instance_class}},
                 "count": {{cluster.spark-client.count}},

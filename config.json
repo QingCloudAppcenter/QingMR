@@ -86,7 +86,7 @@
                         ]
                     },
                     {
-                        "key": "hadoop-master",
+                        "key": "hdfs-master",
 			"label": "HDFS master",
                         "description": "HDFS master properties",
                         "type": "array",
