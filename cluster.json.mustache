@@ -2,76 +2,7 @@
         "name": {{cluster.name}},
         "description": {{cluster.description}},
         "vxnet": {{cluster.vxnet}},
-        "nodes": [
-            {
-                "role": "spark-master",
-                "container": {
-                    "type": "kvm",
-                    "zone": "sh1a",
-                    "image": "img-qcirig1u"
-                },
-                "instance_class": {{cluster.spark-master.instance_class}},
-                "count": 1,
-                "cpu": {{cluster.spark-master.cpu}},
-                "memory": {{cluster.spark-master.memory}},
-                "volume": {
-                    "size": {{cluster.spark-master.volume_size}},
-                    "mount_point": "/bigdata1",
-                    "filesystem": "ext4",
-                    "class": {{cluster.spark-master.volume_class}}
-                },
-                "passphraseless":"ssh-rsa",
-                "services": {
-                    "start": {
-			"order": 0,
-                        "cmd": "USER=root /opt/spark/sbin/start-all.sh;/opt/livy/bin/livy-server start"
-                    },
-                    "stop": {
-                        "cmd": "USER=root /opt/spark/sbin/stop-all.sh;/opt/livy/bin/livy-server stop"
-                    }
-                },
-        	"health_check": {
-                    "enable": true,
-                    "interval_sec": 60,
-                    "timeout_sec": 10,
-                    "action_timeout_sec": 30,
-                    "healthy_threshold": 2,
-                    "unhealthy_threshold": 2,
-                    "check_cmd": "/opt/spark/sbin/check-spark-master.sh",
-                    "action_cmd": "/opt/spark/sbin/action-spark-master.sh"
-	        },
-		"monitor": {
-	 	    "enable": true,
-            	    "cmd": "/usr/bin/python /opt/spark/sbin/spark-master-monitor.py",
-            	    "items": {
-			"WorkersTotal": {
-        		        "unit": "",
-                		"value_type": "int",
-	        	        "statistics_type": "latest"
-        	    	},
-	            	"WorkersAlive": {
-        	    		"unit": "",
-	                	"value_type": "int",
-		                "statistics_type": "latest"
-        	    	},
-			"Running": {
-        		        "unit": "",
-                		"value_type": "int",
-	        	        "statistics_type": "latest"
-        	    	},
-			"Waiting": {
-        		        "unit": "",
-                		"value_type": "int",
-	        	        "statistics_type": "latest"
-        	    	}
-	            },
-	            "groups": {        	        
-        	        "Workers": ["WorkersTotal", "WorkersAlive"],
-			"Applications": ["Running", "Waiting"]
-        	    },
-        	    "display": ["Workers", "Applications"]
-	        }
-            },
+        "nodes": [            
             {
                 "role": "hdfs-master",
                 "container": {
@@ -210,10 +141,10 @@
             	"services": {
             	    "start": {
 		        "order": 0,
-			"cmd": "USER=root /opt/hadoop/sbin/start-yarn.sh;USER=root /opt/hadoop/sbin/mr-jobhistory-daemon.sh start historyserver"
+			"cmd": "/opt/hadoop/sbin/start-yarn-services.sh;/opt/spark/sbin/start-spark-services.sh"
 		    },
 		    "stop": {
-		        "cmd": "USER=root /opt/hadoop/sbin/stop-yarn.sh;USER=root /opt/hadoop/sbin/mr-jobhistory-daemon.sh stop historyserver"
+		        "cmd": "/opt/hadoop/sbin/stop-yarn-services.sh;/opt/spark/sbin/stop-spark-services.sh"
 		    }
             	},
 	        "health_check": {
@@ -223,12 +154,12 @@
         	        "action_timeout_sec": 30,
         	        "healthy_threshold": 2,
         	        "unhealthy_threshold": 2,
-        	        "check_cmd": "/opt/hadoop/sbin/check-yarn-master.sh",
-        	        "action_cmd": "/opt/hadoop/sbin/action-yarn-master.sh"
+        	        "check_cmd": "/opt/hadoop/sbin/check-yarn-spark-master.sh",
+        	        "action_cmd": "/opt/hadoop/sbin/action-yarn-spark-master.sh"
         	},
                 "monitor": {
     	            "enable": true,
-    	            "cmd": "/usr/bin/python /opt/hadoop/sbin/yarn-master-monitor.py",
+    	            "cmd": "/usr/bin/python /opt/hadoop/sbin/yarn-spark-master-monitor.py",
     	            "items": {
     	                "NumActiveNMs": {
     	                    "unit": "",
@@ -339,7 +270,27 @@
     	                    "unit": "",
     	                    "value_type": "int",
     	                    "statistics_type": "latest"
-    	                }
+    	                },
+			"WorkersTotal": {
+        		        "unit": "",
+                		"value_type": "int",
+	        	        "statistics_type": "latest"
+        	    	},
+	            	"WorkersAlive": {
+        	    		"unit": "",
+	                	"value_type": "int",
+		                "statistics_type": "latest"
+        	    	},
+			"RunningApps": {
+        		        "unit": "",
+                		"value_type": "int",
+	        	        "statistics_type": "latest"
+        	    	},
+			"WaitingApps": {
+        		        "unit": "",
+                		"value_type": "int",
+	        	        "statistics_type": "latest"
+        	    	}
     	            },
     	            "groups": {                               
     	                "NodeManagers": ["NumActiveNMs", "NumDecommissionedNMs", "NumLostNMs", "NumUnhealthyNMs", "NumRebootedNMs"], 
@@ -347,9 +298,11 @@
     	                "Applications": ["AppsSubmitted", "AppsRunning", "AppsPending", "AppsCompleted", "AppsFailed"], 
     	                "Memory": ["AllocatedMB", "AvailableMB", "ReservedMB"], 
     	                "VirtualCores": ["AllocatedVCores", "AvailableVCores", "ReservedVCores"], 
-    	                "Containers": ["AllocatedContainers", "ReservedContainers"] 
+    	                "Containers": ["AllocatedContainers", "ReservedContainers"],
+			"SparkWorkers": ["WorkersTotal", "WorkersAlive"],
+			"SparkApps": ["RunningApps", "WaitingApps"]
     	            },
-    	            "display": ["NodeManagers", "Running", "Applications","Memory","VirtualCores","Containers"]
+    	            "display": ["NodeManagers", "Running", "Applications", "Memory", "VirtualCores", "Containers", "SparkWorkers", "SparkApps"]
     	        }
     	    },
             {
@@ -442,16 +395,43 @@
         		        "unit": "MB",
                 		"value_type": "int",
 	        	        "statistics_type": "latest"
-        	    	}
+        	    	},
+		    	"ContainersIniting": {
+            			"unit": "",
+	                    	"value_type": "int",
+			 	"statistics_type": "latest"
+	  		},
+	                "ContainersRunning": {
+        	                "unit": "",
+        	                "value_type": "int",
+        	                "statistics_type": "latest"
+        	        },
+                	"AllocatedContainers": {
+                        	"unit": "",
+                        	"value_type": "int",
+                        	"statistics_type": "latest"
+                    	},
+                    	"AllocatedGB": {
+                        	"unit": "GB",
+                        	"value_type": "int",
+                        	"statistics_type": "latest"
+                    	},
+                    	"AvailableGB": {
+                        	"unit": "GB",
+                        	"value_type": "int",
+                        	"statistics_type": "latest"
+                    	}
 	            },
-	            "groups": {        	                	  
-			"Compute": ["CoresFree", "CoresUsed", "Executors"],  
-			"Memory": ["MemUsedMB", "MemFreeMB"],			    
+	            "groups": {     
 			"Storage": ["RemainingGB"],	
 			"Blocks": ["BlocksRead", "BlocksWritten"],
-			"Gc": ["GcCount", "GcNumWarnThresholdExceeded"]
+			"Gc": ["GcCount", "GcNumWarnThresholdExceeded"],   	 
+			"Containers": ["ContainersIniting", "ContainersRunning", "AllocatedContainers"],
+	                "NMMemory": ["AllocatedGB", "AvailableGB"],
+			"Compute": ["CoresFree", "CoresUsed", "Executors"],  
+			"WorkerMemory": ["MemUsedMB", "MemFreeMB"]
         	    },
-        	    "display": ["Compute", "Memory", "Storage", "Blocks", "Gc"]
+        	    "display": ["Storage", "Blocks", "Gc", "Containers", "NMMemory", "Compute", "WorkerMemory", ]
 	        }
             },
 	    {

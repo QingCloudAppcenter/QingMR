@@ -1,0 +1,4 @@
+[template]
+src = "yarn-spark-master-monitor.py.tmpl"
+dest = "/opt/hadoop/sbin/yarn-spark-master-monitor.py"
+keys = ["/",]
