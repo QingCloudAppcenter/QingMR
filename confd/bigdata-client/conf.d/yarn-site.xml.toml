@@ -1,0 +1,4 @@
+[template]
+src = "yarn-site.xml.tmpl"
+dest = "/opt/hadoop/etc/hadoop/yarn-site.xml"
+keys = ["/",]

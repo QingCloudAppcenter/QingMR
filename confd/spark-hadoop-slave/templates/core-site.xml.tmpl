@@ -4,7 +4,7 @@
   <property>
     <name>fs.defaultFS</name>
     {{range $dir := lsdir "/hosts/hdfs-master/"}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}
-    <value>hdfs://{{getv $ip}}:9000</value>{{end}}
+     <value>hdfs://{{getv $ip}}:9000</value>{{end}}
   </property>
   <property>
     <name>hadoop.tmp.dir</name>

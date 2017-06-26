@@ -1,0 +1,4 @@
+[template]
+src = "mapred-env.sh.tmpl"
+dest = "/opt/hadoop/etc/hadoop/mapred-env.sh"
+keys = ["/",]

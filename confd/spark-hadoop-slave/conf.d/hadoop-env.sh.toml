@@ -1,0 +1,5 @@
+[template]
+src = "hadoop-env.sh.tmpl"
+dest = "/opt/hadoop/etc/hadoop/hadoop-env.sh"
+keys = ["/",]
+reload_cmd = "/opt/hadoop/sbin/restart-hdfs-slave.sh"

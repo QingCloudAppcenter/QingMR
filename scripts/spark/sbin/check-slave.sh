@@ -6,7 +6,7 @@ ret_hadoop=0
 /opt/spark/sbin/check-spark-slave.sh
 ret_spark=$?
 
-/opt/hadoop/sbin/check-hdfs-slave.sh
+/opt/hadoop/sbin/check-hadoop-slave.sh
 ret_hadoop=$?
 
 ret_val=$[$ret_spark + 100*$ret_hadoop]

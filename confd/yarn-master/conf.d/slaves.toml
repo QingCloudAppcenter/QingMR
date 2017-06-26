@@ -1,0 +1,5 @@
+[template]
+src = "slaves.tmpl"
+dest = "/opt/hadoop/etc/hadoop/slaves"
+keys = ["/",]
+reload_cmd = "/opt/hadoop/sbin/refresh-yarn-nodes.sh"

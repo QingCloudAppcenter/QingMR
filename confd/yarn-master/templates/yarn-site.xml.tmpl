@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
+        <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>{{getv "/host/memory" "8192"}}</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.address</name>
+ {{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}{{$ip_address := getv $ip}}
+        <value>{{$ip_address}}:8032</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.scheduler.address</name>
+        <value>{{$ip_address}}:8030</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.resource-tracker.address</name>
+        <value>{{$ip_address}}:8033</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.admin.address</name>
+        <value>{{$ip_address}}:8031</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.webapp.address</name>
+        <value>{{$ip_address}}:8088</value>{{end}}
+    </property>
+    <property>
+        <name>yarn.log-aggregation-enable</name>
+        <value>{{getv "/env/yarn.log-aggregation-enable" "false"}}</value>
+    </property>
+    <property>
+        <name>yarn.log-aggregation.retain-seconds</name>
+        <value>{{getv "/env/yarn.log-aggregation.retain-seconds" "-1"}}</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.vmem-pmem-ratio</name>
+        <value>{{getv "/env/yarn.nodemanager.vmem-pmem-ratio" "2.1"}}</value>
+    </property>
+</configuration>

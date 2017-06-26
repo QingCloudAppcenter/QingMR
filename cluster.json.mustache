@@ -190,21 +190,184 @@
 	        }
             },
             {
-                "role": "worker",
+                "role": "yarn-master", 
+                "container": {
+            	   "zone": "sh1a",
+            	   "type": "kvm",
+            	   "image": "img-6fsjdlqz"
+            	},
+            	"instance_class": {{cluster.yarn-master.instance_class}},
+            	"count": 1,
+            	"cpu": {{cluster.yarn-master.cpu}},
+            	"memory": {{cluster.yarn-master.memory}},
+            	"volume": {
+            	    "size": {{cluster.yarn-master.volume_size}},
+            	    "mount_point": "/bigdata1",
+            	    "filesystem": "ext4",
+            	    "class": {{cluster.yarn-master.volume_class}}
+            	},
+            	"passphraseless":"ssh-rsa",
+            	"services": {
+            	    "start": {
+		        "order": 0,
+			"cmd": "USER=root /opt/hadoop/sbin/start-yarn.sh;USER=root /opt/hadoop/sbin/mr-jobhistory-daemon.sh start historyserver"
+		    },
+		    "stop": {
+		        "cmd": "USER=root /opt/hadoop/sbin/stop-yarn.sh;USER=root /opt/hadoop/sbin/mr-jobhistory-daemon.sh stop historyserver"
+		    }
+            	},
+	        "health_check": {
+        	    "enable": true,
+        		"interval_sec": 60,
+        	        "timeout_sec": 10,
+        	        "action_timeout_sec": 30,
+        	        "healthy_threshold": 2,
+        	        "unhealthy_threshold": 2,
+        	        "check_cmd": "/opt/hadoop/sbin/check-yarn-master.sh",
+        	        "action_cmd": "/opt/hadoop/sbin/action-yarn-master.sh"
+        	},
+                "monitor": {
+    	            "enable": true,
+    	            "cmd": "/usr/bin/python /opt/hadoop/sbin/yarn-master-monitor.py",
+    	            "items": {
+    	                "NumActiveNMs": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "NumDecommissionedNMs": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "NumLostNMs": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },          
+    	                "NumUnhealthyNMs": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                }, 
+    	                "NumRebootedNMs": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+                    	"running_0": {
+                       	    "unit": "",
+                            "value_type": "int",
+                            "statistics_type": "latest"
+	                },
+        	        "running_60": {
+                	    "unit": "",
+                	    "value_type": "int",
+                	    "statistics_type": "latest"
+                	},
+                        "running_300": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+	                },
+        	        "running_1440": {
+                	    "unit": "",
+                            "value_type": "int",
+                            "statistics_type": "latest"
+                        },
+                        "AppsSubmitted": {
+                            "unit": "",
+                            "value_type": "int",
+                            "statistics_type": "delta"
+	                },
+                        "AppsRunning": {
+                            "unit": "",
+                            "value_type": "int",
+                            "statistics_type": "latest"
+                        },
+                    	"AppsPending": {
+                            "unit": "",
+                            "value_type": "int",
+                            "statistics_type": "latest"
+                        },
+                        "AppsCompleted": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "delta"
+    	                },
+    	                "AppsFailed": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "delta"
+    	                },
+    	                "AllocatedMB": {
+    	                    "unit": "MB",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "AvailableMB": {
+    	                    "unit": "MB",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "ReservedMB": {
+    	                    "unit": "MB",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "AllocatedVCores": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "AvailableVCores": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "ReservedVCores": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "AllocatedContainers": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "ReservedContainers": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                }
+    	            },
+    	            "groups": {                               
+    	                "NodeManagers": ["NumActiveNMs", "NumDecommissionedNMs", "NumLostNMs", "NumUnhealthyNMs", "NumRebootedNMs"], 
+    	                "Running": ["running_0", "running_60", "running_300", "running_1440"], 
+    	                "Applications": ["AppsSubmitted", "AppsRunning", "AppsPending", "AppsCompleted", "AppsFailed"], 
+    	                "Memory": ["AllocatedMB", "AvailableMB", "ReservedMB"], 
+    	                "VirtualCores": ["AllocatedVCores", "AvailableVCores", "ReservedVCores"], 
+    	                "Containers": ["AllocatedContainers", "ReservedContainers"] 
+    	            },
+    	            "display": ["NodeManagers", "Running", "Applications","Memory","VirtualCores","Containers"]
+    	        }
+    	    },
+            {
+                "role": "slave",
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
                     "image": "img-79z6bfm0"
                 },
-                "instance_class": {{cluster.worker.instance_class}},
-                "count": {{cluster.worker.count}},
-                "cpu": {{cluster.worker.cpu}},
-                "memory": {{cluster.worker.memory}},
+                "instance_class": {{cluster.slave.instance_class}},
+                "count": {{cluster.slave.count}},
+                "cpu": {{cluster.slave.cpu}},
+                "memory": {{cluster.slave.memory}},
                 "volume": {
-                    "size": {{cluster.worker.volume_size}},
+                    "size": {{cluster.slave.volume_size}},
                     "mount_point": ["/bigdata1", "/bigdata2", "/bigdata3"],
                     "filesystem": "ext4",
-                    "class": {{cluster.worker.volume_class}}
+                    "class": {{cluster.slave.volume_class}}
                 },
 		"services": {
                     "start": {
@@ -228,7 +391,7 @@
 	        },
 		"monitor": {
 	 	    "enable": true,
-            	    "cmd": "/usr/bin/python /opt/spark/sbin/spark-slave-monitor.py",
+            	    "cmd": "/usr/bin/python /opt/spark/sbin/slave-monitor.py",
             	    "items": {
 			"RemainingGB": {
         		        "unit": "GB",
