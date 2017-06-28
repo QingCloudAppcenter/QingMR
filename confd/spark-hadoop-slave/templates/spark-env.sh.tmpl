@@ -8,9 +8,8 @@ export PYSPARK_PYTHON=/opt/{{getv "/env/PYSPARK_PYTHON"}}/bin/python
 export HADOOP_HOME=/opt/hadoop/etc/hadoop
 {{range $dir := lsdir "/hosts/spark-master/"}}{{$ip := printf "/hosts/spark-master/%s/ip" $dir}}
 export SPARK_MASTER_IP={{getv $ip}}{{end}}
-{{$worker_memory := div (div (getv "/host/memory") 1024) 2}}{{if gt (getv "/env/spark_worker_daemon_memory") $worker_memory}}
-export SPARK_DAEMON_MEMORY={{$worker_memory}}g
+{{$worker_daemon_memory := getv "/env/spark.worker.SPARK_DAEMON_MEMORY" "1024"}}{{$worker_memory := sub (getv "/host/memory") 1024}}{{if lt $worker_daemon_memory $worker_memory}}
+export SPARK_DAEMON_MEMORY={{$worker_daemon_memory}}m
 {{else}}
-export SPARK_DAEMON_MEMORY={{getv "/env/spark_worker_daemon_memory"}}g
+export SPARK_DAEMON_MEMORY={{$worker_memory}}m
 {{end}}
-

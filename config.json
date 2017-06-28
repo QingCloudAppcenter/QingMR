@@ -31,61 +31,6 @@
                         "required": "yes"
                     },
                     {
-                        "key": "spark-master",
-			"label": "Spark master",
-                        "description": "Spark master properties",
-                        "type": "array",
-                        "properties": [
-                            {
-                                "key": "cpu",
-                                "label": "CPU",
-                                "description": "CPUs of each node",
-                                "type": "integer",
-                                "default": 2,
-                                "range": [1,2,4,8,12,16],
-                                "required": "yes"
-                            },
-                            {
-                                "key": "memory",
-                                "label": "Memory",
-                                "description": "memory of each node (in MB)",
-                                "type": "integer",
-                                "default": 4096,
-                                "range": [2048,4096,6144,8192,12288,16384,24576,32768,40960,49152,65536],
-                                "required": "yes"
-                            },
-                            {
-                                "key": "instance_class",
-                                "label": "instance class",
-                                "description":"The instance type for the cluster to run, such as high performance, high performance plus",
-                                "type":"integer",
-                                "default":0,
-                                "range": [0,1],
-                                "required":"yes"
-                            },
-                            {
-                                "key": "volume_class",
-                                "label": "volume class",
-                                "description":"The volume type for each instance, such as high performance, high performance plus",
-                                "type":"integer",
-                                "default":0,
-                                "range": [0,3],
-                                "required":"yes"
-                            },
-                            {
-                                "key": "volume_size",
-                                "label": "volume size",
-                                "description":"The volume size for each instance",
-                                "type":"integer",
-				"step": 10,
-                                "default":10,
-				"min":	10,
-				"max":	1000,
-                                "required":"yes"
-                            }
-                        ]
-                    },
-                    {
                         "key": "hdfs-master",
 			"label": "HDFS master",
                         "description": "HDFS master properties",
@@ -207,7 +152,7 @@
                                 "description": "CPUs of each node",
                                 "type": "integer",
                                 "default": 4,
-                                "range": [1,2,4,8,12,16],
+                                "range": [2,4,8,12,16],
                                 "required": "yes"
                             },
                             {
@@ -260,9 +205,9 @@
                         ]
                     },
 		    {
-                        "key": "spark-client",
-			"label": "Spark client",
-                        "description": "Spark client properties",
+                        "key": "bigdata-client",
+			"label": "Bigdata client",
+                        "description": "Bigdata client properties",
                         "type": "array",
                         "properties": [
                             {
@@ -271,7 +216,7 @@
                                 "description": "CPUs of each node",
                                 "type": "integer",
                                 "default": 2,
-                                "range": [1,2,4,8,12,16],
+                                "range": [1,2,4,8],
                                 "required": "yes"
                             },
                             {
@@ -280,7 +225,7 @@
                                 "description": "memory of each node (in MB)",
                                 "type": "integer",
                                 "default": 4096,
-                                "range": [2048,4096,6144,8192,12288,16384,24576,32768,40960,49152,65536],
+                                "range": [2048,4096,6144,8192,12288,16384],
                                 "required": "yes"
                             },
                             {
@@ -333,20 +278,22 @@
 		    {
                     	"key": "spark_master_daemon_memory",
                         "label": "spark.master.SPARK_DAEMON_MEMORY",
-                        "description": "Memory(in GB) allocated to spark master daemon, 0 means half of total memory. It will be reset to half of total memory if it is larger than that.",
+                        "description": "Memory(in MB) allocated to spark master daemon(standalone mode). The upper limit is total memory - 1024",
                         "type": "integer",
-                        "default": 0,
-                        "range": [0,1,2,4,6,8,12,16,24,32],
-                        "required": "yes"
+			"default": "1024",
+			"min":	1024,
+			"max":	32768,
+                        "required": "no"
                     },
 		    {
                     	"key": "spark_worker_daemon_memory",
                         "label": "spark.worker.SPARK_DAEMON_MEMORY",
-                        "description": "Memory(in GB) allocated to spark worker daemon, usually using the default value 1 is enough. It will be reset to half of total memory if it is larger than that.",
+                        "description": "Memory(in MB) allocated to spark worker daemon(standalone mode). The upper limit is total memory - 1024",
                         "type": "integer",
-                        "default": 1,
-                        "range": [1,2,4,6,8,12,16,24,32],
-                        "required": "yes"
+			"default": "1024",
+                        "min":	1024,
+			"max":	32768,
+                        "required": "no"
                     },
                     {
                         "key": "PYSPARK_PYTHON",
@@ -408,14 +355,32 @@
                         "default": "*",
                         "required": "no"
                     },
+		    {
+			"key": "node_manager_yarn_heapsize",
+        		"label": "node_manager.YARN_HEAPSIZE",
+        		"description": "The maximum amount of heap(in MB) to use by resource manager. It will be reset to current available free memory if 1000 is specified",
+        		"type": "integer",
+			"default": "1000",
+			"min": 1000,
+            		"required": "no"
+		    },
+		    {
+			"key": "resource_manager_yarn_heapsize",
+        		"label": "resource_manager.YARN_HEAPSIZE",
+        		"description": "The maximum amount of heap(in MB) to use by resource manager. It will be reset to current available free memory if 1000 is specified",
+        		"type": "integer",
+			"default": "1000",
+			"min": 1000,
+            		"required": "no"
+		    },
                     {
                         "key": "datanode_hadoop_heapsize",
                         "label": "datanode.HADOOP_HEAPSIZE",
-                        "description": "The maximum amount of heap to use by datanode in MB, Default is 1000. It will be reset to half of total memory if it's set to a value larger than that.",
+                        "description": "The maximum amount of heap to use by datanode in MB, Default is 1000. The upper limit is total memory - 1024",
                         "type": "integer",
                         "default": 1000,
-			"min":	1000,
-                        "required": "yes"
+			"min": 1000,
+                        "required": "no"
                     },
                     {
                         "key": "dfs_namenode_handler_count",

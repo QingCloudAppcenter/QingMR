@@ -435,29 +435,29 @@
 	        }
             },
 	    {
-                "role": "spark-client",
+                "role": "bigdata-client",
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
                     "image": "img-ns7loqd0"
                 },
-                "instance_class": {{cluster.spark-client.instance_class}},
-                "count": {{cluster.spark-client.count}},
-                "cpu": {{cluster.spark-client.cpu}},
-                "memory": {{cluster.spark-client.memory}},
+                "instance_class": {{cluster.bigdata-client.instance_class}},
+                "count": {{cluster.bigdata-client.count}},
+                "cpu": {{cluster.bigdata-client.cpu}},
+                "memory": {{cluster.bigdata-client.memory}},
                 "volume": {
-                    "size": {{cluster.spark-client.volume_size}},
+                    "size": {{cluster.bigdata-client.volume_size}},
                     "mount_point": "/bigdata1",
                     "filesystem": "ext4",
-                    "class": {{cluster.spark-client.volume_class}}
+                    "class": {{cluster.bigdata-client.volume_class}}
                 },
 		"user_access": true,
                 "passphraseless":"ssh-rsa"
             }
         ],
         "env": {
-	    "spark_master_daemon_memory": {{env.spark_master_daemon_memory}},
-	    "spark_worker_daemon_memory": {{env.spark_worker_daemon_memory}},
+	    "spark.master.SPARK_DAEMON_MEMORY": {{env.spark_master_daemon_memory}},
+	    "spark.worker.SPARK_DAEMON_MEMORY": {{env.spark_worker_daemon_memory}},
 	    "PYSPARK_PYTHON": {{env.PYSPARK_PYTHON}},
 	    "spark.worker.cleanup.enabled": {{env.spark_worker_cleanup_enabled}},
 	    "spark.worker.cleanup.interval": {{env.spark_worker_cleanup_interval}},
@@ -465,6 +465,8 @@
 	    "hadoop.proxyuser": {{env.hadoop_proxyuser}},
 	    "hadoop.proxyuser.hosts": {{env.hadoop_proxyuser_hosts}},
 	    "hadoop.proxyuser.groups": {{env.hadoop_proxyuser_groups}},
+	    "resource_manager.YARN_HEAPSIZE": {{env.resource_manager_yarn_heapsize}},
+	    "node_manager.YARN_HEAPSIZE": {{env.node_manager_yarn_heapsize}},
 	    "datanode.HADOOP_HEAPSIZE": {{env.datanode_hadoop_heapsize}},
             "dfs.namenode.handler.count": {{env.dfs_namenode_handler_count}},
             "dfs.datanode.handler.count": {{env.dfs_datanode_handler_count}},

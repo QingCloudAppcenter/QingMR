@@ -37,10 +37,11 @@ if [ "x$JAVA_LIBRARY_PATH" != "x" ]; then
   YARN_OPTS="$YARN_OPTS -Djava.library.path=$JAVA_LIBRARY_PATH"
 fi
 YARN_OPTS="$YARN_OPTS -Dyarn.policy.file=$YARN_POLICYFILE"
-        
-{{$node_memory := getv "/host/memory"}}
-#Total node memory is {{$node_memory}}
 
+{{$NODE_MEMORY := getv "/host/memory"}}{{$SPARK_MASTER_DAEMON_MEMORY := getv "/env/spark.master.SPARK_DAEMON_MEMORY"}}
+#Reference env variables here to reload this file when they change:{{$NODE_MEMORY}}, {{$SPARK_MASTER_DAEMON_MEMORY}}
+{{$RM_YARN_HEAPSIZE := getv "/env/resource_manager.YARN_HEAPSIZE" "1000"}}        
+{{if eq $RM_YARN_HEAPSIZE 1000}}
 free=`grep MemFree /proc/meminfo | awk '{print $2}'`
 buffer=`grep Buffers /proc/meminfo | awk '{print $2}'`
 cache=`grep ^Cached /proc/meminfo | awk '{print $2}'`
@@ -50,6 +51,9 @@ if [ $total_free -le 0 ]; then
   total_free=20
 fi
 export YARN_HEAPSIZE="${total_free}"
+{{else}}
+export YARN_HEAPSIZE={{$RM_YARN_HEAPSIZE}}
+{{end}}
 
 JAVA_HEAP_MAX="-Xmx1000m"
 if [ "$YARN_HEAPSIZE" != "" ]; then

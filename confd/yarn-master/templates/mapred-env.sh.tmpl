@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-
+{{$node_memory := getv "/host/memory"}}
+#Total node memory is {{$node_memory}}
 free=`grep MemFree /proc/meminfo | awk '{print $2}'`
 buffer=`grep Buffers /proc/meminfo | awk '{print $2}'`
 cache=`grep ^Cached /proc/meminfo | awk '{print $2}'`

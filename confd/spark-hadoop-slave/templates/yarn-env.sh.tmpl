@@ -38,12 +38,30 @@ if [ "x$JAVA_LIBRARY_PATH" != "x" ]; then
 fi
 YARN_OPTS="$YARN_OPTS -Dyarn.policy.file=$YARN_POLICYFILE"
         
-{{$YARN_HEAPSIZE := getv "/env/node_manager.YARN_HEAPSIZE"}}{{$datanode_memory := div (getv "/host/memory") 2}}
-{{if gt $YARN_HEAPSIZE $datanode_memory}}
-export YARN_HEAPSIZE={{$datanode_memory}}
+{{$YARN_HEAPSIZE := getv "/env/node_manager.YARN_HEAPSIZE"}}{{$slave_memory := div (getv "/host/memory") 2}}
+{{if gt $YARN_HEAPSIZE $slave_memory}}
+export YARN_HEAPSIZE={{$slave_memory}}
 {{else}}
 export YARN_HEAPSIZE={{$YARN_HEAPSIZE}}
 {{end}}
+
+{{$NODE_MEMORY := getv "/host/memory"}}{{$DN_HADOOP_HEAPSIZE := getv "/env/datanode.HADOOP_HEAPSIZE"}}{{$SPARK_WORKER_DAEMON_MEMORY := getv "/env/spark.worker.SPARK_DAEMON_MEMORY"}}
+#Reference env variables here to reload this file when they change:{{$NODE_MEMORY}}, {{$DN_HADOOP_HEAPSIZE}}, {{$SPARK_WORKER_DAEMON_MEMORY}}
+{{$NM_YARN_HEAPSIZE := getv "/env/node_manager.YARN_HEAPSIZE" "1000"}}        
+{{if eq $NM_YARN_HEAPSIZE 1000}}
+free=`grep MemFree /proc/meminfo | awk '{print $2}'`
+buffer=`grep Buffers /proc/meminfo | awk '{print $2}'`
+cache=`grep ^Cached /proc/meminfo | awk '{print $2}'`
+freemem=`expr $free + $buffer + $cache`
+total_free=`expr $freemem / 1024 - 90`
+if [ $total_free -le 0 ]; then
+  total_free=20
+fi
+export YARN_HEAPSIZE="${total_free}"
+{{else}}
+export YARN_HEAPSIZE={{$NM_YARN_HEAPSIZE}}
+{{end}}
+
 
 JAVA_HEAP_MAX="-Xmx1000m"
 if [ "$YARN_HEAPSIZE" != "" ]; then
