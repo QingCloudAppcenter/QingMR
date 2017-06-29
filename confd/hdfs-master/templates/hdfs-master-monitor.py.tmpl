@@ -3,13 +3,13 @@ import urllib2
 import json
 import re
 
-SPARK_DFS_ROLE_MASTER = "spark-hdfs-master"
-SPARK_DFS_ROLE_SLAVE = "spark-hdfs-slave"
+DFS_ROLE_MASTER = "hdfs-master"
+DFS_ROLE_SLAVE = "hdfs-slave"
 
-def parse_spark_dfs_stat(role, hjson, stats):    
+def parse_dfs_stat(role, hjson, stats):    
     if "beans" not in hjson:
         return
-    if role == SPARK_DFS_ROLE_MASTER:
+    if role == DFS_ROLE_MASTER:
         for sub_dict in hjson["beans"]:
             if "name" in sub_dict and sub_dict["name"] == "Hadoop:service=NameNode,name=NameNodeActivity":
                 stats["FilesCreated"] = sub_dict["FilesCreated"]
@@ -32,7 +32,7 @@ def parse_spark_dfs_stat(role, hjson, stats):
             if "name" in sub_dict and sub_dict["name"] == "Hadoop:service=NameNode,name=NameNodeInfo":
                 stats["PercentUsed"] = sub_dict["PercentUsed"]
 		stats["PercentRemaining"] = sub_dict["PercentRemaining"]                
-    elif role == SPARK_DFS_ROLE_SLAVE:
+    elif role == DFS_ROLE_SLAVE:
 	for sub_dict in hjson["beans"]:
 	    if "name" in sub_dict and sub_dict["name"] == "Hadoop:service=DataNode,name=FSDatasetState-null":
 		stats["RemainingGB"] = sub_dict["Remaining"] / (1024*1024*1024)
@@ -48,9 +48,9 @@ def parse_spark_dfs_stat(role, hjson, stats):
 if __name__ == '__main__':
     ip = '{{getv "/host/ip"}}'
     stats = {}
-    role = SPARK_DFS_ROLE_MASTER
+    role = DFS_ROLE_MASTER
     port = "50070"
     res = urllib2.urlopen("http://%s:%s/jmx?qry=Hadoop:service=NameNode,name=*" % (ip, port))
     pjson = json.loads(res.read())
-    parse_spark_dfs_stat(role, pjson, stats)
+    parse_dfs_stat(role, pjson, stats)
     print json.dumps(stats)

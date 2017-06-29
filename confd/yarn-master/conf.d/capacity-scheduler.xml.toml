@@ -1,0 +1,5 @@
+[template]
+src = "capacity-scheduler.xml.tmpl"
+dest = "/opt/hadoop/etc/hadoop/capacity-scheduler.xml"
+keys = ["/",]
+reload_cmd = "/opt/hadoop/sbin/restart-yarn.sh"

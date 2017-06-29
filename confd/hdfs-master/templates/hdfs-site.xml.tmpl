@@ -1,40 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
-<configuration>
-  <property>
-    <name>dfs.replication</name>
-    <value>{{getv "/env/dfs.replication"}}</value>
-  </property>
-  <property>
-    <name>dfs.replication.max</name>
-    <value>10</value>
-  </property>
-  <property>
-    <name>dfs.replication.min</name>
-    <value>1</value>
-  </property>
-  <property>
-    <name>dfs.datanode.max.transfer.threads</name>
-    <value>40960</value>
-  </property>
-  <property>
-    <name>dfs.namenode.name.dir</name>
-    <value>file:///bigdata1/hadoop/tmp/dfs/name</value>
-  </property>
-  <property>
-    <name>dfs.datanode.data.dir</name>
-    <value>file:///bigdata1/hadoop/tmp/dfs/data,/bigdata2/hadoop/tmp/dfs/data,/bigdata3/hadoop/tmp/dfs/data</value>
-  </property>
-  <property>
-    <name>dfs.webhdfs.enabled</name>
-    <value>true</value>
-  </property>
-  <property>
-    <name>dfs.namenode.handler.count</name>
-    <value>{{getv "/env/dfs.namenode.handler.count"}}</value>
-  </property>
-  <property>
-    <name>dfs.datanode.handler.count</name>
-    <value>{{getv "/env/dfs.datanode.handler.count"}}</value>
-  </property>
-</configuration>
+  <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+  <configuration>
+    <property>
+      <name>dfs.replication</name>
+      <value>{{getv "/env/dfs.replication" "2"}}</value>
+    </property>
+    <property>
+      <name>dfs.replication.max</name>
+      <value>10</value>
+    </property>
+    <property>
+      <name>dfs.replication.min</name>
+      <value>1</value>
+    </property>
+    <property>
+      <name>dfs.datanode.max.transfer.threads</name>
+      <value>40960</value>
+    </property>
+    <property>
+      <name>dfs.namenode.name.dir</name>
+      <value>file:///bigdata1/hadoop/tmp/dfs/name</value>
+    </property>
+    <property>
+      <name>dfs.datanode.data.dir</name>
+      <value>file:///bigdata1/hadoop/tmp/dfs/data,/bigdata2/hadoop/tmp/dfs/data,/bigdata3/hadoop/tmp/dfs/data</value>
+    </property>
+    <property>
+      <name>dfs.webhdfs.enabled</name>
+      <value>true</value>
+    </property>
+    <property>
+      <name>dfs.namenode.handler.count</name>
+      <value>{{getv "/env/dfs.namenode.handler.count" "10"}}</value>
+    </property>
+    <property>
+      <name>dfs.datanode.handler.count</name>
+      <value>{{getv "/env/dfs.datanode.handler.count" "10"}}</value>
+    </property>
+    <property>
+      <name>dfs.datanode.du.reserved</name>
+      <value>{{getv "/env/dfs.datanode.du.reserved" "0"}}</value>
+      <description>Reserved space in bytes per volume. Always leave this much space free for non dfs use.</description>
+    </property>
+    <property>
+      <name>dfs.namenode.acls.enabled</name>
+      <value>{{getv "/env/fs.namenode.acls.enabled" "false"}}</value>
+      <description>
+      Set to true to enable support for HDFS ACLs (Access Control Lists). By
+      default, ACLs are disabled. When ACLs are disabled, the NameNode rejects
+      all RPCs related to setting or getting ACLs.
+      </description>
+    </property>
+    <property>
+      <name>dfs.datanode.balance.max.concurrent.moves</name>
+      <value>{{getv "/env/dfs.datanode.balance.max.concurrent.moves" "5"}}</value>
+      <description>banlance操作时DataNode上转移block的Xceiver的个数上限.</description>
+    </property>
+    <property>
+      <name>dfs.namenode.support.allow.format</name>
+      <value>{{getv "/env/dfs.namenode.support.allow.format" "true"}}</value>
+      <description>Does HDFS namenode allow itself to be formatted?
+      You may consider setting this to false for any production
+      cluster, to avoid any possibility of formatting a running DFS.
+      </description>
+    </property>
+    <property>
+      <name>dfs.datanode.max.transfer.threads</name>
+      <value>{{getv "/env/dfs.datanode.max.transfer.threads" "4096"}}</value>
+      <description>
+      Specifies the maximum number of threads to use for transferring data
+      in and out of the DN.
+      </description>
+    </property>
+  </configuration>

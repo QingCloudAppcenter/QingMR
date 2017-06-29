@@ -1,0 +1,56 @@
+import sys
+import urllib2
+import json
+import re
+
+YARN_ROLE_MASTER = "yarn-master"
+YARN_ROLE_SlAVE = "hadoop-slave"
+
+def parse_yarn_stat(role, hjson, stats):    
+    if "beans" not in hjson:
+        return
+    if role == YARN_ROLE_MASTER:
+        for sub_dict in hjson["beans"]:
+            if "name" in sub_dict and sub_dict["name"] == "Hadoop:service=ResourceManager,name=ClusterMetrics":
+                stats["NumActiveNMs"] = sub_dict["NumActiveNMs"]
+                stats["NumDecommissionedNMs"] = sub_dict["NumDecommissionedNMs"]
+                stats["NumLostNMs"] = sub_dict["NumLostNMs"]
+                stats["NumUnhealthyNMs"] = sub_dict["NumUnhealthyNMs"]
+                stats["NumRebootedNMs"] = sub_dict["NumRebootedNMs"]
+            if "name" in sub_dict and sub_dict["name"] == "Hadoop:service=ResourceManager,name=QueueMetrics,q0=root":
+                stats["running_0"] = sub_dict["running_0"]
+                stats["running_60"] = sub_dict["running_60"]
+                stats["running_300"] = sub_dict["running_300"]
+                stats["running_1440"] = sub_dict["running_1440"]
+                stats["AppsSubmitted"] = sub_dict["AppsSubmitted"]
+                stats["AppsRunning"] = sub_dict["AppsRunning"]
+                stats["AppsPending"] = sub_dict["AppsPending"]
+                stats["AppsCompleted"] = sub_dict["AppsCompleted"]
+                stats["AppsFailed"] = sub_dict["AppsFailed"]
+                stats["AllocatedMB"] = sub_dict["AllocatedMB"]
+                stats["AvailableMB"] = sub_dict["AvailableMB"]
+                stats["ReservedMB"] = sub_dict["ReservedMB"]
+                stats["AllocatedVCores"] = sub_dict["AllocatedVCores"]
+                stats["AvailableVCores"] = sub_dict["AvailableVCores"]
+                stats["ReservedVCores"] = sub_dict["ReservedVCores"]
+                stats["AllocatedContainers"] = sub_dict["AllocatedContainers"]
+                stats["ReservedContainers"] = sub_dict["ReservedContainers"]
+    elif role == YARN_ROLE_SlAVE:
+        for sub_dict in hjson["beans"]:
+            if "name" in sub_dict and sub_dict["name"] == "Hadoop:service=NodeManager,name=NodeManagerMetrics":
+                stats["containersIniting"] = sub_dict["containersIniting"]
+                stats["containersRunning"] = sub_dict["containersRunning"]
+                stats["allocatedContainers"] = sub_dict["allocatedContainers"]
+                stats["allocatedGB"] = sub_dict["allocatedGB"]
+                stats["availableGB"] = sub_dict["availableGB"]
+
+
+if __name__ == '__main__':
+    ip = '{{getv "/host/ip"}}'
+    stats = {}
+    role = YARN_ROLE_MASTER
+    port = "8088"
+    res = urllib2.urlopen("http://%s:%s/jmx?qry=Hadoop:service=ResourceManager,name=*Metrics,*" % (ip, port))
+    pjson = json.loads(res.read())
+    parse_yarn_stat(role, pjson, stats)
+    print json.dumps(stats)

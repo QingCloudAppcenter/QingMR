@@ -1,0 +1,4 @@
+{{range $dir := lsdir "/hosts/yarn-master/"}}{{$pub_key := printf "/hosts/yarn-master/%s/pub_key" $dir}}
+{{getv $pub_key}}{{end}} 
+{{range $dir := lsdir "/hosts/hdfs-master/"}}{{$pub_key := printf "/hosts/hdfs-master/%s/pub_key" $dir}}
+{{getv $pub_key}}{{end}}

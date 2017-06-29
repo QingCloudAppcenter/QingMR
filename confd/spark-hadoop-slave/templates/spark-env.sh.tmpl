@@ -1,0 +1,15 @@
+#! /usr/bin/env bash
+export SPARK_LOG_DIR=/bigdata1/spark/logs
+export SPARK_WORKER_DIR=/bigdata1/spark/work
+export SPARK_WORKER_OPTS="-Dspark.worker.cleanup.enabled={{getv "/env/spark.worker.cleanup.enabled"}} -Dspark.worker.cleanup.interval={{getv "/env/spark.worker.cleanup.interval"}} -Dspark.worker.cleanup.appDataTtl={{getv "/env/spark.worker.cleanup.appDataTtl"}}"
+export SPARK_PID_DIR=/bigdata1/spark/pids
+export SPARK_LOCAL_DIRS=/bigdata1/spark
+export PYSPARK_PYTHON=/opt/{{getv "/env/PYSPARK_PYTHON"}}/bin/python
+export HADOOP_HOME=/opt/hadoop/etc/hadoop
+{{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}
+export SPARK_MASTER_IP={{getv $ip}}{{end}}
+{{$worker_daemon_memory := getv "/env/spark.worker.SPARK_DAEMON_MEMORY" "1024"}}{{$worker_memory := sub (getv "/host/memory") 1024}}{{if lt $worker_daemon_memory $worker_memory}}
+export SPARK_DAEMON_MEMORY={{$worker_daemon_memory}}m
+{{else}}
+export SPARK_DAEMON_MEMORY={{$worker_memory}}m
+{{end}}

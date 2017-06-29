@@ -2,82 +2,17 @@
         "name": {{cluster.name}},
         "description": {{cluster.description}},
         "vxnet": {{cluster.vxnet}},
-        "nodes": [
-            {
-                "role": "spark-master",
-                "container": {
-                    "type": "kvm",
-                    "zone": "sh1a",
-                    "image": "img-qcirig1u"
-                },
-                "instance_class": {{cluster.spark-master.instance_class}},
-                "count": 1,
-                "cpu": {{cluster.spark-master.cpu}},
-                "memory": {{cluster.spark-master.memory}},
-                "volume": {
-                    "size": {{cluster.spark-master.volume_size}},
-                    "mount_point": "/bigdata1",
-                    "filesystem": "ext4",
-                    "class": {{cluster.spark-master.volume_class}}
-                },
-                "passphraseless":"ssh-rsa",
-                "services": {
-                    "start": {
-			"order": 0,
-                        "cmd": "USER=root /opt/spark/sbin/start-all.sh;/opt/livy/bin/livy-server start"
-                    },
-                    "stop": {
-                        "cmd": "USER=root /opt/spark/sbin/stop-all.sh;/opt/livy/bin/livy-server stop"
-                    }
-                },
-        	"health_check": {
-                    "enable": true,
-                    "interval_sec": 60,
-                    "timeout_sec": 10,
-                    "action_timeout_sec": 30,
-                    "healthy_threshold": 2,
-                    "unhealthy_threshold": 2,
-                    "check_cmd": "/opt/spark/sbin/check-spark-master.sh",
-                    "action_cmd": "/opt/spark/sbin/action-spark-master.sh"
-	        },
-		"monitor": {
-	 	    "enable": true,
-            	    "cmd": "/usr/bin/python /opt/spark/sbin/spark-master-monitor.py",
-            	    "items": {
-			"WorkersTotal": {
-        		        "unit": "",
-                		"value_type": "int",
-	        	        "statistics_type": "latest"
-        	    	},
-	            	"WorkersAlive": {
-        	    		"unit": "",
-	                	"value_type": "int",
-		                "statistics_type": "latest"
-        	    	},
-			"Running": {
-        		        "unit": "",
-                		"value_type": "int",
-	        	        "statistics_type": "latest"
-        	    	},
-			"Waiting": {
-        		        "unit": "",
-                		"value_type": "int",
-	        	        "statistics_type": "latest"
-        	    	}
-	            },
-	            "groups": {        	        
-        	        "Workers": ["WorkersTotal", "WorkersAlive"],
-			"Applications": ["Running", "Waiting"]
-        	    },
-        	    "display": ["Workers", "Applications"]
-	        }
-            },
+        "links": {
+            "external_service":{{cluster.external_service}}
+        },
+        "add_links": ["external_service"],
+        "nodes": [            
             {
                 "role": "hdfs-master",
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-yasv9fz5"
+                    "image": "img-v6g3s383"
                 },
                 "instance_class": {{cluster.hdfs-master.instance_class}},
                 "count": 1,
@@ -190,21 +125,206 @@
 	        }
             },
             {
-                "role": "worker",
+                "role": "yarn-master", 
+                "container": {
+            	   "zone": "sh1a",
+            	   "type": "kvm",
+            	   "image": "img-gub395p0"
+            	},
+            	"instance_class": {{cluster.yarn-master.instance_class}},
+            	"count": 1,
+            	"cpu": {{cluster.yarn-master.cpu}},
+            	"memory": {{cluster.yarn-master.memory}},
+            	"volume": {
+            	    "size": {{cluster.yarn-master.volume_size}},
+            	    "mount_point": "/bigdata1",
+            	    "filesystem": "ext4",
+            	    "class": {{cluster.yarn-master.volume_class}}
+            	},
+            	"passphraseless":"ssh-rsa",
+            	"services": {
+            	    "start": {
+		        "order": 0,
+			"cmd": "/opt/hadoop/sbin/start-yarn-services.sh;/opt/spark/sbin/start-spark-services.sh"
+		    },
+		    "stop": {
+		        "cmd": "/opt/hadoop/sbin/stop-yarn-services.sh;/opt/spark/sbin/stop-spark-services.sh"
+		    }
+            	},
+	        "health_check": {
+        	    "enable": true,
+        		"interval_sec": 60,
+        	        "timeout_sec": 10,
+        	        "action_timeout_sec": 30,
+        	        "healthy_threshold": 2,
+        	        "unhealthy_threshold": 2,
+        	        "check_cmd": "/opt/hadoop/sbin/check-yarn-spark-master.sh",
+        	        "action_cmd": "/opt/hadoop/sbin/action-yarn-spark-master.sh"
+        	},
+                "monitor": {
+    	            "enable": true,
+    	            "cmd": "/usr/bin/python /opt/hadoop/sbin/yarn-spark-master-monitor.py",
+    	            "items": {
+    	                "NumActiveNMs": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "NumDecommissionedNMs": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "NumLostNMs": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },          
+    	                "NumUnhealthyNMs": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                }, 
+    	                "NumRebootedNMs": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+                    	"running_0": {
+                       	    "unit": "",
+                            "value_type": "int",
+                            "statistics_type": "latest"
+	                },
+        	        "running_60": {
+                	    "unit": "",
+                	    "value_type": "int",
+                	    "statistics_type": "latest"
+                	},
+                        "running_300": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+	                },
+        	        "running_1440": {
+                	    "unit": "",
+                            "value_type": "int",
+                            "statistics_type": "latest"
+                        },
+                        "AppsSubmitted": {
+                            "unit": "",
+                            "value_type": "int",
+                            "statistics_type": "delta"
+	                },
+                        "AppsRunning": {
+                            "unit": "",
+                            "value_type": "int",
+                            "statistics_type": "latest"
+                        },
+                    	"AppsPending": {
+                            "unit": "",
+                            "value_type": "int",
+                            "statistics_type": "latest"
+                        },
+                        "AppsCompleted": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "delta"
+    	                },
+    	                "AppsFailed": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "delta"
+    	                },
+    	                "AllocatedMB": {
+    	                    "unit": "MB",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "AvailableMB": {
+    	                    "unit": "MB",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "ReservedMB": {
+    	                    "unit": "MB",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "AllocatedVCores": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "AvailableVCores": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "ReservedVCores": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "AllocatedContainers": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+    	                "ReservedContainers": {
+    	                    "unit": "",
+    	                    "value_type": "int",
+    	                    "statistics_type": "latest"
+    	                },
+			"WorkersTotal": {
+        		        "unit": "",
+                		"value_type": "int",
+	        	        "statistics_type": "latest"
+        	    	},
+	            	"WorkersAlive": {
+        	    		"unit": "",
+	                	"value_type": "int",
+		                "statistics_type": "latest"
+        	    	},
+			"RunningApps": {
+        		        "unit": "",
+                		"value_type": "int",
+	        	        "statistics_type": "latest"
+        	    	},
+			"WaitingApps": {
+        		        "unit": "",
+                		"value_type": "int",
+	        	        "statistics_type": "latest"
+        	    	}
+    	            },
+    	            "groups": {                               
+    	                "NodeManagers": ["NumActiveNMs", "NumDecommissionedNMs", "NumLostNMs", "NumUnhealthyNMs", "NumRebootedNMs"], 
+    	                "Running": ["running_0", "running_60", "running_300", "running_1440"], 
+    	                "Applications": ["AppsSubmitted", "AppsRunning", "AppsPending", "AppsCompleted", "AppsFailed"], 
+    	                "Memory": ["AllocatedMB", "AvailableMB", "ReservedMB"], 
+    	                "VirtualCores": ["AllocatedVCores", "AvailableVCores", "ReservedVCores"], 
+    	                "Containers": ["AllocatedContainers", "ReservedContainers"],
+			"SparkWorkers": ["WorkersTotal", "WorkersAlive"],
+			"SparkApps": ["RunningApps", "WaitingApps"]
+    	            },
+    	            "display": ["NodeManagers", "Running", "Applications", "Memory", "VirtualCores", "Containers", "SparkWorkers", "SparkApps"]
+    	        }
+    	    },
+            {
+                "role": "slave",
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-79z6bfm0"
+                    "image": "img-tlpwbx0z"
                 },
-                "instance_class": {{cluster.worker.instance_class}},
-                "count": {{cluster.worker.count}},
-                "cpu": {{cluster.worker.cpu}},
-                "memory": {{cluster.worker.memory}},
+                "instance_class": {{cluster.slave.instance_class}},
+                "count": {{cluster.slave.count}},
+                "cpu": {{cluster.slave.cpu}},
+                "memory": {{cluster.slave.memory}},
                 "volume": {
-                    "size": {{cluster.worker.volume_size}},
+                    "size": {{cluster.slave.volume_size}},
                     "mount_point": ["/bigdata1", "/bigdata2", "/bigdata3"],
                     "filesystem": "ext4",
-                    "class": {{cluster.worker.volume_class}}
+                    "class": {{cluster.slave.volume_class}}
                 },
 		"services": {
                     "start": {
@@ -228,7 +348,7 @@
 	        },
 		"monitor": {
 	 	    "enable": true,
-            	    "cmd": "/usr/bin/python /opt/spark/sbin/spark-slave-monitor.py",
+            	    "cmd": "/usr/bin/python /opt/spark/sbin/slave-monitor.py",
             	    "items": {
 			"RemainingGB": {
         		        "unit": "GB",
@@ -279,42 +399,72 @@
         		        "unit": "MB",
                 		"value_type": "int",
 	        	        "statistics_type": "latest"
-        	    	}
+        	    	},
+		    	"ContainersIniting": {
+            			"unit": "",
+	                    	"value_type": "int",
+			 	"statistics_type": "latest"
+	  		},
+	                "ContainersRunning": {
+        	                "unit": "",
+        	                "value_type": "int",
+        	                "statistics_type": "latest"
+        	        },
+                	"AllocatedContainers": {
+                        	"unit": "",
+                        	"value_type": "int",
+                        	"statistics_type": "latest"
+                    	},
+                    	"AllocatedGB": {
+                        	"unit": "GB",
+                        	"value_type": "int",
+                        	"statistics_type": "latest"
+                    	},
+                    	"AvailableGB": {
+                        	"unit": "GB",
+                        	"value_type": "int",
+                        	"statistics_type": "latest"
+                    	}
 	            },
-	            "groups": {        	                	  
-			"Compute": ["CoresFree", "CoresUsed", "Executors"],  
-			"Memory": ["MemUsedMB", "MemFreeMB"],			    
+	            "groups": {     
 			"Storage": ["RemainingGB"],	
 			"Blocks": ["BlocksRead", "BlocksWritten"],
-			"Gc": ["GcCount", "GcNumWarnThresholdExceeded"]
+			"Gc": ["GcCount", "GcNumWarnThresholdExceeded"],   	 
+			"Containers": ["ContainersIniting", "ContainersRunning", "AllocatedContainers"],
+	                "NMMemory": ["AllocatedGB", "AvailableGB"],
+			"Compute": ["CoresFree", "CoresUsed", "Executors"],  
+			"WorkerMemory": ["MemUsedMB", "MemFreeMB"]
         	    },
-        	    "display": ["Compute", "Memory", "Storage", "Blocks", "Gc"]
+        	    "display": ["Storage", "Blocks", "Gc", "Containers", "NMMemory", "Compute", "WorkerMemory"]
 	        }
             },
 	    {
-                "role": "spark-client",
+                "role": "bigdata-client",
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-ns7loqd0"
+                    "image": "img-uq9crx1p"
                 },
-                "instance_class": {{cluster.spark-client.instance_class}},
-                "count": {{cluster.spark-client.count}},
-                "cpu": {{cluster.spark-client.cpu}},
-                "memory": {{cluster.spark-client.memory}},
+                "instance_class": {{cluster.bigdata-client.instance_class}},
+                "count": {{cluster.bigdata-client.count}},
+                "cpu": {{cluster.bigdata-client.cpu}},
+                "memory": {{cluster.bigdata-client.memory}},
                 "volume": {
-                    "size": {{cluster.spark-client.volume_size}},
+                    "size": {{cluster.bigdata-client.volume_size}},
                     "mount_point": "/bigdata1",
                     "filesystem": "ext4",
-                    "class": {{cluster.spark-client.volume_class}}
+                    "class": {{cluster.bigdata-client.volume_class}}
                 },
 		"user_access": true,
                 "passphraseless":"ssh-rsa"
             }
         ],
         "env": {
-	    "spark_master_daemon_memory": {{env.spark_master_daemon_memory}},
-	    "spark_worker_daemon_memory": {{env.spark_worker_daemon_memory}},
+            "QingStor": {{env.QingStor}},
+            "access_key": {{env.access_key}},
+            "secret_key": {{env.secret_key}},
+	    "spark.master.SPARK_DAEMON_MEMORY": {{env.spark_master_daemon_memory}},
+	    "spark.worker.SPARK_DAEMON_MEMORY": {{env.spark_worker_daemon_memory}},
 	    "PYSPARK_PYTHON": {{env.PYSPARK_PYTHON}},
 	    "spark.worker.cleanup.enabled": {{env.spark_worker_cleanup_enabled}},
 	    "spark.worker.cleanup.interval": {{env.spark_worker_cleanup_interval}},
@@ -322,6 +472,8 @@
 	    "hadoop.proxyuser": {{env.hadoop_proxyuser}},
 	    "hadoop.proxyuser.hosts": {{env.hadoop_proxyuser_hosts}},
 	    "hadoop.proxyuser.groups": {{env.hadoop_proxyuser_groups}},
+	    "resource_manager.YARN_HEAPSIZE": {{env.resource_manager_yarn_heapsize}},
+	    "node_manager.YARN_HEAPSIZE": {{env.node_manager_yarn_heapsize}},
 	    "datanode.HADOOP_HEAPSIZE": {{env.datanode_hadoop_heapsize}},
             "dfs.namenode.handler.count": {{env.dfs_namenode_handler_count}},
             "dfs.datanode.handler.count": {{env.dfs_datanode_handler_count}},

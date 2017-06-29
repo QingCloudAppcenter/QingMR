@@ -1,0 +1,14 @@
+{{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}
+{{getv $ip}} {{$dir}}{{end}}
+{{range $dir := lsdir "/hosts/hdfs-master/"}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}
+{{getv $ip}} {{$dir}}{{end}}
+{{range $dir := lsdir "/hosts/slave/"}}{{$ip := printf "/hosts/slave/%s/ip" $dir}}
+{{getv $ip}} {{$dir}}{{end}}
+
+# External Service Hosts
+{{range $link_id := lsdir "/links/" | filter "external_service*"}}
+#{{$link_id}}
+{{range $role := lsdir (printf "/links/%s/hosts/" $link_id)}}
+{{range $instance_id := lsdir (printf "/links/%s/hosts/%s/" $link_id $role)}}{{$ip := getv (printf "/links/%s/hosts/%s/%s/ip" $link_id $role $instance_id)}}
+{{$ip}} {{$instance_id}}
+{{end}}{{end}}{{end}}
