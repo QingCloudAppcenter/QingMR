@@ -3,21 +3,21 @@
         "properties": [
             {
                 "key": "cluster",
-                "description": "Spark cluster properties",
+                "description": "Cluster properties",
                 "type": "array",
                 "properties": [
                     {
                         "key": "name",
                         "label": "name",
-                        "description": "The name of the Spark service",
+                        "description": "The name of the service",
                         "type": "string",
-                        "default": "Spark",
+                        "default": "QingCompute",
                         "required": "no"
                     },
                     {
                         "key": "description",
                         "label": "description",
-                        "description": "The description of the Spark service",
+                        "description": "The description of the service",
                         "type": "string",
                         "default": "",
                         "required": "no"
@@ -30,6 +30,14 @@
                         "default": "",
                         "required": "yes"
                     },
+		    {
+		        "key": "external_service",
+	                "label": "External Service",
+            		"description": "Choose another application service to use, all the nodes in this external service will be added to hosts of current application service",
+            		"type": "service",
+            		"default": "",
+            		"required": "no"
+		    },
                     {
                         "key": "hdfs-master",
 			"label": "HDFS master",
@@ -272,15 +280,40 @@
             },
             {
                 "key": "env",
-                "description": "Spark service properties",
+                "description": "Service properties",
                 "type": "array",
                 "properties": [
+		    {
+            		"key": "QingStor",
+			"label": "QingStor",
+			"description": "Whether to use QingStor",
+			"type": "boolean",
+			"default": false,
+		        "range": [true,false],
+		        "required":"no"
+		    },
+		    {
+			"key": "access_key",
+	                "label": "access_key",
+            		"description": "QingStor access_key",
+            		"type": "password",
+		        "default": "",
+		        "required":"no"
+	            },
+	            {
+            		"key": "secret_key",
+            		"label": "secret_key",
+            		"description": "QingStor secret_key",
+            		"type": "password",
+            		"default": "",
+            		"required":"no"
+		    },
 		    {
                     	"key": "spark_master_daemon_memory",
                         "label": "spark.master.SPARK_DAEMON_MEMORY",
                         "description": "Memory(in MB) allocated to spark master daemon(standalone mode). The upper limit is total memory - 1024",
                         "type": "integer",
-			"default": "1024",
+			"default": 1024,
 			"min":	1024,
 			"max":	32768,
                         "required": "no"
@@ -290,7 +323,7 @@
                         "label": "spark.worker.SPARK_DAEMON_MEMORY",
                         "description": "Memory(in MB) allocated to spark worker daemon(standalone mode). The upper limit is total memory - 1024",
                         "type": "integer",
-			"default": "1024",
+			"default": 1024,
                         "min":	1024,
 			"max":	32768,
                         "required": "no"
@@ -360,7 +393,7 @@
         		"label": "node_manager.YARN_HEAPSIZE",
         		"description": "The maximum amount of heap(in MB) to use by resource manager. It will be reset to current available free memory if 1000 is specified",
         		"type": "integer",
-			"default": "1000",
+			"default": 1000,
 			"min": 1000,
             		"required": "no"
 		    },
@@ -369,7 +402,7 @@
         		"label": "resource_manager.YARN_HEAPSIZE",
         		"description": "The maximum amount of heap(in MB) to use by resource manager. It will be reset to current available free memory if 1000 is specified",
         		"type": "integer",
-			"default": "1000",
+			"default": 1000,
 			"min": 1000,
             		"required": "no"
 		    },
@@ -389,7 +422,7 @@
                         "type": "integer",
                         "default": 10,
 			"min":	10,
-                        "required": "yes"
+                        "required": "no"
                     },
                     {
                         "key": "dfs_datanode_handler_count",
@@ -398,7 +431,7 @@
                         "type": "integer",
                         "default": 10,
 			"min":	10,
-                        "required":"yes"
+                        "required":"no"
                     },
                     {
                         "key": "dfs_replication",

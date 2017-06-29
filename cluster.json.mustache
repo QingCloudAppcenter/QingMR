@@ -2,13 +2,17 @@
         "name": {{cluster.name}},
         "description": {{cluster.description}},
         "vxnet": {{cluster.vxnet}},
+        "links": {
+            "external_service":{{cluster.external_service}}
+        },
+        "add_links": ["external_service"],
         "nodes": [            
             {
                 "role": "hdfs-master",
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-yasv9fz5"
+                    "image": "img-v6g3s383"
                 },
                 "instance_class": {{cluster.hdfs-master.instance_class}},
                 "count": 1,
@@ -125,7 +129,7 @@
                 "container": {
             	   "zone": "sh1a",
             	   "type": "kvm",
-            	   "image": "img-6fsjdlqz"
+            	   "image": "img-gub395p0"
             	},
             	"instance_class": {{cluster.yarn-master.instance_class}},
             	"count": 1,
@@ -310,7 +314,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-79z6bfm0"
+                    "image": "img-tlpwbx0z"
                 },
                 "instance_class": {{cluster.slave.instance_class}},
                 "count": {{cluster.slave.count}},
@@ -431,7 +435,7 @@
 			"Compute": ["CoresFree", "CoresUsed", "Executors"],  
 			"WorkerMemory": ["MemUsedMB", "MemFreeMB"]
         	    },
-        	    "display": ["Storage", "Blocks", "Gc", "Containers", "NMMemory", "Compute", "WorkerMemory", ]
+        	    "display": ["Storage", "Blocks", "Gc", "Containers", "NMMemory", "Compute", "WorkerMemory"]
 	        }
             },
 	    {
@@ -439,7 +443,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-ns7loqd0"
+                    "image": "img-uq9crx1p"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},
@@ -456,6 +460,9 @@
             }
         ],
         "env": {
+            "QingStor": {{env.QingStor}},
+            "access_key": {{env.access_key}},
+            "secret_key": {{env.secret_key}},
 	    "spark.master.SPARK_DAEMON_MEMORY": {{env.spark_master_daemon_memory}},
 	    "spark.worker.SPARK_DAEMON_MEMORY": {{env.spark_worker_daemon_memory}},
 	    "PYSPARK_PYTHON": {{env.PYSPARK_PYTHON}},

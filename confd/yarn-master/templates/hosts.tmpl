@@ -1,7 +1,3 @@
-# Spark Master
-{{getv "/host/ip"}} localhost
-{{range $dir := lsdir "/hosts/spark-master/"}}{{$ip := printf "/hosts/spark-master/%s/ip" $dir}}
-# Hadoop Hosts
 {{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}
 {{getv $ip}} {{$dir}}{{end}}
 {{range $dir := lsdir "/hosts/hdfs-master/"}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}
@@ -15,5 +11,4 @@
 {{range $role := lsdir (printf "/links/%s/hosts/" $link_id)}}
 {{range $instance_id := lsdir (printf "/links/%s/hosts/%s/" $link_id $role)}}{{$ip := getv (printf "/links/%s/hosts/%s/%s/ip" $link_id $role $instance_id)}}
 {{$ip}} {{$instance_id}}
-{{end}} {{end}} {{end}}
-
+{{end}}{{end}}{{end}}

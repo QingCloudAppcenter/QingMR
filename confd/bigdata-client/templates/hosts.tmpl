@@ -2,8 +2,6 @@
 {{getv "/host/ip"}} {{getv "/host/instance_id"}}
 
 # Hadoop Hosts
-{{range $dir := lsdir "/hosts/spark-master/"}}{{$ip := printf "/hosts/spark-master/%s/ip" $dir}}
-{{getv $ip}} {{$dir}}{{end}}
 {{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}
 {{getv $ip}} {{$dir}}{{end}}
 {{range $dir := lsdir "/hosts/hdfs-master/"}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}
