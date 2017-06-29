@@ -300,13 +300,13 @@
     	                "NodeManagers": ["NumActiveNMs", "NumDecommissionedNMs", "NumLostNMs", "NumUnhealthyNMs", "NumRebootedNMs"], 
     	                "Running": ["running_0", "running_60", "running_300", "running_1440"], 
     	                "Applications": ["AppsSubmitted", "AppsRunning", "AppsPending", "AppsCompleted", "AppsFailed"], 
-    	                "Memory": ["AllocatedMB", "AvailableMB", "ReservedMB"], 
+    	                "YarnMemory": ["AllocatedMB", "AvailableMB", "ReservedMB"], 
     	                "VirtualCores": ["AllocatedVCores", "AvailableVCores", "ReservedVCores"], 
     	                "Containers": ["AllocatedContainers", "ReservedContainers"],
 			"SparkWorkers": ["WorkersTotal", "WorkersAlive"],
 			"SparkApps": ["RunningApps", "WaitingApps"]
     	            },
-    	            "display": ["NodeManagers", "Running", "Applications", "Memory", "VirtualCores", "Containers", "SparkWorkers", "SparkApps"]
+    	            "display": ["NodeManagers", "Running", "Applications", "YarnMemory", "VirtualCores", "Containers", "SparkWorkers", "SparkApps"]
     	        }
     	    },
             {
