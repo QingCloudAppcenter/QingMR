@@ -450,7 +450,39 @@
                         "default": 1440,
 			"min":	1440,
                         "required": "yes"
-                    }
+                    },
+		    {
+		        "key": "yarn_log-aggregation-enable",
+            		"label": "yarn.log-aggregation-enable",
+            		"description": "Whether to enable aggregation log or not",
+            		"type": "boolean",
+            		"default": true,
+            		"required":"yes"
+        	    },
+        	    {
+            		"key": "yarn_log-aggregation_retain-seconds",
+	                "label": "yarn.log-aggregation.retain-seconds",
+            		"description": "How long to keep aggregation logs",
+            		"type": "integer",
+            		"default": 86400,
+            		"required":"yes"
+	            },
+		    {
+		        "key": "yarn_nodemanager_vmem-pmem-ratio",
+	                "label": "yarn.nodemanager.vmem-pmem-ratio",
+            		"description": "The ratio of virtual memory to physical memory in node manager",
+            		"type": "number",
+            		"default": 2.1,
+            		"required":"yes"
+		    },
+		    {
+		        "key": "yarn_scheduler_capacity_maximum-am-resource-percent",
+		        "label": "yarn.scheduler.capacity.maximum-am-resource-percent",
+		        "description": "Max percent of application master process",
+		        "type": "number",
+		        "default": 0.3,
+		        "required":"yes"
+		    }
                 ]
             }
         ]

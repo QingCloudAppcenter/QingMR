@@ -478,7 +478,11 @@
             "dfs.namenode.handler.count": {{env.dfs_namenode_handler_count}},
             "dfs.datanode.handler.count": {{env.dfs_datanode_handler_count}},
             "dfs.replication":{{env.dfs_replication}},
-            "fs.trash.interval": {{env.fs_trash_interval}}
+            "fs.trash.interval": {{env.fs_trash_interval}},
+            "yarn.log-aggregation-enable": {{env.yarn_log-aggregation-enable}},
+            "yarn.log-aggregation.retain-seconds": {{env.yarn_log-aggregation_retain-seconds}},
+            "yarn.nodemanager.vmem-pmem-ratio": {{env.yarn_nodemanager_vmem-pmem-ratio}},
+            "yarn.scheduler.capacity.maximum-am-resource-percent": {{env.yarn_scheduler_capacity_maximum-am-resource-percent}}
         },
         "advanced_actions": ["change_vxnet", "scale_horizontal"],
         "endpoints": {
