@@ -35,6 +35,42 @@
         <value>{{$ip_address}}:8088</value>{{end}}
     </property>
     <property>
+        <name>yarn.resourcemanager.client.thread-count</name>
+        <value>{{getv "/env/yarn.resourcemanager.client.thread-count" "50"}}</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.amlauncher.thread-count</name>
+        <value>{{getv "/env/yarn.resourcemanager.amlauncher.thread-count" "50"}}</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.scheduler.client.thread-count</name>
+        <value>{{getv "/env/yarn.resourcemanager.scheduler.client.thread-count" "50"}}</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.resource-tracker.client.thread-count</name>
+        <value>{{getv "/env/yarn.resourcemanager.resource-tracker.client.thread-count" "50"}}</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.admin.client.thread-count</name>
+        <value>{{getv "/env/yarn.resourcemanager.admin.client.thread-count" "1"}}</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.container-manager.thread-count</name>
+        <value>{{getv "/env/yarn.nodemanager.container-manager.thread-count" "20"}}</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.delete.thread-count</name>
+        <value>{{getv "/env/yarn.nodemanager.delete.thread-count" "4"}}</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.localizer.client.thread-count</name>
+        <value>{{getv "/env/yarn.nodemanager.localizer.client.thread-count" "5"}}</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.localizer.fetch.thread-count</name>
+        <value>{{getv "/env/yarn.nodemanager.localizer.fetch.thread-count" "4"}}</value>
+    </property>
+    <property>
         <name>yarn.log-aggregation-enable</name>
         <value>{{getv "/env/yarn.log-aggregation-enable" "false"}}</value>
     </property>

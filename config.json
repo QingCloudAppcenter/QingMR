@@ -451,6 +451,87 @@
 			"min":	1440,
                         "required": "yes"
                     },
+	   	    {
+            		"key": "yarn.resourcemanager.client.thread-count",
+	                "label": "yarn.resourcemanager.client.thread-count",
+            		"description": "The number of threads used to handle applications manager requests",
+            		"type": "integer",
+            		"default": 50,
+			"min":	10,
+            		"required":"no"
+	            },
+	   	    {
+            		"key": "yarn.resourcemanager.amlauncher.thread-count",
+	                "label": "yarn.resourcemanager.amlauncher.thread-count",
+            		"description": "Number of threads used to launch/cleanup AM",
+            		"type": "integer",
+            		"default": 50,
+			"min":	10,
+            		"required":"no"
+	            },
+	   	    {
+            		"key": "yarn.resourcemanager.scheduler.client.thread-count",
+	                "label": "yarn.resourcemanager.scheduler.client.thread-count",
+            		"description": "Number of threads to handle scheduler interface",
+            		"type": "integer",
+            		"default": 50,
+			"min":	10,
+            		"required":"no"
+	            },
+	   	    {
+            		"key": "yarn.resourcemanager.resource-tracker.client.thread-count",
+	                "label": "yarn.resourcemanager.resource-tracker.client.thread-count",
+            		"description": "Number of threads to handle resource tracker calls",
+            		"type": "integer",
+            		"default": 50,
+			"min":	10,
+            		"required":"no"
+	            },
+	   	    {
+            		"key": "yarn.resourcemanager.admin.client.thread-count",
+	                "label": "yarn.resourcemanager.admin.client.thread-count",
+            		"description": "Number of threads used to handle RM admin interface",
+            		"type": "integer",
+            		"default": 1,
+			"min":	1,
+            		"required":"no"
+	            },
+	   	    {
+            		"key": "yarn.nodemanager.container-manager.thread-count",
+	                "label": "yarn.nodemanager.container-manager.thread-count",
+            		"description": "Number of threads container manager uses",
+            		"type": "integer",
+            		"default": 20,
+			"min":	10,
+            		"required":"no"
+	            },
+	   	    {
+            		"key": "yarn.nodemanager.delete.thread-count",
+	                "label": "yarn.nodemanager.delete.thread-count",
+            		"description": "Number of threads used in cleanup",
+            		"type": "integer",
+            		"default": 4,
+			"min":	4,
+            		"required":"no"
+	            },
+	   	    {
+            		"key": "yarn.nodemanager.localizer.client.thread-count",
+	                "label": "yarn.nodemanager.localizer.client.thread-count",
+            		"description": "Number of threads to handle localization requests",
+            		"type": "integer",
+            		"default": 5,
+			"min":	5,
+            		"required":"no"
+	            },
+	   	    {
+            		"key": "yarn.nodemanager.localizer.fetch.thread-count",
+	                "label": "yarn.nodemanager.localizer.fetch.thread-count",
+            		"description": "Number of threads to use for localization fetching",
+            		"type": "integer",
+            		"default": 4,
+			"min":	4,
+            		"required":"no"
+	            },
 		    {
 		        "key": "yarn_log-aggregation-enable",
             		"label": "yarn.log-aggregation-enable",
