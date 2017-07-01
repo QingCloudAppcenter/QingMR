@@ -40,7 +40,19 @@
     </property>
     <property>
         <name>yarn.log-aggregation.retain-seconds</name>
-        <value>{{getv "/env/yarn.log-aggregation.retain-seconds" "-1"}}</value>
+        <value>{{getv "/env/yarn.log-aggregation.retain-seconds" "86400"}}</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>{{getv "/env/yarn.nodemanager.resource.memory-mb" "8192"}}</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.pmem-check-enabled</name>
+        <value>{{getv "/env/yarn.nodemanager.pmem-check-enabled" "true"}}</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.vmem-check-enabled</name>
+        <value>{{getv "/env/yarn.nodemanager.vmem-check-enabled" "true"}}</value>
     </property>
     <property>
         <name>yarn.nodemanager.vmem-pmem-ratio</name>

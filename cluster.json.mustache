@@ -481,7 +481,10 @@
             "fs.trash.interval": {{env.fs_trash_interval}},
             "yarn.log-aggregation-enable": {{env.yarn_log-aggregation-enable}},
             "yarn.log-aggregation.retain-seconds": {{env.yarn_log-aggregation_retain-seconds}},
-            "yarn.nodemanager.vmem-pmem-ratio": {{env.yarn_nodemanager_vmem-pmem-ratio}},
+	    "yarn.nodemanager.resource.memory-mb": {{env.yarn.nodemanager.resource.memory-mb}},
+	    "yarn.nodemanager.pmem-check-enabled": {{env.yarn.nodemanager.pmem-check-enabled}},
+	    "yarn.nodemanager.vmem-check-enabled": {{env.yarn.nodemanager.vmem-check-enabled}},
+            "yarn.nodemanager.vmem-pmem-ratio": {{env.yarn.nodemanager.vmem-pmem-ratio}},
             "yarn.scheduler.capacity.maximum-am-resource-percent": {{env.yarn_scheduler_capacity_maximum-am-resource-percent}}
         },
         "advanced_actions": ["change_vxnet", "scale_horizontal"],

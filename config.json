@@ -456,8 +456,8 @@
             		"label": "yarn.log-aggregation-enable",
             		"description": "Whether to enable aggregation log or not",
             		"type": "boolean",
-            		"default": true,
-            		"required":"yes"
+            		"default": false,
+            		"required":"no"
         	    },
         	    {
             		"key": "yarn_log-aggregation_retain-seconds",
@@ -465,15 +465,42 @@
             		"description": "How long to keep aggregation logs",
             		"type": "integer",
             		"default": 86400,
-            		"required":"yes"
+            		"required":"no"
+	            },
+        	    {
+            		"key": "yarn.nodemanager.resource.memory-mb",
+	                "label": "yarn.log-aggregation.retain-seconds",
+            		"description": "Amount of physical memory, in MB, that can be allocated for containers.",
+            		"type": "integer",
+            		"default": 8192,
+			"min":	1024,
+			"max":	32768,
+            		"required":"no"
 	            },
 		    {
-		        "key": "yarn_nodemanager_vmem-pmem-ratio",
+		        "key": "yarn.nodemanager.pmem-check-enabled",
+            		"label": "yarn.nodemanager.pmem-check-enabled",
+            		"description": "Whether physical memory limits will be enforced for containers.",
+            		"type": "boolean",
+            		"default": true,
+            		"required":"no"
+        	    },
+		    {
+		        "key": "yarn.nodemanager.vmem-check-enabled",
+            		"label": "yarn.nodemanager.vmem-check-enabled",
+            		"description": "Whether virtual memory limits will be enforced for containers.",
+            		"type": "boolean",
+            		"default": true,
+            		"required":"no"
+        	    },
+		    {
+		        "key": "yarn.nodemanager.vmem-pmem-ratio",
 	                "label": "yarn.nodemanager.vmem-pmem-ratio",
             		"description": "The ratio of virtual memory to physical memory in node manager",
             		"type": "number",
             		"default": 2.1,
-            		"required":"yes"
+			"min":	1.0,
+            		"required":"no"
 		    },
 		    {
 		        "key": "yarn_scheduler_capacity_maximum-am-resource-percent",
@@ -481,7 +508,9 @@
 		        "description": "Max percent of application master process",
 		        "type": "number",
 		        "default": 0.3,
-		        "required":"yes"
+			"min":	0.01,
+			"max":	0.99,
+		        "required":"no"
 		    }
                 ]
             }
