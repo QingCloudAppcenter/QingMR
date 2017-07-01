@@ -465,8 +465,35 @@
             		"description": "How long to keep aggregation logs",
             		"type": "integer",
             		"default": 86400,
+			"min":	-1,
             		"required":"no"
 	            },
+	   	    {
+            		"key": "yarn.log-aggregation.retain-check-interval-seconds",
+	                "label": "yarn.log-aggregation.retain-check-interval-seconds",
+            		"description": "How long to wait between aggregated log retention checks. If set to 0 or a negative value then the value is computed as one-tenth of the aggregated log retention time. Be careful set this too small and you will spam the name node.",
+            		"type": "integer",
+            		"default": 7200,
+			"min":	-1,
+			"max":	86400,
+            		"required":"no"
+	            },
+                    {
+                        "key": "yarn.nodemanager.remote-app-log-dir",
+                        "label": "yarn.nodemanager.remote-app-log-dir",
+                        "description": "Where to aggregate logs to",
+                        "type": "string",
+                        "default": "/tmp/logs",
+                        "required": "no"
+                    },
+                    {
+                        "key": "yarn.nodemanager.remote-app-log-dir-suffix",
+                        "label": "yarn.nodemanager.remote-app-log-dir-suffix",
+                        "description": "The remote log dir will be created at {yarn.nodemanager.remote-app-log-dir}/${user}/{thisParam}",
+                        "type": "string",
+                        "default": "logs",
+                        "required": "no"
+                    },
         	    {
             		"key": "yarn.nodemanager.resource.memory-mb",
 	                "label": "yarn.log-aggregation.retain-seconds",
