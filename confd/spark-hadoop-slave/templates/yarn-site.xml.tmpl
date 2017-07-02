@@ -71,6 +71,38 @@
         <value>{{getv "/env/yarn.nodemanager.localizer.fetch.thread-count" "4"}}</value>
     </property>
     <property>
+        <name>yarn.nodemanager.pmem-check-enabled</name>
+        <value>{{getv "/env/yarn.nodemanager.pmem-check-enabled" "true"}}</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.vmem-check-enabled</name>
+        <value>{{getv "/env/yarn.nodemanager.vmem-check-enabled" "true"}}</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.vmem-pmem-ratio</name>
+        <value>{{getv "/env/yarn.nodemanager.vmem-pmem-ratio" "2.1"}}</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.resource.cpu-vcores</name>
+        <value>{{getv "/env/yarn.nodemanager.resource.cpu-vcores" "8"}}</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.minimum-allocation-mb</name>
+        <value>{{getv "/env/yarn.scheduler.minimum-allocation-mb" "1024"}}</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.maximum-allocation-mb</name>
+        <value>{{getv "/env/yarn.scheduler.maximum-allocation-mb" "8192"}}</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.minimum-allocation-vcores</name>
+        <value>{{getv "/env/yarn.scheduler.minimum-allocation-vcores" "1"}}</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.maximum-allocation-vcores</name>
+        <value>{{getv "/env/yarn.scheduler.maximum-allocation-vcores" "32"}}</value>
+    </property>
+    <property>
         <name>yarn.log-aggregation-enable</name>
         <value>{{getv "/env/yarn.log-aggregation-enable" "false"}}</value>
     </property>
@@ -89,21 +121,5 @@
     <property>
         <name>yarn.nodemanager.remote-app-log-dir-suffix</name>
         <value>{{getv "/env/yarn.yarn.nodemanager.remote-app-log-dir-suffix" "logs"}}</value>
-    </property>
-    <property>
-        <name>yarn.nodemanager.resource.memory-mb</name>
-        <value>{{getv "/env/yarn.nodemanager.resource.memory-mb" "8192"}}</value>
-    </property>
-    <property>
-        <name>yarn.nodemanager.pmem-check-enabled</name>
-        <value>{{getv "/env/yarn.nodemanager.pmem-check-enabled" "true"}}</value>
-    </property>
-    <property>
-        <name>yarn.nodemanager.vmem-check-enabled</name>
-        <value>{{getv "/env/yarn.nodemanager.vmem-check-enabled" "true"}}</value>
-    </property>
-    <property>
-        <name>yarn.nodemanager.vmem-pmem-ratio</name>
-        <value>{{getv "/env/yarn.nodemanager.vmem-pmem-ratio" "2.1"}}</value>
     </property>
 </configuration>

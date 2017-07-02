@@ -488,16 +488,20 @@
 	    "yarn.nodemanager.delete.thread-count": {{env.yarn.nodemanager.delete.thread-count}},
 	    "yarn.nodemanager.localizer.client.thread-count": {{env.yarn.nodemanager.localizer.client.thread-count}},
 	    "yarn.nodemanager.localizer.fetch.thread-count": {{env.yarn.nodemanager.localizer.fetch.thread-count}},
+	    "yarn.nodemanager.pmem-check-enabled": {{env.yarn.nodemanager.pmem-check-enabled}},
+	    "yarn.nodemanager.vmem-check-enabled": {{env.yarn.nodemanager.vmem-check-enabled}},
+            "yarn.nodemanager.vmem-pmem-ratio": {{env.yarn.nodemanager.vmem-pmem-ratio}},
+            "yarn.nodemanager.resource.cpu-vcores": {{env.yarn.nodemanager.resource.cpu-vcores}}
+            "yarn.scheduler.minimum-allocation-mb": {{env.yarn.scheduler.minimum-allocation-mb}}
+            "yarn.scheduler.maximum-allocation-mb": {{env.yarn.scheduler.maximum-allocation-mb}}
+            "yarn.scheduler.minimum-allocation-vcores": {{env.yarn.scheduler.minimum-allocation-vcores}}
+            "yarn.scheduler.maximum-allocation-vcores": {{env.yarn.scheduler.maximum-allocation-vcores}}
+            "yarn.scheduler.capacity.maximum-am-resource-percent": {{env.yarn_scheduler_capacity_maximum-am-resource-percent}}
             "yarn.log-aggregation-enable": {{env.yarn_log-aggregation-enable}},
             "yarn.log-aggregation.retain-seconds": {{env.yarn_log-aggregation_retain-seconds}},
 	    "yarn.log-aggregation.retain-check-interval-seconds": {{env.yarn.log-aggregation.retain-check-interval-seconds}},
 	    "yarn.nodemanager.remote-app-log-dir": {{env.yarn.nodemanager.remote-app-log-dir}},
 	    "yarn.nodemanager.remote-app-log-dir-suffix": {{env.yarn.nodemanager.remote-app-log-dir-suffix}},
-	    "yarn.nodemanager.resource.memory-mb": {{env.yarn.nodemanager.resource.memory-mb}},
-	    "yarn.nodemanager.pmem-check-enabled": {{env.yarn.nodemanager.pmem-check-enabled}},
-	    "yarn.nodemanager.vmem-check-enabled": {{env.yarn.nodemanager.vmem-check-enabled}},
-            "yarn.nodemanager.vmem-pmem-ratio": {{env.yarn.nodemanager.vmem-pmem-ratio}},
-            "yarn.scheduler.capacity.maximum-am-resource-percent": {{env.yarn_scheduler_capacity_maximum-am-resource-percent}}
         },
         "advanced_actions": ["change_vxnet", "scale_horizontal"],
         "endpoints": {
