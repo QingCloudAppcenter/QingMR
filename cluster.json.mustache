@@ -149,6 +149,10 @@
 		    },
 		    "stop": {
 		        "cmd": "/opt/hadoop/sbin/stop-yarn-services.sh;/opt/spark/sbin/stop-spark-services.sh"
+		    },
+		    "update-yarn-scheduler": {
+			"type" : "custom",
+		        "cmd": "/opt/hadoop/bin/hdfs dfs -get /tmp/hadoop-yarn/*-scheduler.xml /opt/hadoop/etc/hadoop/"
 		    }
             	},
 	        "health_check": {
@@ -334,7 +338,11 @@
 		    "destroy": {
                 	"nodes_to_execute_on": 1,
                 	"cmd": "USER=root /opt/spark/sbin/stop-slave.sh"
-           	    }
+           	    },
+		    "update-yarn-scheduler": {
+			"type" : "custom",
+		        "cmd": "/opt/hadoop/bin/hdfs dfs -get /tmp/hadoop-yarn/*-scheduler.xml /opt/hadoop/etc/hadoop/"
+		    }
                 },
 	        "health_check": {
                     "enable": true,
