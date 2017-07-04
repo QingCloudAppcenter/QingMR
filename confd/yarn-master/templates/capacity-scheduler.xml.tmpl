@@ -3,7 +3,7 @@
 <configuration>
       <property>
         <name>yarn.scheduler.capacity.maximum-applications</name>
-        <value>10000</value>
+        <value>{{getv "/env/yarn.scheduler.capacity.maximum-applications" "10000"}}</value>
       </property>
       <property>
         <name>yarn.scheduler.capacity.maximum-am-resource-percent</name>
@@ -11,7 +11,7 @@
       </property>
       <property>
         <name>yarn.scheduler.capacity.resource-calculator</name>
-        <value>org.apache.hadoop.yarn.util.resource.DefaultResourceCalculator</value>
+        <value>{{getv "/env/yarn.scheduler.capacity.resource-calculator" "org.apache.hadoop.yarn.util.resource.DefaultResourceCalculator"}}</value>
       </property>
       <property>
         <name>yarn.scheduler.capacity.root.queues</name>
