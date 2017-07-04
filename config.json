@@ -459,7 +459,7 @@
                         "default": "org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler",
 			"range": ["org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler","org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler"],
                         "required": "no"
-                    }
+                    },
 	   	    {
             		"key": "yarn.resourcemanager.client.thread-count",
 	                "label": "yarn.resourcemanager.client.thread-count",
