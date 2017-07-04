@@ -451,6 +451,15 @@
 			"min":	1440,
                         "required": "yes"
                     },
+                    {
+                        "key": "yarn.resourcemanager.scheduler.class",
+                        "label": "yarn.resourcemanager.scheduler.class",
+                        "description": "The class to use as the resource scheduler",
+                        "type": "string",
+                        "default": "org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler",
+			"range": ["org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler","org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler"],
+                        "required": "no"
+                    }
 	   	    {
             		"key": "yarn.resourcemanager.client.thread-count",
 	                "label": "yarn.resourcemanager.client.thread-count",
@@ -610,6 +619,94 @@
 		        "default": 0.3,
 			"min":	0.01,
 			"max":	0.99,
+		        "required":"no"
+		    },
+		    {
+		        "key": "yarn.scheduler.fair.user-as-default-queue",
+		        "label": "yarn.scheduler.fair.user-as-default-queue",
+		        "description": "Below yarn.scheduler.fair.* options are only valid when FairScheduler is used. Whether to use the username associated with the allocation as the default queue name, in the event that a queue name is not specified. If this is set to false or unset, all jobs have a shared default queue, named default",
+		        "type": "boolean",
+		        "default": true,
+		        "required":"no"
+		    },
+		    {
+		        "key": "yarn.scheduler.fair.preemption",
+		        "label": "yarn.scheduler.fair.preemption",
+		        "description": "Whether to use preemption",
+		        "type": "boolean",
+		        "default": false,
+		        "required":"no"
+		    },
+		    {
+		        "key": "yarn.scheduler.fair.preemption.cluster-utilization-threshold",
+		        "label": "yarn.scheduler.fair.preemption.cluster-utilization-threshold",
+		        "description": "The utilization threshold after which preemption kicks in. The utilization is computed as the maximum ratio of usage to capacity among all resources",
+		        "type": "number",
+		        "default": 0.8,
+			"min":	0.1,
+			"max":	0.99,
+		        "required":"no"
+		    },
+		    {
+		        "key": "yarn.scheduler.fair.sizebasedweight",
+		        "label": "yarn.scheduler.fair.sizebasedweight",
+		        "description": "Whether to assign shares to individual apps based on their size, rather than providing an equal share to all apps regardless of size",
+		        "type": "boolean",
+		        "default": false,
+		        "required":"no"
+		    },
+		    {
+		        "key": "yarn.scheduler.fair.assignmultiple",
+		        "label": "yarn.scheduler.fair.assignmultiple",
+		        "description": "Whether to allow multiple container assignments in one heartbeat",
+		        "type": "boolean",
+		        "default": false,
+		        "required":"no"
+		    },
+	   	    {
+            		"key": "yarn.scheduler.fair.max.assign",
+	                "label": "yarn.scheduler.fair.max.assign",
+            		"description": "If assignmultiple is true, the maximum amount of containers that can be assigned in one heartbeat. Defaults to -1, which sets no limit",
+            		"type": "integer",
+            		"default": -1,
+			"min":	-1,
+            		"required":"no"
+	            },
+		    {
+		        "key": "yarn.scheduler.fair.locality.threshold.node",
+		        "label": "yarn.scheduler.fair.locality.threshold.node",
+		        "description": "For applications that request containers on particular nodes, the number of scheduling opportunities since the last container assignment to wait before accepting a placement on another node. Expressed as a float between 0 and 1, which, as a fraction of the cluster size, is the number of scheduling opportunities to pass up. The default value of -1.0 means don’t pass up any scheduling opportunities",
+		        "type": "number",
+		        "default": -1.0,
+			"min":	-1.0,
+			"max":	0.99,
+		        "required":"no"
+		    },
+		    {
+		        "key": "yarn.scheduler.fair.locality.threshold.rack",
+		        "label": "yarn.scheduler.fair.locality.threshold.rack",
+		        "description": "For applications that request containers on particular racks, the number of scheduling opportunities since the last container assignment to wait before accepting a placement on another rack. Expressed as a float between 0 and 1, which, as a fraction of the cluster size, is the number of scheduling opportunities to pass up. The default value of -1.0 means don’t pass up any scheduling opportunities",
+		        "type": "number",
+		        "default": -1.0,
+			"min":	-1.0,
+			"max":	0.99,
+		        "required":"no"
+		    },
+		    {
+		        "key": "yarn.scheduler.fair.allow-undeclared-pools",
+		        "label": "yarn.scheduler.fair.allow-undeclared-pools",
+		        "description": "If this is true, new queues can be created at application submission time, whether because they are specified as the application’s queue by the submitter or because they are placed there by the user-as-default-queue property. If this is false, any time an app would be placed in a queue that is not specified in the allocations file, it is placed in the “default” queue instead. If a queue placement policy is given in the allocations file, this property is ignored",
+		        "type": "boolean",
+		        "default": true,
+		        "required":"no"
+		    },
+		    {
+		        "key": "yarn.scheduler.fair.update-interval-ms",
+		        "label": "yarn.scheduler.fair.update-interval-ms",
+		        "description": "The interval at which to lock the scheduler and recalculate fair shares, recalculate demand, and check whether anything is due for preemption",
+		        "type": "integer",
+		        "default": 500,
+			"min":	100,
 		        "required":"no"
 		    },
 		    {

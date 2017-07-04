@@ -35,6 +35,10 @@
         <value>{{$ip_address}}:8088</value>{{end}}
     </property>
     <property>
+        <name>yarn.resourcemanager.scheduler.class</name>
+        <value>{{getv "/env/yarn.resourcemanager.scheduler.class" "org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler"}}</value>
+    </property>
+    <property>
         <name>yarn.resourcemanager.client.thread-count</name>
         <value>{{getv "/env/yarn.resourcemanager.client.thread-count" "50"}}</value>
     </property>
@@ -101,6 +105,50 @@
     <property>
         <name>yarn.scheduler.maximum-allocation-vcores</name>
         <value>{{getv "/env/yarn.scheduler.maximum-allocation-vcores" "32"}}</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.fair.allocation.file</name>
+        <value>/opt/hadoop/etc/hadoop/fair-scheduler.xml</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.fair.user-as-default-queue</name>
+        <value>{{getv "/env/yarn.scheduler.fair.user-as-default-queue" "true"}}</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.fair.preemption</name>
+        <value>{{getv "/env/yarn.scheduler.fair.preemption" "false"}}</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.fair.preemption.cluster-utilization-threshold</name>
+        <value>{{getv "/env/yarn.scheduler.fair.preemption.cluster-utilization-threshold" "0.8"}}</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.fair.sizebasedweight</name>
+        <value>{{getv "/env/yarn.scheduler.fair.sizebasedweight" "false"}}</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.fair.assignmultiple</name>
+        <value>{{getv "/env/yarn.scheduler.fair.assignmultiple" "false"}}</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.fair.max.assign</name>
+        <value>{{getv "/env/yarn.scheduler.fair.max.assign" "-1"}}</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.fair.locality.threshold.node</name>
+        <value>{{getv "/env/yarn.scheduler.fair.locality.threshold.node" "-1.0"}}</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.fair.locality.threshold.rack</name>
+        <value>{{getv "/env/yarn.scheduler.fair.locality.threshold.rack" "-1.0"}}</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.fair.allow-undeclared-pools</name>
+        <value>{{getv "/env/yarn.scheduler.fair.allow-undeclared-pools" "true"}}</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.fair.update-interval-ms</name>
+        <value>{{getv "/env/yarn.scheduler.fair.update-interval-ms" "500"}}</value>
     </property>
     <property>
         <name>yarn.log-aggregation-enable</name>
