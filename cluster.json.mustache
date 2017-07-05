@@ -12,7 +12,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-ricpfv8z"
+                    "image": "img-ykrlyb1g"
                 },
                 "instance_class": {{cluster.hdfs-master.instance_class}},
                 "count": 1,
@@ -129,7 +129,7 @@
                 "container": {
             	   "zone": "sh1a",
             	   "type": "kvm",
-            	   "image": "img-e1fqk92y"
+            	   "image": "img-chru6srh"
             	},
             	"instance_class": {{cluster.yarn-master.instance_class}},
             	"count": 1,
@@ -144,15 +144,15 @@
             	"passphraseless":"ssh-rsa",
             	"services": {
             	    "start": {
-		        "order": 0,
-			"cmd": "/opt/hadoop/sbin/start-yarn-services.sh;/opt/spark/sbin/start-spark-services.sh"
+		        "order": 1,
+			"cmd": "/opt/hadoop/sbin/start-yarn-services.sh;/opt/spark/sbin/start-spark-services.sh;/opt/hadoop/sbin/copy-custom-files.sh"
 		    },
 		    "stop": {
 		        "cmd": "/opt/hadoop/sbin/stop-yarn-services.sh;/opt/spark/sbin/stop-spark-services.sh"
 		    },
 		    "update-yarn-scheduler": {
 			"type" : "custom",
-		        "cmd": "/opt/hadoop/bin/hdfs dfs -get /tmp/hadoop-yarn/*-scheduler.xml /opt/hadoop/etc/hadoop/"
+		        "cmd": "/opt/hadoop/sbin/copy-custom-files.sh"
 		    }
             	},
 	        "health_check": {
@@ -318,7 +318,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-qkewq0xi"
+                    "image": "img-7pk9kj68"
                 },
                 "instance_class": {{cluster.slave.instance_class}},
                 "count": {{cluster.slave.count}},
@@ -332,8 +332,8 @@
                 },
 		"services": {
                     "start": {
-			"order": 1,
-                        "cmd": "USER=root /opt/spark/sbin/action-slave.sh"
+			"order": 2,
+                        "cmd": "USER=root /opt/spark/sbin/action-slave.sh;/opt/hadoop/sbin/copy-custom-files.sh"
                     },
 		    "destroy": {
                 	"nodes_to_execute_on": 1,
@@ -341,7 +341,7 @@
            	    },
 		    "update-yarn-scheduler": {
 			"type" : "custom",
-		        "cmd": "/opt/hadoop/bin/hdfs dfs -get /tmp/hadoop-yarn/*-scheduler.xml /opt/hadoop/etc/hadoop/"
+		        "cmd": "/opt/hadoop/sbin/copy-custom-files.sh"
 		    }
                 },
 	        "health_check": {
@@ -451,7 +451,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-2vjjdf0e"
+                    "image": "img-5pr29od9"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},

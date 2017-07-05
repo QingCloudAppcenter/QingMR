@@ -10,5 +10,4 @@ ret_spark=$?
 ret_hadoop=$?
 
 ret_val=$[$ret_spark + 100*$ret_hadoop]
-
 exit $ret_val
