@@ -38,8 +38,6 @@ if [ "x$JAVA_LIBRARY_PATH" != "x" ]; then
 fi
 YARN_OPTS="$YARN_OPTS -Dyarn.policy.file=$YARN_POLICYFILE"
 
-{{$NODE_MEMORY := getv "/host/memory"}}{{$SPARK_MASTER_DAEMON_MEMORY := getv "/env/spark.master.SPARK_DAEMON_MEMORY"}}
-#Reference env variables here to reload this file when they change:{{$NODE_MEMORY}}, {{$SPARK_MASTER_DAEMON_MEMORY}}
 {{$RM_YARN_HEAPSIZE := getv "/env/resource_manager.YARN_HEAPSIZE" "1000"}}        
 {{if eq $RM_YARN_HEAPSIZE 1000}}
 free=`grep MemFree /proc/meminfo | awk '{print $2}'`
