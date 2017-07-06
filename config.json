@@ -567,15 +567,6 @@
             		"required":"no"
 		    },
 		    {
-		        "key": "yarn.nodemanager.resource.cpu-vcores",
-		        "label": "yarn.nodemanager.resource.cpu-vcores",
-		        "description": "Number of vcores that can be allocated for containers",
-		        "type": "integer",
-		        "default": 8,
-			"min":	2,
-		        "required":"no"
-		    },
-		    {
 		        "key": "yarn.scheduler.minimum-allocation-mb",
 		        "label": "yarn.scheduler.minimum-allocation-mb",
 		        "description": "The minimum allocation for every container request at the RM, in MBs. Memory requests lower than this will throw a InvalidResourceRequestException",
