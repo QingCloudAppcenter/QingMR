@@ -365,6 +365,15 @@
                         "required":"yes"
                     },
                     {
+                        "key": "spark.scheduler.mode",
+                        "label": "spark.scheduler.mode",
+                        "description": "Scheduler mode within an spark application for parallel jobs that can run simultaneously if they were submitted from separate threads",
+                        "type": "string",
+                        "default": "FIFO",
+			"range": ["FIFO","FAIR"],
+                        "required":"no"
+                    },
+                    {
                         "key": "hadoop_proxyuser",
                         "label": "hadoop.proxyuser",
                         "description": "Hadoop proxy user",

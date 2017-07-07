@@ -1,0 +1,4 @@
+[template]
+src = "spark-defaults.conf.tmpl"
+dest = "/opt/spark/conf/spark-defaults.conf"
+keys = ["/",]
