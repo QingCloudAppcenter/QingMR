@@ -1,0 +1,5 @@
+[template]
+src = "check-spark-slave.sh.tmpl"
+dest = "/opt/spark/sbin/check-spark-slave.sh"
+keys = ["/",]
+reload_cmd = "/opt/spark/sbin/action-spark-slave.sh"

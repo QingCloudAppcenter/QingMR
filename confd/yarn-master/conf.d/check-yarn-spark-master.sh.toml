@@ -1,4 +1,4 @@
 [template]
 src = "check-yarn-spark-master.sh.tmpl"
-dest = "/opt/spark/sbin/check-yarn-spark-master.sh"
+dest = "/opt/hadoop/sbin/check-yarn-spark-master.sh"
 keys = ["/",]

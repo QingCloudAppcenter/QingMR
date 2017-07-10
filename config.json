@@ -286,7 +286,7 @@
 		    {
             		"key": "QingStor",
 			"label": "QingStor",
-			"description": "Whether to use QingStor",
+			"description": "Whether to use QingStor or not",
 			"type": "boolean",
 			"default": false,
 		        "range": [true,false],
@@ -311,7 +311,7 @@
 		    {
             		"key": "enable-spark-standalone",
 			"label": "enable-spark-standalone",
-			"description": "Whether to enable spark standalone mode",
+			"description": "Whether to enable spark standalone mode or not",
 			"type": "boolean",
 			"default": true,
 		        "range": [true,false],
@@ -659,7 +659,7 @@
 		    {
 		        "key": "yarn.scheduler.fair.preemption",
 		        "label": "yarn.scheduler.fair.preemption",
-		        "description": "Whether to use preemption",
+		        "description": "Whether to use preemption or not",
 		        "type": "boolean",
 		        "default": false,
 		        "required":"no"
