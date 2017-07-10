@@ -1,0 +1,5 @@
+[template]
+src = "switch-spark-mode.sh.tmpl"
+dest = "/opt/spark/sbin/switch-spark-mode.sh"
+keys = ["/",]
+reload_cmd = "/opt/spark/sbin/switch-spark-mode.sh"

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+{{if eq (getv "/env/enable-spark-standalone") "true"}}
+/opt/hadoop/sbin/start-yarn-services.sh
+/opt/spark/sbin/start-spark-services.sh
+{{else}}
+/opt/hadoop/sbin/start-yarn-services.sh
+{{end}}
+exit 0

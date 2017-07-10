@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#if yarn master isn't started, then the cluster is in starting phase and no need to start spark master here, this script is only used to swith spark mode after cluster is started
+pid=`ps ax | grep 'ResourceManager' | grep -v grep | awk '{print $1}'`
+if [ "x$pid" = "x" ]; then
+    exit 0
+fi
+
+{{if eq (getv "/env/enable-spark-standalone") "true"}}
+/opt/spark/sbin/start-spark-services.sh
+{{else}}
+/opt/spark/sbin/stop-spark-services.sh
+{{end}}
+exit 0

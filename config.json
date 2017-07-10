@@ -309,6 +309,15 @@
             		"required":"no"
 		    },
 		    {
+            		"key": "enable-spark-standalone",
+			"label": "enable-spark-standalone",
+			"description": "Whether to enable spark standalone mode",
+			"type": "boolean",
+			"default": true,
+		        "range": [true,false],
+		        "required":"yes"
+		    },
+		    {
                     	"key": "spark_master_daemon_memory",
                         "label": "spark.master.SPARK_DAEMON_MEMORY",
                         "description": "Memory(in MB) allocated to spark master daemon(standalone mode). The upper limit is total memory - 1024",
