@@ -1,0 +1,4 @@
+[template]
+src = "restart-spark-slave.sh.tmpl"
+dest = "/opt/spark/sbin/restart-spark-slave.sh"
+keys = ["/",]

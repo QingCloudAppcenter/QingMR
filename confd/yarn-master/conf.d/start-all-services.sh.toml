@@ -1,0 +1,4 @@
+[template]
+src = "start-all-services.sh.tmpl"
+dest = "/opt/hadoop/sbin/start-all-services.sh"
+keys = ["/",]

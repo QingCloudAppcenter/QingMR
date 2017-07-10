@@ -145,10 +145,10 @@
             	"services": {
             	    "start": {
 		        "order": 1,
-			"cmd": "/opt/hadoop/sbin/start-yarn-services.sh;/opt/spark/sbin/start-spark-services.sh;/opt/hadoop/sbin/copy-custom-files.sh"
+			"cmd": "/opt/hadoop/sbin/start-all-services.sh;/opt/hadoop/sbin/copy-custom-files.sh"
 		    },
 		    "stop": {
-		        "cmd": "/opt/hadoop/sbin/stop-yarn-services.sh;/opt/spark/sbin/stop-spark-services.sh"
+		        "cmd": "/opt/hadoop/sbin/stop-all-services.sh"
 		    },
 		    "update-yarn-scheduler": {
 			"type" : "custom",
@@ -471,6 +471,7 @@
             "QingStor": {{env.QingStor}},
             "access_key": {{env.access_key}},
             "secret_key": {{env.secret_key}},
+	    "enable-spark-standalone": {{env.enable-spark-standalone}},
 	    "spark.master.SPARK_DAEMON_MEMORY": {{env.spark_master_daemon_memory}},
 	    "spark.worker.SPARK_DAEMON_MEMORY": {{env.spark_worker_daemon_memory}},
 	    "PYSPARK_PYTHON": {{env.PYSPARK_PYTHON}},

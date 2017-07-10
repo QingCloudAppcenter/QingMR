@@ -1,0 +1,4 @@
+[template]
+src = "check-slave.sh.tmpl"
+dest = "/opt/spark/sbin/check-slave.sh"
+keys = ["/",]
