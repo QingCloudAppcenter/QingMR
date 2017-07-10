@@ -2,3 +2,4 @@
 src = "action-spark-slave.sh.tmpl"
 dest = "/opt/spark/sbin/action-spark-slave.sh"
 keys = ["/",]
+reload_cmd = "/opt/spark/sbin/action-spark-slave.sh"
