@@ -463,6 +463,12 @@
                     "filesystem": "ext4",
                     "class": {{cluster.bigdata-client.volume_class}}
                 },
+		"services": {
+		    "update-yarn-scheduler": {
+			"type" : "custom",
+		        "cmd": "/opt/hadoop/sbin/copy-custom-files.sh"
+		    }
+                },
 		"user_access": true,
                 "passphraseless":"ssh-rsa"
             }

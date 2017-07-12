@@ -1,5 +1,5 @@
 spark.scheduler.mode={{getv "/env/spark.scheduler.mode"}}
-spark.scheduler.allocation.file=/opt/spark/conf/fairscheduler.xml
+spark.scheduler.allocation.file=/opt/hadoop/etc/hadoop/spark-fair-scheduler.xml
 {{if eq (getv "/env/QingStor") "true"}}
 spark.hadoop.fs.s3a.endpoint=s3.{{getv "/cluster/zone"}}.qingstor.com
 spark.hadoop.fs.s3a.access.key={{getv "/env/access_key"}}
