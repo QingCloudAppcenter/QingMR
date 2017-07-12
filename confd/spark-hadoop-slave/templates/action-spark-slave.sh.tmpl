@@ -4,7 +4,7 @@ SPARK_HOME="/opt/spark"
 loop=5
 find=0
 master_ip=""
-{{if eq (getv "/env/enable-spark-standalone") "true"}}
+{{if eq (getv "/env/enable_spark_standalone") "true"}}
 while [ "$loop" -gt 0 ]
 do
   master_ip=`grep SPARK_MASTER_IP /opt/spark/conf/spark-env.sh | cut -d = -f 2`

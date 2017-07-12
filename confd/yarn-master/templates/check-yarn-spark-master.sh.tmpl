@@ -2,7 +2,7 @@
 
 ret_spark=0
 ret_yarn=0
-{{if eq (getv "/env/enable-spark-standalone") "true"}}
+{{if eq (getv "/env/enable_spark_standalone") "true"}}
 /opt/spark/sbin/check-spark-master.sh
 ret_spark=$?
 {{end}}

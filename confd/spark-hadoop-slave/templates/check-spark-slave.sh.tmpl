@@ -3,7 +3,7 @@
 SPARK_LOG_PATH="/bigdata1/spark/logs"
 
 ret_val=0
-{{if eq (getv "/env/enable-spark-standalone") "true"}}
+{{if eq (getv "/env/enable_spark_standalone") "true"}}
 wk_pid=`ps ax | grep 'spark.*Worker' | grep -v grep | awk '{print $1}'`
 if [ "x$wk_pid" = "x" ]; then
     echo "Spark worker is not running!"

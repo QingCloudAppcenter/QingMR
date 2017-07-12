@@ -116,7 +116,7 @@ if __name__ == '__main__':
     res = urllib2.urlopen("http://%s:%s/jmx?qry=Hadoop:service=NodeManager,name=NodeManagerMetrics" % (ip, port))
     pjson = json.loads(res.read())
     parse_yarn_stat(role, pjson, stats)
-{{if eq (getv "/env/enable-spark-standalone") "true"}}
+{{if eq (getv "/env/enable_spark_standalone") "true"}}
     role = SPARK_ROLE_WORKER
     port = "8081"
     res = urllib2.urlopen("http://%s:%s/metrics/json/" % (ip, port))

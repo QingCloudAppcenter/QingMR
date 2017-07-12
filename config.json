@@ -309,8 +309,8 @@
             		"required":"no"
 		    },
 		    {
-            		"key": "enable-spark-standalone",
-			"label": "enable-spark-standalone",
+            		"key": "enable_spark_standalone",
+			"label": "enable_spark_standalone",
 			"description": "Whether to enable spark standalone mode or not",
 			"type": "boolean",
 			"default": true,

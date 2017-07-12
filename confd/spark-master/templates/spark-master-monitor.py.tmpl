@@ -24,7 +24,7 @@ def parse_spark_stat(role, hjson, stats):
 if __name__ == '__main__':
     ip = '{{getv "/host/ip"}}'
     stats = {}
-{{if eq (getv "/env/enable-spark-standalone") "true"}}
+{{if eq (getv "/env/enable_spark_standalone") "true"}}
     role = SPARK_ROLE_MASTER
     port = "8080"
     res = urllib2.urlopen("http://%s:%s/metrics/master/json/" % (ip, port))

@@ -2,7 +2,7 @@
 
 ret_spark=0
 ret_hadoop=0
-{{if eq (getv "/env/enable-spark-standalone") "true"}}
+{{if eq (getv "/env/enable_spark_standalone") "true"}}
 /opt/spark/sbin/action-spark-slave.sh
 ret_spark=$?
 {{end}}

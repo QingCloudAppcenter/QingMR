@@ -5,7 +5,7 @@ if [ "x$pid" = "x" ]; then
     exit 0
 fi
 
-{{if eq (getv "/env/enable-spark-standalone") "true"}}
+{{if eq (getv "/env/enable_spark_standalone") "true"}}
 /opt/spark/sbin/start-spark-services.sh
 {{else}}
 /opt/spark/sbin/stop-spark-services.sh
