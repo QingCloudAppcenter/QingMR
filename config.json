@@ -409,7 +409,7 @@
 		    {
 			"key": "node_manager_yarn_heapsize",
         		"label": "node_manager.YARN_HEAPSIZE",
-        		"description": "The maximum amount of heap(in MB) to use by resource manager. It will be reset to current available free memory if 1000 is specified",
+        		"description": "The maximum amount of heap(in MB) to use by node manager. The upper limit is half of total memory",
         		"type": "integer",
 			"default": 1000,
 			"min": 1000,
