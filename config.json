@@ -353,7 +353,7 @@
                         "type": "string",
                         "default": "true",
 			"range": ["true","false"],
-                        "required":"yes"
+                        "required":"no"
                     },
                     {
                         "key": "spark_worker_cleanup_interval",
@@ -362,7 +362,7 @@
                         "type": "integer",
                         "default": 28800,
 			"min":	1800,
-                        "required":"yes"
+                        "required":"no"
                     },
                     {
                         "key": "spark_worker_cleanup_appDataTtl",
@@ -371,7 +371,7 @@
                         "type": "integer",
                         "default": 86400,
 			"min":	3600,
-                        "required":"yes"
+                        "required":"no"
                     },
                     {
                         "key": "spark.scheduler.mode",
@@ -458,7 +458,7 @@
                         "type": "integer",
                         "default": 2,
 			"min":	2,
-                        "required": "yes"
+                        "required": "no"
                     },
                     {
                         "key": "fs_trash_interval",
@@ -467,7 +467,7 @@
                         "type": "integer",
                         "default": 1440,
 			"min":	1440,
-                        "required": "yes"
+                        "required": "no"
                     },
                     {
                         "key": "yarn.resourcemanager.scheduler.class",
