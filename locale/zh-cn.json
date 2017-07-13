@@ -106,12 +106,12 @@
 	"Whether to use QingStor or not" : "是否将QingStor与Hadoop及Spark集成，如需集成则必须输入相应的access_key及secret_key",
 	"Scheduler mode within an spark application for parallel jobs that can run simultaneously if they were submitted from separate threads" : "Spark应用内调度模式，针对Spark应用内不同线程提交的可同时运行的任务",
 	"The maximum amount of heap(in MB) to use by node manager. The upper limit is half of total memory" : "NodeManager最大可用堆内存大小(MB)，该值上限为总内存的一半",
-	"The class to use as the resource scheduler" : "YARN ResourceManager调度器，默认为CapacityScheduler，可选FairScheduler。如果选择FairScheduler，需要上传自定义的fair-scheduler.xml到HDFS的/tmp/hadoop-yarn/目录，然后右键点击集群选择更新YARN调度器。如需对CapacityScheduler的默认行为进行更改，同样需要上传自定义的capacity-scheduler.xml到HDFS的/tmp/hadoop-yarn/目录，然后更新YARN调度器",
+	"The class to use as the resource scheduler" : "YARN ResourceManager调度器，默认为CapacityScheduler，可选FairScheduler。如果选择FairScheduler，需要上传自定义的fair-scheduler.xml到HDFS的/tmp/hadoop-yarn/目录，然后右键点击集群选择更新调度器。如需对CapacityScheduler的默认行为进行更改，同样需要上传自定义的capacity-scheduler.xml到HDFS的/tmp/hadoop-yarn/目录，然后更新调度器",
 	"The number of threads used to handle applications manager requests" : "处理applications manager请求的线程数",
 	"Number of threads used to launch/cleanup AM" : "启动/清理ApplicationMaster的线程数",
 	"Number of threads to handle scheduler interface" : "处理scheduler接口请求的线程数",
 	"Number of threads to handle resource tracker calls" : "处理resource tracker请求的线程数",
-	"Number of threads used to handle RM admin interface " : "处理ResourceManager管理接口请求的线程数",
+	"Number of threads used to handle RM admin interface" : "处理ResourceManager管理接口请求的线程数",
 	"Number of threads container manager uses" : "分配给Container Manager用的线程数",
 	"Number of threads used in cleanup" : "用于清理工作的线程数",
 	"Number of threads to handle localization requests" : "用于处理localization请求的线程数",
@@ -122,7 +122,7 @@
 	"The minimum allocation for every container request at the RM, in MBs. Memory requests lower than this will throw a InvalidResourceRequestException" : "ResourceManager中针对每个container请求内存的最小分配值(MB). 低于该值的内存请求将会抛出InvalidResourceRequestException异常",
 	"The maximum allocation for every container request at the RM, in MBs. Memory requests higher than this will throw a InvalidResourceRequestException" : "ResourceManager中针对每个container请求内存的最大分配值(MB). 高于该值的内存请求将会抛出InvalidResourceRequestException异常",
 	"The minimum allocation for every container request at the RM, in terms of virtual CPU cores. Requests lower than this will throw a InvalidResourceRequestException" : "ResourceManager中针对每个container请求virtual CPU cores的最小分配值。 低于该值的请求将会抛出InvalidResourceRequestException异常",
-	"The maximum allocation for every container request at the RM, in terms of virtual CPU cores. Requests higher than this will throw a InvalidResourceRequestException " : "ResourceManager中针对每个container请求virtual CPU cores的最大分配值。 高于该值的请求将会抛出InvalidResourceRequestException异常",
+	"The maximum allocation for every container request at the RM, in terms of virtual CPU cores. Requests higher than this will throw a InvalidResourceRequestException" : "ResourceManager中针对每个container请求virtual CPU cores的最大分配值。 高于该值的请求将会抛出InvalidResourceRequestException异常",
 	"Maximum number of applications in the system which can be concurrently active both running and pending" : "可同时处在活跃状态(包括running和pending)的应用的最大数量",
 	"Max percent of application master process" : "ApplicationMaster进程的最大百分比",
 	"The ResourceCalculator implementation to be used to compare Resources in the scheduler. The default DefaultResourseCalculator only uses Memory while DominantResourceCalculator uses Dominant-resource to compare multi-dimensional resources such as Memory, CPU etc" : "调度器中用于计量资源的ResourceCalculator的实现。默认的DefaultResourseCalculator只考虑内存，而DominantResourceCalculator则利用Dominant-resource来综合考量多维度的资源如内存，CPU等",
@@ -140,5 +140,6 @@
 	"How long to keep aggregation logs" : "聚集的log将被保存多久（秒）",
 	"How long to wait between aggregated log retention checks. If set to 0 or a negative value then the value is computed as one-tenth of the aggregated log retention time. Be careful set this too small and you will spam the name node." : "多长时间（秒）检查一次聚集的log是否到期可以清理。如果设置为0或负数，则该值将会被设置为yarn.log-aggregation.retain-seconds的十分之一。如果该值过小可能会导致频繁想name node发送请求",
 	"Where to aggregate logs to" : "聚集的log将被保存在那，默认为HDFS的/tmp/logs目录",
-	"The remote log dir will be created at {yarn.nodemanager.remote-app-log-dir}/${user}/{thisParam}" : "聚集的log将会被放在{yarn.nodemanager.remote-app-log-dir}/${user}/{本参数}中"
+	"The remote log dir will be created at {yarn.nodemanager.remote-app-log-dir}/${user}/{thisParam}" : "聚集的log将会被放在{yarn.nodemanager.remote-app-log-dir}/${user}/{本参数}中",
+	"update-yarn-scheduler" : "更新调度器"
 }
