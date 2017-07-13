@@ -5,7 +5,7 @@ if [ "x$pid" = "x" ]
 then
   exit 0
 else
-  USER=root /opt/hadoop/sbin/yarn-daemon.sh start nodemanager
+  USER=root /opt/hadoop/sbin/yarn-daemon.sh stop nodemanager
 fi
 
 loop=60
