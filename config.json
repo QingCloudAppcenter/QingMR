@@ -768,7 +768,7 @@
                         "label": "yarn.nodemanager.remote-app-log-dir",
                         "description": "Where to aggregate logs to",
                         "type": "string",
-                        "default": "/tmp/logs",
+                        "default": "/tmp/hadoop-yarn",
                         "required": "no"
                     },
                     {
