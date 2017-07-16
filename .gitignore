@@ -1,6 +1,7 @@
 version/
 tmp/
 test/
+image/
 # Compiled class file
 *.class
 
