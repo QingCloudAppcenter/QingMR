@@ -12,9 +12,9 @@ else
     	cp jars/mysql-connector-java-5.1.39-bin.jar /opt/hive/lib/
     fi
     #tar -xvzf hadoop-2.7.3-build.tar.gz -C /opt/
-    #rm hadoop
+    #rm /opt/hadoop
     #ln -s /opt/hadoop-2.7.3 /opt/hadoop
     #tar -xvzf spark-2.2.0-bin-hadoop2.7.tgz -C /opt/
-    #rm spark
+    #rm /opt/spark
     #ln -s /opt/spark-2.2.0-bin-hadoop2.7 /opt/spark
 fi
