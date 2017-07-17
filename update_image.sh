@@ -17,4 +17,6 @@ else
     #tar -xvzf spark-2.2.0-bin-hadoop2.7.tgz -C /opt/
     #rm /opt/spark
     #ln -s /opt/spark-2.2.0-bin-hadoop2.7 /opt/spark
+    #cp /opt/spark/conf/spark-defaults.conf.template /opt/spark/conf/spark-defaults.conf
+    #chown -R root:root /opt/
 fi
