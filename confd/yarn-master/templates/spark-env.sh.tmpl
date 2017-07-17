@@ -5,7 +5,7 @@ export SPARK_WORKER_OPTS="-Dspark.worker.cleanup.enabled={{getv "/env/spark.work
 export SPARK_PID_DIR=/bigdata1/spark/pids
 export SPARK_LOCAL_DIRS=/bigdata1/spark
 export PYSPARK_PYTHON=/opt/{{getv "/env/PYSPARK_PYTHON"}}/bin/python
-export HADOOP_HOME=/opt/hadoop/etc/hadoop
+export HADOOP_HOME=/opt/hadoop
 export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 {{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}
 export SPARK_MASTER_IP={{getv $ip}}{{end}}
