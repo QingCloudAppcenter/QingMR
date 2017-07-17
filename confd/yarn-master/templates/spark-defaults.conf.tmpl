@@ -1,4 +1,4 @@
-{{range $dir := lsdir "/hosts/bigdata-client/"}}{{$ip := printf "/hosts/bigdata-client/%s/ip" $dir}}
+{{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}
 spark.master=spark://{{getv $ip}}:7077{{end}}
 spark.scheduler.mode={{getv "/env/spark.scheduler.mode"}}
 spark.scheduler.allocation.file=/opt/hadoop/etc/hadoop/spark-fair-scheduler.xml
