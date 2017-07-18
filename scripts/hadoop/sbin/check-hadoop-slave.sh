@@ -17,6 +17,7 @@ fi
 
 HM=`date -d "now" +%H%M`
 if [ $HM -eq "0200" ];then
+    find $HADOOP_LOG_PATH/userlogs/ -type d -mtime +7 -name "application_*" -exec rm -rf {} 2>/dev/null \;
     find $HADOOP_LOG_PATH -type f -mtime +7 -name "hadoop-root-*" -delete
     find $HADOOP_LOG_PATH -type f -mtime +7 -name "yarn-root-*" -delete
     find $HADOOP_LOG_PATH -type f -mtime +7 -name "mapred-root-*" -delete
