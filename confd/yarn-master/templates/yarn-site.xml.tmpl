@@ -35,6 +35,10 @@
         <value>{{$ip_address}}:8088</value>{{end}}
     </property>
     <property>
+      <name>yarn.resourcemanager.nodes.exclude-path</name>
+      <value>/opt/hadoop/etc/hadoop/exclude</value>
+    </property>
+    <property>
         <name>yarn.resourcemanager.scheduler.class</name>
         <value>{{getv "/env/yarn.resourcemanager.scheduler.class" "org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler"}}</value>
     </property>
