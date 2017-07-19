@@ -12,7 +12,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-6j3bhof5"
+                    "image": "img-5xgvwi6r"
                 },
                 "instance_class": {{cluster.hdfs-master.instance_class}},
                 "count": 1,
@@ -77,7 +77,7 @@
 			"FilesDeleted": {
         		         "unit": "",
                 		 "value_type": "int",
-	        	         "statistics_type": "delta"
+				 "statistics_type": "delta"
         	    	 }, 
 			"RemainingGB": {
         		        "unit": "GB",
@@ -129,7 +129,7 @@
                 "container": {
             	   "zone": "sh1a",
             	   "type": "kvm",
-            	   "image": "img-jqmmwudl"
+            	   "image": "img-199nrklk"
             	},
             	"instance_class": {{cluster.yarn-master.instance_class}},
             	"count": 1,
@@ -150,6 +150,9 @@
 		    "stop": {
 		        "cmd": "/opt/hadoop/sbin/stop-all-services.sh"
 		    },
+		    "scale_in": {
+                        "cmd": "USER=root /opt/hadoop/sbin/refresh-yarn-nodes.sh"
+                    },
 		    "update-yarn-scheduler": {
 			"type" : "custom",
 		        "cmd": "/opt/hadoop/sbin/copy-custom-files.sh"
@@ -318,7 +321,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-2xtclmtd"
+                    "image": "img-3n5rcfbc"
                 },
                 "instance_class": {{cluster.slave.instance_class}},
                 "count": {{cluster.slave.count}},
@@ -451,7 +454,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-at1t2ska"
+                    "image": "img-cq8eqd1r"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},
