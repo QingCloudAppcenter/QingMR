@@ -42,7 +42,7 @@
 {{if eq (getv "/env/QingStor") "true"}}
    <property>
      <name>fs.s3a.endpoint</name>
-     <value>s3.{{getv "/cluster/zone"}}.qingstor.com</value>
+     <value>s3.{{getv "/env/QingStor_zone"}}.qingstor.com</value>
    </property>
    <property>
      <name>fs.s3a.access.key</name>

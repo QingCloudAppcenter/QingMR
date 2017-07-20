@@ -454,7 +454,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-cq8eqd1r"
+                    "image": "img-9ejk02v7"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},
@@ -478,6 +478,7 @@
         ],
         "env": {
             "QingStor": {{env.QingStor}},
+	    "QingStor_zone": {{env.QingStor_zone}}
             "access_key": {{env.access_key}},
             "secret_key": {{env.secret_key}},
 	    "enable_spark_standalone": {{env.enable_spark_standalone}},
