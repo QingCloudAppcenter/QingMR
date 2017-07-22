@@ -589,7 +589,7 @@
 	                "label": "yarn.nodemanager.vmem-pmem-ratio",
             		"description": "The ratio of virtual memory to physical memory in node manager",
             		"type": "number",
-            		"default": 2.1,
+            		"default": 5,
 			"min":	1.0,
             		"required":"no"
 		    },
