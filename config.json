@@ -11,7 +11,7 @@
                         "label": "name",
                         "description": "The name of the service",
                         "type": "string",
-                        "default": "QingCompute",
+                        "default": "SparkMR",
                         "required": "no"
                     },
                     {

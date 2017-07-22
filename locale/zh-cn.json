@@ -137,10 +137,10 @@
 	"For applications that request containers on particular racks, the number of scheduling opportunities since the last container assignment to wait before accepting a placement on another rack. Expressed as a float between 0 and 1, which, as a fraction of the cluster size, is the number of scheduling opportunities to pass up. The default value of -1.0 means don’t pass up any scheduling opportunities" : "对于请求某特定rack上container的应用，设定该值指定一个可错失的得到别的rack中container的机会。错失次数超过该值，该请求将得到别的rack的container. 以集群大小百分比的形式指定，-1表示不错失任何调度机会",
 	"If this is true, new queues can be created at application submission time, whether because they are specified as the application’s queue by the submitter or because they are placed there by the user-as-default-queue property. If this is false, any time an app would be placed in a queue that is not specified in the allocations file, it is placed in the “default” queue instead. If a queue placement policy is given in the allocations file, this property is ignored" : "如果该值设置为true,每次应用提交后都会创建一个新的队列。如果设置为false，当某应用没有在分配分请求中指定队列的时候，该应用都会被放到default队列中。如果在请求中制定了队列分配策略，则该属性将被忽略",
 	"The interval at which to lock the scheduler and recalculate fair shares, recalculate demand, and check whether anything is due for preemption" : "重新锁住调度器重新计算fair shares和请求以及检查是否有资源可以被用于preemption的时间间隔",
-	"Whether to enable aggregation log or not" : "是否开启YARN log的聚集",
-	"How long to keep aggregation logs" : "聚集的log将被保存多久（秒）",
-	"How long to wait between aggregated log retention checks. If set to 0 or a negative value then the value is computed as one-tenth of the aggregated log retention time. Be careful set this too small and you will spam the name node." : "多长时间（秒）检查一次聚集的log是否到期可以清理。如果设置为0或负数，则该值将会被设置为yarn.log-aggregation.retain-seconds的十分之一。如果该值过小可能会导致频繁想name node发送请求",
-	"Where to aggregate logs to" : "聚集的log将被保存在那，默认为HDFS的/tmp/logs目录",
-	"The remote log dir will be created at {yarn.nodemanager.remote-app-log-dir}/${user}/{thisParam}" : "聚集的log将会被放在{yarn.nodemanager.remote-app-log-dir}/${user}/{本参数}中",
+	"Whether to enable aggregation log or not" : "是否开启YARN log的集中存储",
+	"How long to keep aggregation logs" : "集中存储的log将被保存多久（秒）",
+	"How long to wait between aggregated log retention checks. If set to 0 or a negative value then the value is computed as one-tenth of the aggregated log retention time. Be careful set this too small and you will spam the name node." : "多长时间（秒）检查一次集中存储的log是否到期可以清理。如果设置为0或负数，则该值将会被设置为yarn.log-aggregation.retain-seconds的十分之一。如果该值过小可能会导致频繁想name node发送请求",
+	"Where to aggregate logs to" : "集中存储的log将被保存在那，默认为HDFS的/tmp/logs目录",
+	"The remote log dir will be created at {yarn.nodemanager.remote-app-log-dir}/${user}/{thisParam}" : "集中存储的log将会被放在{yarn.nodemanager.remote-app-log-dir}/${user}/{本参数}中",
 	"update-yarn-scheduler" : "更新调度器"
 }
