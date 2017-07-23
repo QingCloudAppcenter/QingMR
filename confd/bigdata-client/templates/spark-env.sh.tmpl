@@ -2,5 +2,5 @@
 export JAVA_HOME=/usr/jdk
 export PYSPARK_PYTHON=/opt/{{getv "/env/PYSPARK_PYTHON"}}/bin/python
 export HADOOP_HOME=/opt/hadoop
-export LD_LIBRARY_PATH=$HADOOP_HOME/lib/native
-export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+export LD_LIBRARY_PATH=$HADOOP_HOME/lib/native{{if eq (getv "/env/enable_spark_standalone") "true"}}
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop{{end}}

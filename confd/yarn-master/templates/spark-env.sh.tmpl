@@ -7,8 +7,8 @@ export SPARK_PID_DIR=/bigdata1/spark/pids
 export SPARK_LOCAL_DIRS=/bigdata1/spark
 export PYSPARK_PYTHON=/opt/{{getv "/env/PYSPARK_PYTHON"}}/bin/python
 export HADOOP_HOME=/opt/hadoop
-export LD_LIBRARY_PATH=$HADOOP_HOME/lib/native
-export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+export LD_LIBRARY_PATH=$HADOOP_HOME/lib/native{{if eq (getv "/env/enable_spark_standalone") "true"}}
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop{{end}}
 {{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}
 export SPARK_MASTER_IP={{getv $ip}}{{end}}
 {{$master_daemon_memory := getv "/env/spark.master.SPARK_DAEMON_MEMORY" "1024"}}{{$master_memory := sub (getv "/host/memory") 1024}}{{if lt $master_daemon_memory $master_memory}}
