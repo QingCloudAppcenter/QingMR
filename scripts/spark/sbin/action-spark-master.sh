@@ -8,3 +8,8 @@ if [ "x$sk_pid" = "x" ]; then
     USER=root $SPARK_HOME/sbin/start-master.sh
 fi
 
+livy_pid=`ps ax | grep 'LivyServer' | grep -v grep | awk '{print $1}'`
+if [ "x$livy_pid" = "x" ]; then
+    echo "Trying to start LivyServer..."
+    USER=root /opt/livy/bin/livy-server start
+fi
