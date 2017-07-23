@@ -122,7 +122,8 @@
 			"Data Nodes": ["LiveNodes", "DeadNodes", "DecomLiveNodes", "DecomDeadNodes", "DecommissioningNodes"]
         	    },
         	    "display": ["DFS Files", "DFS Percentage", "DFS Capacity", "Data Nodes"]
-	        }
+	        },
+		"advanced_actions": ["change_vxnet"]
             },
             {
                 "role": "yarn-master", 
@@ -314,7 +315,8 @@
 			"SparkApps": ["RunningApps", "WaitingApps"]
     	            },
     	            "display": ["NodeManagers", "Running", "Applications", "YarnMemory", "VirtualCores", "Containers", "SparkWorkers", "SparkApps"]
-    	        }
+    	        },
+		"advanced_actions": ["change_vxnet"]
     	    },
             {
                 "role": "slave",
@@ -447,7 +449,8 @@
 			"WorkerMemory": ["MemUsedMB", "MemFreeMB"]
         	    },
         	    "display": ["Storage", "Blocks", "Gc", "Containers", "NMMemory", "Compute", "WorkerMemory"]
-	        }
+	        },
+		"advanced_actions": ["change_vxnet", "scale_horizontal"]
             },
 	    {
                 "role": "bigdata-client",
@@ -473,7 +476,8 @@
 		    }
                 },
 		"user_access": true,
-                "passphraseless":"ssh-rsa"
+                "passphraseless":"ssh-rsa",
+	        "advanced_actions": ["change_vxnet", "scale_horizontal"]
             }
         ],
         "env": {
@@ -535,7 +539,6 @@
 	    "yarn.nodemanager.remote-app-log-dir": {{env.yarn.nodemanager.remote-app-log-dir}},
 	    "yarn.nodemanager.remote-app-log-dir-suffix": {{env.yarn.nodemanager.remote-app-log-dir-suffix}}
         },
-        "advanced_actions": ["change_vxnet", "scale_horizontal"],
         "endpoints": {
             "hdfs.client_port": {
                 "port":9000,
