@@ -342,11 +342,7 @@
 		    "destroy": {
                 	"nodes_to_execute_on": 1,
                 	"cmd": "USER=root /opt/spark/sbin/stop-slave.sh"
-           	    },
-		    "update-yarn-scheduler": {
-			"type" : "custom",
-		        "cmd": "/opt/hadoop/sbin/copy-custom-files.sh"
-		    }
+           	    }
                 },
 	        "health_check": {
                     "enable": true,
@@ -467,12 +463,6 @@
                     "mount_point": "/bigdata1",
                     "filesystem": "ext4",
                     "class": {{cluster.bigdata-client.volume_class}}
-                },
-		"services": {
-		    "update-yarn-scheduler": {
-			"type" : "custom",
-		        "cmd": "/opt/hadoop/sbin/copy-custom-files.sh"
-		    }
                 },
 		"user_access": true,
                 "passphraseless":"ssh-rsa",
