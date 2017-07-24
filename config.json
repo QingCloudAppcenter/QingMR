@@ -306,6 +306,7 @@
 	                "label": "access_key",
             		"description": "QingStor access_key",
             		"type": "password",
+			"pattern": "[A-Z]{20}|^$",
 		        "default": "",
 		        "required":"no"
 	            },
@@ -314,6 +315,7 @@
             		"label": "secret_key",
             		"description": "QingStor secret_key",
             		"type": "password",
+			"pattern": "[A-Za-z0-9]{40}|^$",
             		"default": "",
             		"required":"no"
 		    },
