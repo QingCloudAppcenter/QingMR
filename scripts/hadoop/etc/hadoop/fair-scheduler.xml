@@ -13,7 +13,7 @@
             <aclSubmitApps>*</aclSubmitApps>
             <aclAdministerApps>*</aclAdministerApps>
         </queue>
-        <queue name="development">
+        <queue name="test">
             <weight>1.0</weight>
             <schedulingPolicy>fair</schedulingPolicy>
             <aclSubmitApps>*</aclSubmitApps>
