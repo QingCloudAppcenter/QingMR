@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 export JAVA_HOME=/usr/jdk
-USER=root /opt/hadoop/bin/hdfs dfs -get /tmp/hadoop-yarn/*-scheduler.xml /opt/hadoop/etc/hadoop/
+USER=root /opt/hadoop/bin/hdfs dfs -get /tmp/hadoop-yarn/*-scheduler.xml /opt/hadoop/etc/
+USER=root mv -f /opt/hadoop/etc/*-scheduler.xml /opt/hadoop/etc/hadoop/
 {{range $dir := lsdir "/hosts/slave/"}}{{$ip := printf "/hosts/slave/%s/ip" $dir}}
 scp /opt/hadoop/etc/hadoop/*-scheduler.xml root@{{getv $ip}}:/opt/hadoop/etc/hadoop/{{end}}
 {{range $dir := lsdir "/hosts/bigdata-client/"}}{{$ip := printf "/hosts/bigdata-client/%s/ip" $dir}}
