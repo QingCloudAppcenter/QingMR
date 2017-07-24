@@ -1,5 +1,6 @@
 #!/bin/bash
 role=$1
+package=$2
 if [ $# -lt 1 ];then
     echo error!
 else
@@ -44,5 +45,21 @@ else
 
     if [ "x$role" = "xbigdata-client" ];then
     	cp jars/mysql-connector-java-5.1.39-bin.jar /opt/hive/lib/
+    fi
+
+    if [ "x$package" = "xlzo" ];then
+	tar -xvzf lzo/libgplcompression.tar.gz -C /opt/hadoop/lib/native/
+	mv /opt/hadoop/lib/native/libgplcompression/* /opt/hadoop/lib/native/
+	rm -rf /opt/hadoop/lib/native/libgplcompression/
+
+	tar -xvzf lzo/liblzo.tar.gz -C /usr/lib/
+	mkdir -p /usr/lib64/
+	tar -xvzf lzo/liblzo.tar.gz -C /usr/lib64/
+
+	cp lzo/lzop /usr/local/bin/lzop;
+	rm -rf /usr/bin/lzop
+	ln -s /usr/local/bin/lzop /usr/bin/lzop
+
+	cp lzo/hadoop-lzo-0.4.20.jar /opt/hadoop/share/hadoop/common/
     fi
 fi
