@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<allocations>
+    <queue name="root">
+        <weight>1.0</weight>
+        <schedulingPolicy>fair</schedulingPolicy>
+        <aclSubmitApps> </aclSubmitApps>
+        <aclAdministerApps>*</aclAdministerApps>
+        <queue name="production">
+            <minResources>1024 mb,0vcores</minResources>
+            <maxResources>8192 mb,0vcores</maxResources>
+            <weight>4.0</weight>
+            <schedulingPolicy>fair</schedulingPolicy>
+            <aclSubmitApps>*</aclSubmitApps>
+            <aclAdministerApps>*</aclAdministerApps>
+        </queue>
+        <queue name="development">
+            <weight>1.0</weight>
+            <schedulingPolicy>fair</schedulingPolicy>
+            <aclSubmitApps>*</aclSubmitApps>
+            <aclAdministerApps>*</aclAdministerApps>
+        </queue>
+    </queue>
+    <defaultQueueSchedulingPolicy>fair</defaultQueueSchedulingPolicy>
+    <queuePlacementPolicy>
+        <rule name="specified" create="true"/>
+        <rule name="user" create="true"/>
+    </queuePlacementPolicy>
+</allocations>
