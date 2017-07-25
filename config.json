@@ -632,34 +632,6 @@
 		        "required":"no"
 		    },
 		    {
-		        "key": "yarn.scheduler.capacity.maximum-applications",
-		        "label": "yarn.scheduler.capacity.maximum-applications",
-		        "description": "Maximum number of applications in the system which can be concurrently active both running and pending",
-		        "type": "integer",
-		        "default": 10000,
-			"min": 10,
-		        "required":"no"
-		    },
-		    {
-		        "key": "yarn_scheduler_capacity_maximum-am-resource-percent",
-		        "label": "yarn.scheduler.capacity.maximum-am-resource-percent",
-		        "description": "Max percent of application master process",
-		        "type": "number",
-		        "default": 0.3,
-			"min":	0.01,
-			"max":	0.99,
-		        "required":"no"
-		    },
-                    {
-                        "key": "yarn.scheduler.capacity.resource-calculator",
-                        "label": "yarn.scheduler.capacity.resource-calculator",
-                        "description": "The ResourceCalculator implementation to be used to compare Resources in the scheduler. The default DefaultResourseCalculator only uses Memory while DominantResourceCalculator uses Dominant-resource to compare multi-dimensional resources such as Memory, CPU etc",
-                        "type": "string",
-                        "default": "org.apache.hadoop.yarn.util.resource.DefaultResourceCalculator",
-			"range": ["org.apache.hadoop.yarn.util.resource.DefaultResourceCalculator","org.apache.hadoop.yarn.util.resource.DominantResourceCalculator"],
-                        "required": "no"
-                    },
-		    {
 		        "key": "yarn.scheduler.fair.user-as-default-queue",
 		        "label": "yarn.scheduler.fair.user-as-default-queue",
 		        "description": "Below yarn.scheduler.fair.* options are only valid when FairScheduler is used. Whether to use the username associated with the allocation as the default queue name, in the event that a queue name is not specified. If this is set to false or unset, all jobs have a shared default queue, named default",

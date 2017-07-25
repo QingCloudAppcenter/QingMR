@@ -1,6 +1,0 @@
-[template]
-src = "capacity-scheduler.xml.tmpl"
-dest = "/opt/hadoop/etc/hadoop/capacity-scheduler.xml"
-keys = [
-   "/",
-]

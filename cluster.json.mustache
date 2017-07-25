@@ -129,7 +129,7 @@
                 "container": {
             	   "zone": "sh1a",
             	   "type": "kvm",
-            	   "image": "img-wqlu9nsl"
+            	   "image": "img-8cudahad"
             	},
             	"instance_class": {{cluster.yarn-master.instance_class}},
             	"count": 1,
@@ -322,7 +322,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-ufohhhiq"
+                    "image": "img-dgrd72s2"
                 },
                 "instance_class": {{cluster.slave.instance_class}},
                 "count": {{cluster.slave.count}},
@@ -509,9 +509,6 @@
             "yarn.scheduler.maximum-allocation-mb": {{env.yarn.scheduler.maximum-allocation-mb}},
             "yarn.scheduler.minimum-allocation-vcores": {{env.yarn.scheduler.minimum-allocation-vcores}},
             "yarn.scheduler.maximum-allocation-vcores": {{env.yarn.scheduler.maximum-allocation-vcores}},
-            "yarn.scheduler.capacity.maximum-applications": {{env.yarn.scheduler.capacity.maximum-applications}},
-            "yarn.scheduler.capacity.maximum-am-resource-percent": {{env.yarn_scheduler_capacity_maximum-am-resource-percent}},
-	    "yarn.scheduler.capacity.resource-calculator": {{env.yarn.scheduler.capacity.resource-calculator}},
 	    "yarn.scheduler.fair.user-as-default-queue": {{env.yarn.scheduler.fair.user-as-default-queue}},
 	    "yarn.scheduler.fair.preemption": {{env.yarn.scheduler.fair.preemption}},
 	    "yarn.scheduler.fair.preemption.cluster-utilization-threshold": {{env.yarn.scheduler.fair.preemption.cluster-utilization-threshold}},
