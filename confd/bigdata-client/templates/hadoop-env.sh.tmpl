@@ -1,7 +1,5 @@
+source /etc/profile
 export JAVA_HOME=/usr/jdk
-ulimit -u 65535
-ulimit -n 65535
-
 export HADOOP_CONF_DIR=${HADOOP_CONF_DIR:-"/etc/hadoop"}
 
 for f in $HADOOP_HOME/contrib/capacity-scheduler/*.jar; do

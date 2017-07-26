@@ -143,6 +143,10 @@
             	},
             	"passphraseless":"ssh-rsa",
             	"services": {
+		    "init": {
+			"post_start_service": true,
+                        "cmd": "USER=root /opt/hadoop/bin/hdfs dfs -chmod -R 777 /tmp/"
+                    },
             	    "start": {
 		        "order": 1,
 			"cmd": "/opt/hadoop/sbin/start-all-services.sh;/opt/hadoop/sbin/copy-custom-files.sh"
@@ -452,7 +456,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-cc61r7c6"
+                    "image": "img-59eh7nv8"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},
