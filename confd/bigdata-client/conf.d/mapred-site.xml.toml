@@ -1,0 +1,4 @@
+[template]
+src = "mapred-site.xml.tmpl"
+dest = "/opt/hadoop/etc/hadoop/mapred-site.xml"
+keys = ["/",]
