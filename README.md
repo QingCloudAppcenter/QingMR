@@ -23,4 +23,5 @@
 - 可选Client节点（为了使用上述全部功能，建议Client节点为必选），全自动配置无需任何手动操作
 
 > 更多介绍详见[用户指南](http://appcenter-docs.qingcloud.com/user-guide/apps/docs/SparkMR/)
+
 > [SparkMR试用](https://appcenter.qingcloud.com/apps/app-6iuoe9qs)
