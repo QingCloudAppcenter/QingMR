@@ -5,6 +5,10 @@
         "links": {
             "external_service":{{cluster.external_service}}
         },
+        "upgrade_policy": [
+            "appv-gbeytznn"
+        ],
+
         "nodes": [            
             {
                 "role": "hdfs-master",
@@ -326,7 +330,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-6zfkicwt"
+                    "image": "img-g2i7rm6g"
                 },
                 "instance_class": {{cluster.slave.instance_class}},
                 "count": {{cluster.slave.count}},

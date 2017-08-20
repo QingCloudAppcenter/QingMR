@@ -5,6 +5,11 @@ loop=5
 find=0
 master_ip=""
 {{if eq (getv "/env/enable_spark_standalone") "true"}}
+if [ ! -f "/opt/spark/conf/spark-env.sh" ]; then
+  echo "Starting phase, spark-env.sh is not ready yet"
+  exit 0
+fi
+
 while [ "$loop" -gt 0 ]
 do
   master_ip=`grep SPARK_MASTER_IP /opt/spark/conf/spark-env.sh | cut -d = -f 2`
