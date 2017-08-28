@@ -1,4 +1,3 @@
-{{getv "/host/ip"}} localhost
 {{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}
 {{getv $ip}} {{$dir}}{{end}}
 {{range $dir := lsdir "/hosts/hdfs-master/"}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}
@@ -14,3 +13,4 @@
 {{$ip}} {{$instance_id}}
 {{$ip}} {{$node_id}}
 {{end}}{{end}}{{end}}
+{{getv "/host/ip"}} localhost
