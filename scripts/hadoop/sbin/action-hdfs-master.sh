@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 HADOOP_HOME="/opt/hadoop"
-HADOOP_LOG_PATH="/bigdata1/hadoop/logs"
+HADOOP_LOG_PATH="/data/hadoop/logs"
 
 nn_pid=`ps ax | grep proc_namenode | grep -v grep | awk '{print $1}'`
 if [ "x$nn_pid" = "x" ]; then

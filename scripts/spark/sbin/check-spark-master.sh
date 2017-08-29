@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-SPARK_LOG_PATH="/bigdata1/spark/logs"
-LIVY_LOG_PATH="/bigdata1/livy/logs"
+SPARK_LOG_PATH="/data/spark/logs"
+LIVY_LOG_PATH="/data/livy/logs"
 
 ret_val=0
 

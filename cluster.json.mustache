@@ -11,7 +11,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-ork6d3st"
+                    "image": "img-a6ooqsjg"
                 },
                 "instance_class": {{cluster.hdfs-master.instance_class}},
                 "count": 1,
@@ -19,14 +19,14 @@
                 "memory": {{cluster.hdfs-master.memory}},
                 "volume": {
                     "size": {{cluster.hdfs-master.volume_size}},
-                    "mount_point": "/bigdata1",
+                    "mount_point": "/data",
                     "filesystem": "ext4",
                     "class": {{cluster.hdfs-master.volume_class}}
                 },
                 "passphraseless":"ssh-rsa",
                 "services": {
                     "init": {
-                        "cmd": "USER=root mkdir -p /bigdata1/hadoop;/opt/hadoop/bin/hdfs namenode -format -force"
+                        "cmd": "USER=root mkdir -p /data/hadoop;/opt/hadoop/bin/hdfs namenode -format -force"
                     },
                     "start": {
 			"order": 0,
@@ -129,7 +129,7 @@
                 "container": {
             	   "zone": "sh1a",
             	   "type": "kvm",
-            	   "image": "img-2geculvy"
+            	   "image": "img-2sj2zeji"
             	},
             	"instance_class": {{cluster.yarn-master.instance_class}},
             	"count": 1,
@@ -137,7 +137,7 @@
             	"memory": {{cluster.yarn-master.memory}},
             	"volume": {
             	    "size": {{cluster.yarn-master.volume_size}},
-            	    "mount_point": "/bigdata1",
+            	    "mount_point": "/data",
             	    "filesystem": "ext4",
             	    "class": {{cluster.yarn-master.volume_class}}
             	},
@@ -326,7 +326,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-bfkm5p57"
+                    "image": "img-twiba6rx"
                 },
                 "instance_class": {{cluster.slave.instance_class}},
                 "count": {{cluster.slave.count}},
@@ -334,7 +334,7 @@
                 "memory": {{cluster.slave.memory}},
                 "volume": {
                     "size": {{cluster.slave.volume_size}},
-                    "mount_point": ["/bigdata1"],
+                    "mount_point": ["/data"],
                     "filesystem": "ext4",
                     "class": {{cluster.slave.volume_class}}
                 },
@@ -456,7 +456,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-shtxxdlv"
+                    "image": "img-sad2zy8e"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},
@@ -464,7 +464,7 @@
                 "memory": {{cluster.bigdata-client.memory}},
                 "volume": {
                     "size": {{cluster.bigdata-client.volume_size}},
-                    "mount_point": "/bigdata1",
+                    "mount_point": "/data",
                     "filesystem": "ext4",
                     "class": {{cluster.bigdata-client.volume_class}}
                 },

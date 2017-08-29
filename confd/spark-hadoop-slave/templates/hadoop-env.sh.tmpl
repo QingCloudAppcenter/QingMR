@@ -21,10 +21,10 @@ export HADOOP_PORTMAP_OPTS="-Xmx512m $HADOOP_PORTMAP_OPTS"
 export HADOOP_CLIENT_OPTS="-Xmx512m $HADOOP_CLIENT_OPTS"
 export HADOOP_SECURE_DN_USER=${HADOOP_SECURE_DN_USER}
 export HADOOP_SECURE_DN_LOG_DIR=${HADOOP_LOG_DIR}/${HADOOP_HDFS_USER}
-export HADOOP_PID_DIR=/bigdata1/hadoop/pids
+export HADOOP_PID_DIR=/data/hadoop/pids
 export HADOOP_SECURE_DN_PID_DIR=${HADOOP_PID_DIR}
 export HADOOP_IDENT_STRING=$USER
-export HADOOP_LOG_DIR=/bigdata1/hadoop/logs
+export HADOOP_LOG_DIR=/data/hadoop/logs
 export HADOOP_PREFIX=/opt/hadoop
 {{$HADOOP_HEAPSIZE := getv "/env/datanode.HADOOP_HEAPSIZE"}}{{$datanode_memory := sub (getv "/host/memory") 1024}}{{if gt $HADOOP_HEAPSIZE $datanode_memory}}
 export HADOOP_HEAPSIZE={{$datanode_memory}}{{else}}

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 HADOOP_HOME="/opt/hadoop"
-HADOOP_LOG_PATH="/bigdata1/hadoop/logs"
+HADOOP_LOG_PATH="/data/hadoop/logs"
 
 rm_pid=`ps ax | grep resourcemanager | grep -v grep | awk '{print $1}'`
 if [ "x$rm_pid" = "x" ]; then
