@@ -1,9 +1,9 @@
-{{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}{{$node_id := printf "/hosts/yarn-master/%s/node_id" $dir}}
-{{getv $ip}} {{$node_id}}{{end}}
-{{range $dir := lsdir "/hosts/hdfs-master/"}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}{{$node_id := printf "/hosts/hdfs-master/%s/node_id" $dir}}
-{{getv $ip}} {{$node_id}}{{end}}
-{{range $dir := lsdir "/hosts/slave/"}}{{$ip := printf "/hosts/slave/%s/ip" $dir}}{{$node_id := printf "/hosts/slave/%s/node_id" $dir}}
-{{getv $ip}} {{$node_id}}{{end}}
+{{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}
+{{getv $ip}} {{$dir}}{{end}}
+{{range $dir := lsdir "/hosts/hdfs-master/"}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}
+{{getv $ip}} {{$dir}}{{end}}
+{{range $dir := lsdir "/hosts/slave/"}}{{$ip := printf "/hosts/slave/%s/ip" $dir}}
+{{getv $ip}} {{$dir}}{{end}}
 
 # External Service Hosts
 {{range $link_id := lsdir "/links/" | filter "external_service*"}}
