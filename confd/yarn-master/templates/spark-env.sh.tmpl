@@ -1,10 +1,10 @@
 #! /usr/bin/env bash
 export JAVA_HOME=/usr/jdk
-export SPARK_LOG_DIR=/bigdata1/spark/logs
-export SPARK_WORKER_DIR=/bigdata1/spark/work
+export SPARK_LOG_DIR=/data/spark/logs
+export SPARK_WORKER_DIR=/data/spark/work
 export SPARK_WORKER_OPTS="-Dspark.worker.cleanup.enabled={{getv "/env/spark.worker.cleanup.enabled"}} -Dspark.worker.cleanup.interval={{getv "/env/spark.worker.cleanup.interval"}} -Dspark.worker.cleanup.appDataTtl={{getv "/env/spark.worker.cleanup.appDataTtl"}}"
-export SPARK_PID_DIR=/bigdata1/spark/pids
-export SPARK_LOCAL_DIRS=/bigdata1/spark
+export SPARK_PID_DIR=/data/spark/pids
+export SPARK_LOCAL_DIRS=/data/spark
 export PYSPARK_PYTHON=/opt/{{getv "/env/PYSPARK_PYTHON"}}/bin/python
 export HADOOP_HOME=/opt/hadoop
 export LD_LIBRARY_PATH=$HADOOP_HOME/lib/native

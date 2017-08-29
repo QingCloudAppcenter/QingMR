@@ -19,14 +19,14 @@
                 "memory": {{cluster.hdfs-master.memory}},
                 "volume": {
                     "size": {{cluster.hdfs-master.volume_size}},
-                    "mount_point": "/bigdata1",
+                    "mount_point": "/data",
                     "filesystem": "ext4",
                     "class": {{cluster.hdfs-master.volume_class}}
                 },
                 "passphraseless":"ssh-rsa",
                 "services": {
                     "init": {
-                        "cmd": "USER=root mkdir -p /bigdata1/hadoop;/opt/hadoop/bin/hdfs namenode -format -force"
+                        "cmd": "USER=root mkdir -p /data/hadoop;/opt/hadoop/bin/hdfs namenode -format -force"
                     },
                     "start": {
 			"order": 0,
@@ -137,7 +137,7 @@
             	"memory": {{cluster.yarn-master.memory}},
             	"volume": {
             	    "size": {{cluster.yarn-master.volume_size}},
-            	    "mount_point": "/bigdata1",
+            	    "mount_point": "/data",
             	    "filesystem": "ext4",
             	    "class": {{cluster.yarn-master.volume_class}}
             	},
@@ -334,7 +334,7 @@
                 "memory": {{cluster.slave.memory}},
                 "volume": {
                     "size": {{cluster.slave.volume_size}},
-                    "mount_point": ["/bigdata1"],
+                    "mount_point": ["/data"],
                     "filesystem": "ext4",
                     "class": {{cluster.slave.volume_class}}
                 },
@@ -464,7 +464,7 @@
                 "memory": {{cluster.bigdata-client.memory}},
                 "volume": {
                     "size": {{cluster.bigdata-client.volume_size}},
-                    "mount_point": "/bigdata1",
+                    "mount_point": "/data",
                     "filesystem": "ext4",
                     "class": {{cluster.bigdata-client.volume_class}}
                 },
