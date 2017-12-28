@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#if yarn master isn't started, then the cluster is in starting phase and no need to start spark master here, this script is only used to swith spark mode after cluster is started
+pid=`ps ax | grep 'ResourceManager' | grep -v grep | awk '{print $1}'`
+if [ "x$pid" = "x" ]; then
+    exit 0
+fi
+
+{{if eq (getv "/env/enable_hive") "true"}}
+{{if eq (getv "/env/use_remote_mysql") "false"}}
+/opt/hive/sbin/action-mysql.sh
+{{end}}
+/opt/hive/sbin/action-metastore.sh
+/opt/hive/sbin/action-hiveserver2.sh
+{{else}}
+{{if eq (getv "/env/use_remote_mysql") "false"}}
+/opt/hive/sbin/stop-mysql.sh
+{{end}}
+/opt/hive/sbin/stop-hiveserver2.sh
+/opt/hive/sbin/stop-metastore.sh
+{{end}}
+exit 0

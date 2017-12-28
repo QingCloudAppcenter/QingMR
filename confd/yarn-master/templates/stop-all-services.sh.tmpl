@@ -5,4 +5,7 @@
 {{else}}
 /opt/hadoop/sbin/stop-yarn-services.sh
 {{end}}
+/opt/hive/sbin/stop-hiveserver2.sh
+/opt/hive/sbin/stop-metastore.sh
+/opt/hive/sbin/stop-mysql.sh
 exit 0
