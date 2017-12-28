@@ -163,8 +163,11 @@
 					}
             	},
 				"env": {
-            		"enable_hive": {{env.yarn-master.enable_hive}}
-            		"use_remote_mysql": {{env.yarn-master.use_remote_mysql}}
+            		"enable_hive": {{env.yarn-master.enable_hive}},
+            		"use_remote_mysql": {{env.yarn-master.use_remote_mysql}},
+					"remote_mysql_ip": {{env.yarn-master.remote_mysql_ip}},
+					"hive_metastore_username": {{env.yarn-master.hive_metastore_username}},
+					"hive_metastore_password": {{env.yarn-master.hive_metastore_passwo:rd}}
         		},
 	        	"health_check": {
         	    	"enable": true,

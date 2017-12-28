@@ -1,0 +1,4 @@
+[template]
+src = "hive-site.xml.tmpl"
+dest = "/opt/hive/conf/hive-site.xml"
+keys = ["/",]
