@@ -1,5 +1,7 @@
+{{if eq (getv "/env/enable_spark_standalone") "true"}}
 {{range $dir := lsdir "/hosts/bigdata-client/"}}{{$ip := printf "/hosts/bigdata-client/%s/ip" $dir}}
 spark.master=spark://{{getv $ip}}:7077{{end}}
+{{else}}spark.master=yarn{{end}}
 spark.scheduler.mode={{getv "/env/spark.scheduler.mode"}}
 spark.scheduler.allocation.file=/opt/hadoop/etc/hadoop/spark-fair-scheduler.xml
 {{if eq (getv "/env/QingStor") "true"}}
