@@ -284,54 +284,47 @@
                 "type": "array",
                 "properties": [
                 {
-                        "key": "yarn-master",
-                        "description": "YARN master node configuration",
-                        "type": "array",
-                        "properties": [
-                        {
-                            "key": "enable_hive",
-                            "label": "Enable Hive",
-                            "description": "Set to true to turn Hive on, false to turn Hive off",
-                            "type": "boolean",
-                            "default": false,
-                            "range": [true, false],
-                            "required": "yes"
-                        },
-                        {
-                            "key": "use_remote_mysql",
-                            "label": "Use remote mysql as database",
-                            "description": "Set to true to use remote mysql, false to use local mysql",
-                            "type": "boolean",
-                            "default": false,
-                            "range": [true, false],
-                            "required": "yes"
-                        },
-                        {
-                            "key": "remote_mysql_ip",
-                            "label": "Remote mysql server ip",
-                            "description": "Remote mysql server's ip address",
-                            "type": "string",
-                            "pattern": "[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}|^$",
-                            "default": "",
-                            "required": "no"
-                        },
-                        {
-                            "key": "hive_metastore_username",
-                            "label": "Hive metastore username",
-                            "description": "Username of hive metastore database",
-                            "type": "string",
-                            "default": "hive",
-                            "required": "yes"
-                        },
-                        {
-                            "key": "hive_metastore_password",
-                            "label": "Hive metastore password",
-                            "description": "Password of hive metastore database",
-                            "type": "password",
-                            "default": "hive",
-                            "required": "yes"
-                        }
-                        ]  
+                    "key": "enable_hive",
+                    "label": "Enable Hive",
+                    "description": "Set to true to turn Hive on, false to turn Hive off",
+                    "type": "boolean",
+                    "default": false,
+                    "range": [true, false],
+                    "required": "yes"
+                },
+                {
+                    "key": "use_remote_mysql",
+                    "label": "Use remote mysql",
+                    "description": "Set to true to use remote mysql, false to use local mysql",
+                    "type": "boolean",
+                    "default": false,
+                    "range": [true, false],
+                    "required": "yes"
+                },
+                {
+                    "key": "remote_mysql_ip",
+                    "label": "Remote mysql server ip",
+                    "description": "Remote mysql server's ip address",
+                    "type": "string",
+                    "pattern": "[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}|^$",
+                    "default": "",
+                    "required": "no"
+                },
+                {
+                    "key": "hive_metastore_username",
+                    "label": "Hive metastore username",
+                    "description": "Username of hive metastore database",
+                    "type": "string",
+                    "default": "hive",
+                    "required": "yes"
+                },
+                {
+                    "key": "hive_metastore_password",
+                    "label": "Hive metastore password",
+                    "description": "Password of hive metastore database",
+                    "type": "password",
+                    "default": "hive",
+                    "required": "yes"
                 },
 		        {
             		"key": "QingStor",

@@ -5,7 +5,7 @@
 {{else}}
 /opt/hadoop/sbin/start-yarn-services.sh
 {{end}}
-{{if and eq (getv "/env/use_remote_mysql") "false" eq (getv "/env/enable_hive") "true"}}
+{{if and (eq (getv "/env/use_remote_mysql") "false") (eq (getv "/env/enable_hive") "true")}}
 /opt/hive/sbin/action-mysql.sh
 {{end}}
 {{if eq (getv "/env/enable_hive") "true"}}

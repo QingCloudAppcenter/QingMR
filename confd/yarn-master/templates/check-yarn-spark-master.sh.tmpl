@@ -11,7 +11,7 @@ ret_spark=$?
 {{end}}
 /opt/hadoop/sbin/check-yarn-master.sh
 ret_yarn=$?
-{{if and eq (getv "/env/use_remote_mysql") "false" eq (getv "/env/enable_hive") "true"}}
+{{if and (eq (getv "/env/use_remote_mysql") "false") (eq (getv "/env/enable_hive") "true")}}
 /opt/hive/sbin/check-mysql.sh
 ret_mysql=$?
 {{end}}

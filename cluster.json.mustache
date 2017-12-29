@@ -162,13 +162,6 @@
 						"cmd": "/opt/hadoop/sbin/copy-custom-files.sh"
 					}
             	},
-				"env": {
-            		"enable_hive": {{env.yarn-master.enable_hive}},
-            		"use_remote_mysql": {{env.yarn-master.use_remote_mysql}},
-					"remote_mysql_ip": {{env.yarn-master.remote_mysql_ip}},
-					"hive_metastore_username": {{env.yarn-master.hive_metastore_username}},
-					"hive_metastore_password": {{env.yarn-master.hive_metastore_passwo:rd}}
-        		},
 	        	"health_check": {
         	    	"enable": true,
         			"interval_sec": 60,
@@ -481,6 +474,11 @@
             }
         ],
         "env": {
+      		"enable_hive": {{env.enable_hive}},
+       		"use_remote_mysql": {{env.use_remote_mysql}},
+			"remote_mysql_ip": {{env.remote_mysql_ip}},
+			"hive_metastore_username": {{env.hive_metastore_username}},
+			"hive_metastore_password": {{env.hive_metastore_password}},
             "QingStor": {{env.QingStor}},
 	    	"QingStor_zone": {{env.QingStor_zone}},
             "access_key": {{env.access_key}},
