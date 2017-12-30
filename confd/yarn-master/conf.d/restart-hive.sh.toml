@@ -1,0 +1,4 @@
+[template]
+src = "restart-hive.sh.tmpl"
+dest = "/opt/hive/sbin/restart-hive.sh"
+keys = ["/",]

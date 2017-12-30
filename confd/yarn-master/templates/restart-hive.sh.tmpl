@@ -1,0 +1,8 @@
+#!/bin/bash
+{{if eq (getv "/env/enable_hive") "true"}}
+/opt/hive/sbin/stop-hiveserver2.sh
+/opt/hive/sbin/stop-metastore.sh
+/opt/hive/sbin/action-metastore.sh
+/opt/hive/sbin/action-hiveserver2.sh
+{{end}}
+exit 0

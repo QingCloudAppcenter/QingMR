@@ -141,5 +141,15 @@
 	"How long to wait between aggregated log retention checks. If set to 0 or a negative value then the value is computed as one-tenth of the aggregated log retention time. Be careful set this too small and you will spam the name node." : "多长时间（秒）检查一次集中存储的log是否到期可以清理。如果设置为0或负数，则该值将会被设置为yarn.log-aggregation.retain-seconds的十分之一。如果该值过小可能会导致频繁想name node发送请求",
 	"Where to aggregate logs to" : "集中存储的log将被保存在那，默认为HDFS的/tmp/logs目录",
 	"The remote log dir will be created at {yarn.nodemanager.remote-app-log-dir}/${user}/{thisParam}" : "集中存储的log将会被放在{yarn.nodemanager.remote-app-log-dir}/${user}/{本参数}中",
-	"update-yarn-scheduler" : "更新调度器"
+	"update-yarn-scheduler" : "更新调度器",
+	"Enable Hive" : "开启 Hive",
+	"Launch/shutdown Hive Metastore and HiveServer2 services" : "开启/关闭 Hive Metastore and HiveServer2 services",
+	"Use remote mysql" : "使用远程 mysql 数据库",
+	"Set to true to use remote mysql server, false to use local" : "true 为使用远程 mysql 数据库，false 为使用本地 mysql 数据库",
+	"Remote mysql server ip" : "远程 mysql 数据库 ip",
+	"Valid only when using remote mysql server" : "仅当使用远程 mysql 数据库时需填此项",
+	"Hive Metastore username" : "Hive Metastore 用户名",
+	"Default to hive for local mysql" : "本地 mysql 数据库默认为 hive",
+	"Hive Metastore password" : "Hive Metastore 密码",
+	"restart-hive" : "重启 Hive 服务"
 }

@@ -286,7 +286,7 @@
                 {
                     "key": "enable_hive",
                     "label": "Enable Hive",
-                    "description": "Set to true to turn Hive on, false to turn Hive off",
+                    "description": "Launch/shutdown Hive Metastore and HiveServer2 services",
                     "type": "boolean",
                     "default": false,
                     "range": [true, false],
@@ -295,7 +295,7 @@
                 {
                     "key": "use_remote_mysql",
                     "label": "Use remote mysql",
-                    "description": "Set to true to use remote mysql, false to use local mysql",
+                    "description": "Set to true to use remote mysql server, false to use local",
                     "type": "boolean",
                     "default": false,
                     "range": [true, false],
@@ -304,7 +304,7 @@
                 {
                     "key": "remote_mysql_ip",
                     "label": "Remote mysql server ip",
-                    "description": "Remote mysql server's ip address",
+                    "description": "Valid only when using remote mysql server",
                     "type": "string",
                     "pattern": "[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}|^$",
                     "default": "",
@@ -312,16 +312,16 @@
                 },
                 {
                     "key": "hive_metastore_username",
-                    "label": "Hive metastore username",
-                    "description": "Username of hive metastore database",
+                    "label": "Hive Metastore username",
+                    "description": "Default to hive for local mysql",
                     "type": "string",
                     "default": "hive",
                     "required": "yes"
                 },
                 {
                     "key": "hive_metastore_password",
-                    "label": "Hive metastore password",
-                    "description": "Password of hive metastore database",
+                    "label": "Hive Metastore password",
+                    "description": "Default to hive for local mysql",
                     "type": "password",
                     "default": "hive",
                     "required": "yes"

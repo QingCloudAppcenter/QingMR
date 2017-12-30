@@ -129,7 +129,7 @@
                 "container": {
             	   "zone": "sh1a",
             	   "type": "kvm",
-            	   "image": "img-t9st39uu"
+            	   "image": "img-5azqjtmg"
             	},
             	"instance_class": {{cluster.yarn-master.instance_class}},
             	"count": 1,
@@ -160,6 +160,10 @@
 					"update-yarn-scheduler": {
 						"type" : "custom",
 						"cmd": "/opt/hadoop/sbin/copy-custom-files.sh"
+					},
+					"restart-hive": {
+						"type" : "custom",
+						"cmd": "/opt/hive/sbin/restart-hive.sh"
 					}
             	},
 	        	"health_check": {
