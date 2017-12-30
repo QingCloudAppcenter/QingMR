@@ -143,7 +143,7 @@
 	"The remote log dir will be created at {yarn.nodemanager.remote-app-log-dir}/${user}/{thisParam}" : "集中存储的log将会被放在{yarn.nodemanager.remote-app-log-dir}/${user}/{本参数}中",
 	"update-yarn-scheduler" : "更新调度器",
 	"Enable Hive" : "开启 Hive",
-	"Launch/shutdown Hive Metastore and HiveServer2 services" : "开启/关闭 Hive Metastore and HiveServer2 services",
+	"Launch/shutdown Hive Metastore and HiveServer2 services" : "开启/关闭 Hive Metastore and HiveServer2 服务",
 	"Use remote mysql" : "使用远程 mysql 数据库",
 	"Set to true to use remote mysql server, false to use local" : "true 为使用远程 mysql 数据库，false 为使用本地 mysql 数据库",
 	"Remote mysql server ip" : "远程 mysql 数据库 ip",
