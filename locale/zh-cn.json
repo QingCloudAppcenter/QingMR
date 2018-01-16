@@ -151,5 +151,8 @@
 	"Hive Metastore username" : "Hive Metastore 用户名",
 	"Default to hive for local mysql" : "本地 mysql 数据库默认为 hive",
 	"Hive Metastore password" : "Hive Metastore 密码",
-	"restart-hive" : "重启 Hive 服务"
+	"restart-hive" : "重启 Hive 服务",
+	"Role" : "角色",
+	"Running service" : "运行服务",
+	"node_details_tab" : "服务详情"
 }

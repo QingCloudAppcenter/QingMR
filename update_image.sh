@@ -44,7 +44,7 @@ else
 
 		echo "template image created"
 	else
-		ssh $server "apt-get install -y ntp"
+		#ssh $server "apt-get install -y ntp"
     	scp -r confd/$role/conf.d $server:/etc/confd/
     	scp -r confd/$role/templates $server:/etc/confd/
     	scp -r scripts/hadoop/etc $server:/opt/hadoop/
