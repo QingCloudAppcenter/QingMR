@@ -1,0 +1,20 @@
+#!/bin/bash
+{{if eq (getv "/env/enable_spark_standalone") "true"}}
+spark_master=", Spark Master"
+spark_slave=", Spark Slave"
+{{end}}
+{{if eq (getv "/env/enable_hive") "true"}}
+hive_service=", Hive metastore, hiveserver2"
+{{end}}
+node_info="{\"labels\": [\"Hostname\", \"IP\", \"Role\", \"Running service\"],\n\t\"data\":\n\t[\n"
+{{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}
+node_info=${node_info}"\t\t[\""{{$dir}}"\", \""{{getv $ip}}"\", \"YARN master\", \"ResourceManager${spark_master}${hive_service}\"],"{{end}}
+{{range $dir := lsdir "/hosts/hdfs-master/"}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}
+node_info=${node_info}"\t\t[\""{{$dir}}"\", \""{{getv $ip}}"\", \"HDFS master\", \"Namenode, Secondary namenode\"],"{{end}}
+{{range $dir := lsdir "/hosts/slave/"}}{{$ip := printf "/hosts/slave/%s/ip" $dir}}
+node_info=${node_info}"\t\t[\""{{$dir}}"\", \""{{getv $ip}}"\", \"slave\", \"Datanode${spark_slave}\"],"{{end}}
+{{range $dir := lsdir "/hosts/bigdata-client/"}}{{$ip := printf "/hosts/bigdata-client/%s/ip" $dir}}
+node_info=${node_info}"\t\t[\""{{$dir}}"\", \""{{getv $ip}}"\", \"Bigdata client\", \"\"],"{{end}}
+node_info=${node_info%,*}
+node_info=${node_info}"\n\t]\n}"
+echo node_info

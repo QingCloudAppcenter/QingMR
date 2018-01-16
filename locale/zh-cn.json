@@ -19,7 +19,7 @@
 	"volume size" : "节点容量",
 	"The volume size for each instance" : "节点总存储空间大小", 
 	"HDFS master" : "HDFS主节点",
-        "YARN master" : "YARN主节点",
+    "YARN master" : "YARN主节点",
 	"Bigdata client" : "Client节点",
 	"HDFS master properties" : "HDFS主节点(Name Node)属性",
 	"slave" : "从节点",

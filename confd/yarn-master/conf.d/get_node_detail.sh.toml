@@ -1,0 +1,6 @@
+[template]
+src = "get_node_detail.sh.tmpl"
+dest = "/opt/qingcloud/sbin/get_node_detail.sh"
+keys = [
+	"/",
+]

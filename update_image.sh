@@ -44,12 +44,15 @@ else
 
 		echo "template image created"
 	else
+		ssh $server "apt-get install -y ntp"
     	scp -r confd/$role/conf.d $server:/etc/confd/
     	scp -r confd/$role/templates $server:/etc/confd/
     	scp -r scripts/hadoop/etc $server:/opt/hadoop/
     	scp -r scripts/hadoop/sbin $server:/opt/hadoop/
     	scp -r scripts/spark/sbin $server:/opt/spark/
 		scp -r scripts/hive/sbin $server:/opt/hive/
+		scp -r scripts/qingcloud/sbin $server:/opt/qingcloud/
+		scp -r scripts/etc/ntp.conf $server:/opt/etc/
     fi
 
     if [ "x$role" = "xbigdata-client" ] || [ "x$role" = "xyarn-master" ];then
