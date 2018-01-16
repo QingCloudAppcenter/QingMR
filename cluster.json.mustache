@@ -11,7 +11,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-aqt72t82"
+                    "image": "img-tdaq3bqk"
                 },
                 "instance_class": {{cluster.hdfs-master.instance_class}},
                 "count": 1,
@@ -129,7 +129,7 @@
                 "container": {
             	   "zone": "sh1a",
             	   "type": "kvm",
-            	   "image": "img-w28tk1on"
+            	   "image": "img-0umcws2a"
             	},
             	"instance_class": {{cluster.yarn-master.instance_class}},
             	"count": 1,
@@ -330,7 +330,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-mxdvte0n"
+                    "image": "img-99lapu21"
                 },
                 "instance_class": {{cluster.slave.instance_class}},
                 "count": {{cluster.slave.count}},
@@ -460,7 +460,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-hi6neo8r"
+                    "image": "img-vyc6j3py"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},
@@ -481,7 +481,6 @@
         	"node_details_tab": {
         	    "cmd": "/opt/qingcloud/sbin/get_node_detail.sh",
         	    "roles_to_execute_on": ["bigdata-client", "hdfs-master", "yarn-master", "slave"],
-        	    "description": "More infomation about nodes",
         	    "timeout": 10
         	}
     	},
