@@ -477,6 +477,14 @@
 	        	"advanced_actions": ["change_vxnet", "scale_horizontal"]
             }
         ],
+		"display_tabs": {
+        	"node_details_tab": {
+        	    "cmd": "/opt/qingcloud/sbin/get_node_detail.sh",
+        	    "roles_to_execute_on": ["bigdata-client", "hdfs-master", "yarn-master", "slave"],
+        	    "description": "More infomation about nodes",
+        	    "timeout": 10
+        	}
+    	}	
         "env": {
       		"enable_hive": {{env.enable_hive}},
        		"use_remote_mysql": {{env.use_remote_mysql}},

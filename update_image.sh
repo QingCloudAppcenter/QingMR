@@ -52,7 +52,7 @@ else
     	scp -r scripts/spark/sbin $server:/opt/spark/
 		scp -r scripts/hive/sbin $server:/opt/hive/
 		scp -r scripts/qingcloud/sbin $server:/opt/qingcloud/
-		scp -r scripts/etc/ntp.conf $server:/opt/etc/
+		scp -r scripts/etc/ntp.conf $server:/etc/
     fi
 
     if [ "x$role" = "xbigdata-client" ] || [ "x$role" = "xyarn-master" ];then
