@@ -10,7 +10,7 @@ node_info="{\"labels\": [\"Hostname\", \"IP\", \"Role\", \"Running service\"],\"
 {{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}
 node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"YARN master\", \"ResourceManager${spark_master}${hive_service}\"],"{{end}}
 {{range $dir := lsdir "/hosts/hdfs-master/"}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}
-node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"HDFS master\", \"Namenode, Secondary namenode\"],"{{end}}
+node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"HDFS master\", \"Namenode, Secondary Namenode\"],"{{end}}
 {{range $dir := lsdir "/hosts/slave/"}}{{$ip := printf "/hosts/slave/%s/ip" $dir}}
 node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"slave\", \"Datanode${spark_slave}\"],"{{end}}
 {{range $dir := lsdir "/hosts/bigdata-client/"}}{{$ip := printf "/hosts/bigdata-client/%s/ip" $dir}}
