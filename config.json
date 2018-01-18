@@ -50,7 +50,7 @@
                                 "description": "CPUs of each node",
                                 "type": "integer",
                                 "default": 2,
-                                "range": [2,4,8,12,16],
+                                "range": [2,4,8,12,16,24,32],
                                 "required": "yes"
                             },
                             {
@@ -105,7 +105,7 @@
                                 "description": "CPUs of each node",
                                 "type": "integer",
                                 "default": 2,
-                                "range": [2,4,8,12,16],
+                                "range": [2,4,8,12,16,24,32],
                                 "required": "yes"
                             },
                             {
@@ -160,7 +160,7 @@
                                 "description": "CPUs of each node",
                                 "type": "integer",
                                 "default": 4,
-                                "range": [2,4,8,12,16],
+                                "range": [2,4,8,12,16,24,32],
                                 "required": "yes"
                             },
                             {
@@ -299,7 +299,7 @@
                     "type": "boolean",
                     "default": false,
                     "range": [true, false],
-                    "required": "yes"
+                    "required": "no"
                 },
                 {
                     "key": "remote_mysql_ip",
@@ -316,7 +316,7 @@
                     "description": "Default to hive for local mysql",
                     "type": "string",
                     "default": "hive",
-                    "required": "yes"
+                    "required": "no"
                 },
                 {
                     "key": "hive_metastore_password",
@@ -324,7 +324,7 @@
                     "description": "Default to hive for local mysql",
                     "type": "password",
                     "default": "hive",
-                    "required": "yes"
+                    "required": "no"
                 },
 		        {
             		"key": "QingStor",
