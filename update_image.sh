@@ -45,6 +45,9 @@ else
 		echo "template image created"
 	else
 		#ssh $server "apt-get install -y ntp"
+		#scp ../app-agent-linux-amd64.tar.gz $server:/opt/ 
+    	#ssh $server "tar -zxf /opt/app-agent-linux-amd64.tar.gz -C /opt/; rm -rf /opt/app-agent-linux-amd64.tar.gz"
+    	#ssh $server "cd /opt/app-agent-linux-amd64; ./install.sh; cd /opt/; rm -rf /opt/app-agent-linux-amd64"
     	scp -r confd/$role/conf.d $server:/etc/confd/
     	scp -r confd/$role/templates $server:/etc/confd/
     	scp -r scripts/hadoop/etc $server:/opt/hadoop/
