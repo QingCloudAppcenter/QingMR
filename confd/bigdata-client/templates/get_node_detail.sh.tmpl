@@ -12,7 +12,7 @@ node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"YARN master\", \"R
 {{range $dir := lsdir "/hosts/hdfs-master/"}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}
 node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"HDFS master\", \"Namenode, Secondary Namenode\"],"{{end}}
 {{range $dir := lsdir "/hosts/slave/"}}{{$ip := printf "/hosts/slave/%s/ip" $dir}}
-node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"slave\", \"Datanode${spark_slave}\"],"{{end}}
+node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"slave\", \"NodeManager, Datanode${spark_slave}\"],"{{end}}
 {{range $dir := lsdir "/hosts/bigdata-client/"}}{{$ip := printf "/hosts/bigdata-client/%s/ip" $dir}}
 node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"Bigdata client\", \"\"],"{{end}}
 node_info=${node_info%,*}

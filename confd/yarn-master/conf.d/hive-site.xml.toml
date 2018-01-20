@@ -2,3 +2,4 @@
 src = "hive-site.xml.tmpl"
 dest = "/opt/hive/conf/hive-site.xml"
 keys = ["/",]
+reload_cmd = "/opt/hive/sbin/restart-hive.sh"

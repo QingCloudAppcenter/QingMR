@@ -50,7 +50,7 @@
                                 "description": "CPUs of each node",
                                 "type": "integer",
                                 "default": 2,
-                                "range": [2,4,8,12,16,24,32],
+                                "range": [2,4,8,12,16],
                                 "required": "yes"
                             },
                             {
@@ -105,7 +105,7 @@
                                 "description": "CPUs of each node",
                                 "type": "integer",
                                 "default": 2,
-                                "range": [2,4,8,12,16,24,32],
+                                "range": [2,4,8,12,16],
                                 "required": "yes"
                             },
                             {
@@ -160,7 +160,7 @@
                                 "description": "CPUs of each node",
                                 "type": "integer",
                                 "default": 4,
-                                "range": [2,4,8,12,16,24,32],
+                                "range": [2,4,8,12,16],
                                 "required": "yes"
                             },
                             {
