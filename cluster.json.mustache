@@ -5,13 +5,16 @@
         "links": {
             "external_service":{{cluster.external_service}}
         },
+		"upgrade_policy": [
+            "appv-zs79n0vo"
+    	],
         "nodes": [            
             {
                 "role": "hdfs-master",
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-t0vfmnno"
+                    "image": "img-zlyd1kgc"
                 },
                 "instance_class": {{cluster.hdfs-master.instance_class}},
                 "count": 1,
@@ -129,7 +132,7 @@
                 "container": {
             	   "zone": "sh1a",
             	   "type": "kvm",
-            	   "image": "img-8ik7pxap"
+            	   "image": "img-jfia69bu"
             	},
             	"instance_class": {{cluster.yarn-master.instance_class}},
             	"count": 1,
@@ -330,7 +333,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-mu5wss8e"
+                    "image": "img-15hypwbu"
                 },
                 "instance_class": {{cluster.slave.instance_class}},
                 "count": {{cluster.slave.count}},
@@ -460,7 +463,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-9b6ey65q"
+                    "image": "img-mw2u5as3"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},
