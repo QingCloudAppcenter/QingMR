@@ -36,4 +36,38 @@
       <value>{{getv "/env/hadoop.proxyuser.groups"}}</value>
     </property>
     {{end}}
+{{if eq (getv "/env/QingStor") "true"}}
+   <property>
+     <name>fs.s3a.endpoint</name>
+     <value>s3.{{getv "/env/QingStor_zone"}}.qingstor.com</value>
+   </property>
+   <property>
+     <name>fs.s3a.access.key</name>
+     <value>{{getv "/env/access_key"}}</value>
+   </property>
+   <property>
+     <name>fs.s3a.secret.key</name>
+     <value>{{getv "/env/secret_key"}}</value>
+   </property>
+   <property>
+     <name>fs.s3a.connection.ssl.enabled</name>
+     <value>false</value>
+   </property>
+   <property>
+     <name>fs.s3a.paging.maximum</name>
+     <value>1000</value>
+   </property>
+   <property>
+     <name>fs.s3a.connection.timeout</name>
+     <value>300000</value>
+   </property>
+   <property>
+     <name>ipc.client.connect.timeout</name>
+     <value>200000</value>
+   </property>
+   <property>
+     <name>ipc.client.connect.max.retries.on.timeouts</name>
+     <value>3</value>
+   </property>
+{{end}}
   </configuration>
