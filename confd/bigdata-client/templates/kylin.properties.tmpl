@@ -1,0 +1,475 @@
+## Copyright (C) 2016 Kyligence Inc. All rights reserved.
+##
+## http://kyligence.io
+##
+## This software is the confidential and proprietary information of
+## Kyligence Inc. ("Confidential Information"). You shall not disclose
+## such Confidential Information and shall use it only in accordance
+## with the terms of the license agreement you entered into with
+## Kyligence Inc.
+##
+## THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+## "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+## LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+## A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+## OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+## SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+## LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+## DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+## THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+## (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+## OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# KAP provides two configuration profiles: minimal and production(by default).
+# To switch to production:
+# cd $KYLIN_HOME/conf
+# ln -sfn profile_prod profile
+# To switch to minimal(for sandbox test):
+# ln -sfn profile_min profile
+
+
+
+
+# The below commented values will effect as default settings
+# Uncomment and override them if necessary
+
+
+#
+#### METADATA | ENV ###
+#
+## The metadata store in hbase
+#kylin.metadata.url=kylin_default_instance@hbase
+#
+## Working folder in HDFS, better be qualified absolute path, make sure user has the right permission to this directory
+#kylin.env.hdfs-working-dir=/kylin
+kylin.env.hdfs-working-dir=/tmp
+#
+## DEV|QA|PROD. DEV will turn on some dev features, QA and PROD has no difference in terms of functions.
+#kylin.env=PROD
+#
+## The enhanced data model
+#kylin.metadata.data-model-impl=io.kyligence.kap.metadata.model.KapModel
+#
+#kylin.metadata.sync-error-handler=io.kyligence.kap.metadata.cachesync.KapSyncErrorHandler
+#
+#### SERVER | WEB ###
+#
+## Kylin server mode, valid value [all, query, job]
+#kylin.server.mode=all
+#
+## List of web servers in use, this enables one web server instance to sync up with other servers.
+## since service discovery is by default enabled in KAP, we don't need it any more
+#kylin.server.cluster-servers=
+#
+## Display timezone on UI,format like[GMT+N or GMT-N]
+#kylin.web.timezone=GMT+8
+#
+#kylin.web.cross-domain-enabled=true
+#
+## Allow user to export query result
+#kylin.web.export-allow-admin=true
+#kylin.web.export-allow-other=true
+#
+#### SOURCE ###
+#
+## Hive client, valid value [cli, beeline]
+#kylin.source.hive.client=cli
+#
+## Absolute path to beeline shell, can be set to spark beeline instead of the default hive beeline on PATH
+##kylin.source.hive.beeline-shell=beeline
+#
+## Parameters for beeline client, only necessary if hive client is beeline
+##kylin.source.hive.beeline-params=-n root --hiveconf hive.security.authorization.sqlstd.confwhitelist.append='mapreduce.job.*|dfs.*' -u jdbc:hive2://localhost:10000
+#
+## While hive client uses above settings to read hive table metadata,
+## table operations can go through a separate SparkSQL command line, given SparkSQL connects to the same Hive metastore.
+#kylin.source.hive.enable-sparksql-for-table-ops=false
+##kylin.source.hive.sparksql-beeline-shell=/path/to/spark-client/bin/beeline
+##kylin.source.hive.sparksql-beeline-params=-n root --hiveconf hive.security.authorization.sqlstd.confwhitelist.append='mapreduce.job.*|dfs.*' -u jdbc:hive2://localhost:10000
+#
+#kylin.source.hive.keep-flat-table=false
+#
+## Hive database name for putting the intermediate flat tables
+#kylin.source.hive.database-for-flat-table=default
+#
+## Whether redistribute the intermediate flat table before building
+#kylin.source.hive.redistribute-flat-table=true
+#
+#### STORAGE ###
+#
+## The storage for final cube file in hbase
+#kylin.storage.url=hbase
+#
+## Compression codec for htable, valid value [none, snappy, lzo, gzip, lz4]
+#kylin.storage.hbase.compression-codec=snappy
+#
+## HBase Cluster FileSystem, which serving hbase, format as hdfs://hbase-cluster:8020
+## Leave empty if hbase running on same cluster with hive and mapreduce
+##kylin.storage.hbase.cluster-fs=
+#
+## The cut size for hbase region, in GB.
+#kylin.storage.hbase.region-cut-gb=5
+#
+## The hfile size of GB, smaller hfile leading to the converting hfile MR has more reducers and be faster.
+## Set 0 to disable this optimization.
+#kylin.storage.hbase.hfile-size-gb=2
+#
+#kylin.storage.hbase.min-region-count=1
+#kylin.storage.hbase.max-region-count=500
+#
+## Optional information for the owner of kylin platform, it can be your team's email
+## Currently it will be attached to each kylin's htable attribute
+#kylin.storage.hbase.owner-tag=whoami@kylin.apache.org
+#
+#kylin.storage.hbase.coprocessor-mem-gb=3
+#
+## The default coprocessor timeout is (hbase.rpc.timeout * 0.9) / 1000 seconds,
+## You can set it to a smaller value. 0 means use default.
+## kylin.storage.hbase.coprocessor-timeout-seconds=0
+#
+#### JOB ###
+#
+## max job retry on error, default 0: no retry
+#kylin.job.retry=0
+#
+## Max count of concurrent jobs running
+#kylin.job.max-concurrent-jobs=20
+#
+## The percentage of the sampling, default 100%
+#kylin.job.sampling-percentage=100
+#
+## If true, will send email notification;
+##kylin.job.notification-enabled=true
+##kylin.job.notification-mail-enable-starttls=true
+##kylin.job.notification-mail-host=smtp.office365.com
+##kylin.job.notification-mail-port=587
+##kylin.job.notification-mail-username=kylin@example.com
+##kylin.job.notification-mail-password=mypassword
+##kylin.job.notification-mail-sender=kylin@example.com
+#
+#### ENGINE ###
+#
+## Time interval to check hadoop job status
+#kylin.engine.mr.yarn-check-interval-seconds=10
+#
+#kylin.engine.mr.reduce-input-mb=500
+#
+#kylin.engine.mr.max-reducer-number=500
+#
+#kylin.engine.mr.mapper-input-rows=1000000
+#
+#kylin.engine.mr.config-override.yarn.timeline-service.enabled=false
+#
+## Enable dictionary building in MR reducer
+#kylin.engine.mr.build-dict-in-reducer=true
+#
+## Number of reducers for fetching UHC column distinct values
+#kylin.engine.mr.uhc-reducer-count=1
+#
+## Whether using an additional step to build UHC dictionary
+#kylin.engine.mr.build-uhc-dict-in-additional-step=false
+#
+#### CUBE | DICTIONARY ###
+#
+#kylin.cube.cuboid-scheduler=io.kyligence.kap.cube.cuboid.KapCuboidScheduler
+#
+## 'auto', 'inmem', 'layer' or 'random' for testing
+#kylin.cube.algorithm=layer
+#
+## A smaller threshold prefers layer, a larger threshold prefers in-mem
+#kylin.cube.algorithm.layer-or-inmem-threshold=7
+#
+#kylin.cube.aggrgroup.max-combination=4096
+#
+## differ form Apache Kylin because KAP does not have compatibility issues like kylin. so this option can be true
+#kylin.cube.aggrgroup.is-mandatory-only-valid=true
+#
+#kylin.dictionary.max.cardinality=5000000
+#
+#kylin.snapshot.max-mb=300
+#
+#### ZOOKEEPER CONNECTION ###
+#
+## initial amount of time to wait between retries(ms)
+#kap.env.zookeeper-base-sleep-time=3000
+#
+## max number of times to retry
+#kap.env.zookeeper-max-retries=3
+#
+## monitor interval(s)
+#kap.job.zookeeper-monitor-interval=30
+#
+#### QUERY ###
+#
+#kylin.query.scan-threshold=10000000
+#
+## TABLE/COLUMN/ROW ACL
+#kylin.query.security.table-acl-enabled=true
+#kap.query.security.column-acl-enabled=true
+#kap.query.security.row-acl-enabled=true
+#
+#kylin.query.interceptors=org.apache.kylin.rest.security.TableInterceptor,io.kyligence.kap.rest.security.ColumnInterceptor
+#
+## 3G
+#kylin.storage.partition.max-scan-bytes=3221225472
+#
+## Enable/disable ACL check for cube query
+#kylin.query.security-enabled=true
+#
+#kylin.query.cache-enabled=true
+#
+#kap.query.implicit-computed-column-convert=true
+#
+#kap.query.jdbc-escape-enabled=true
+#
+#kap.query.cognos-parentheses-escape=false
+#
+#kylin.query.access-controller=io.kyligence.kap.query.KapQueryAdvisor
+#kylin.query.transformers=io.kyligence.kap.query.util.ConvertToComputedColumn,io.kyligence.kap.query.util.EscapeTransformer,org.apache.kylin.query.util.DefaultQueryTransformer,org.apache.kylin.query.util.KeywordDefaultDirtyHack,io.kyligence.kap.query.security.RowFilter,io.kyligence.kap.query.security.HackSelectStarWithColumnACL
+#
+#kylin.query.realization-filter=io.kyligence.kap.cube.mp.RealizationFilter
+#
+#kylin.query.force-limit=-1
+#kylin.query.disable-cube-noagg-sql=false
+#
+#### SECURITY ###
+#
+## Spring security profile, options: testing, ldap, saml
+## with "testing" profile, user can use pre-defined name/pwd like KYLIN/ADMIN to login
+#kylin.security.profile=testing
+#
+## Default roles and admin roles in LDAP, for ldap and saml
+#kylin.security.acl.default-role=ROLE_ANALYST,ROLE_MODELER
+#kylin.security.acl.admin-role=ROLE_ADMIN
+#
+## LDAP authentication configuration
+#kylin.security.ldap.connection-server=ldap://ldap_server:389
+#kylin.security.ldap.connection-username=
+#kylin.security.ldap.connection-password=
+#
+## LDAP user account directory;
+#kylin.security.ldap.user-search-base=
+#kylin.security.ldap.user-search-pattern=
+#kylin.security.ldap.user-group-search-base=
+#
+## LDAP service account directory
+#kylin.security.ldap.service-search-base=
+#kylin.security.ldap.service-search-pattern=
+#kylin.security.ldap.service-group-search-base=
+#
+### LDAP filter ##
+## used for searching all users
+#kylin.security.ldap.user-search-filter=(objectClass=person)
+## used for searching all groups
+#kylin.security.ldap.group-search-filter=(|(objectClass=groupOfNames)(objectClass=group))
+## used for searching all users in specific group
+#kylin.security.ldap.group-member-search-filter=(&(cn={0})(objectClass=groupOfNames))
+#
+### LDAP attr
+## LDAP attribute used for getting user's identifier (eg: username)
+#kylin.security.ldap.user-identifier-attr=cn
+## LDAP attribute used for getting group's identifier
+#kylin.security.ldap.group-identifier-attr=cn
+## LDAP attribute used for identifying group's member
+#kylin.security.ldap.group-member-attr=member
+#
+### SAML configurations for SSO
+## SAML IDP metadata file location
+#kylin.security.saml.metadata-file=classpath:sso_metadata.xml
+#kylin.security.saml.metadata-entity-base-url=https://hostname/kylin
+#kylin.security.saml.context-scheme=https
+#kylin.security.saml.context-server-name=hostname
+#kylin.security.saml.context-server-port=443
+#kylin.security.saml.context-path=/kylin
+#
+##### PROPERTIES FOR KAP ####
+#
+#
+#
+#
+#
+#### KAP SERVER | WEB ###
+#
+## KAP init
+#kylin.server.init-tasks=org.apache.kylin.rest.init.ClientInfoTask,io.kyligence.kybot.agent.runner.AgentRunner,io.kyligence.kap.rest.init.KerberosLoginTask,io.kyligence.kap.canary.CanaryCommander$CanarySchedulerKickOff
+#
+## Property Kybot Agent (io.kyligence.kybot.agent.runner.AgentRunner) 
+#kybot.client.path=kybot
+#
+## KAP web UI customization
+#kap.web.hide-feature.raw-measure=true
+#kap.web.hide-feature.extendedcolumn-measure=true
+#kap.web.hide-feature.limited-lookup = true
+#
+#### METADATA | ENV ###
+#
+## the implementation class for jdbc metastore
+#kylin.metadata.resource-store-provider.jdbc=io.kyligence.kap.common.persistence.JDBCResourceStore
+#kylin.metadata.custom-measure-types.CORR=io.kyligence.kap.measure.corr.CorrMeasureType$Factory
+#
+#
+#### KAP Job ###
+#
+#kylin.job.scheduler.provider.100=io.kyligence.kap.job.impl.curator.CuratorScheduler
+#kylin.job.scheduler.default=100
+#
+#
+#### KAP Query ###
+#
+#kylin.query.udf.massin=io.kyligence.kap.query.udf.MassInUDF
+#kylin.query.derived-filter-translation-threshold=100
+#
+#### KAP calcite rules ###
+#kylin.query.calcite.add-rule=io.kyligence.kap.query.optrule.ExtensionOlapJoinRule#INSTANCE
+#kylin.query.calcite.remove-rule=org.apache.kylin.query.optrule.OLAPJoinRule#INSTANCE
+#
+#### KERBEROS ###
+#kap.kerberos.enabled=false
+#kap.kerberos.cache=kap_kerberos.cache
+#kap.kerberos.krb5.conf=krb5.conf
+#kap.kerberos.ticket.refresh.interval.minutes=720
+##Standard, FI
+#kap.kerberos.platform=Standard
+#kap.kerberos.principal=
+#kap.kerberos.keytab=
+#
+##==========KAP PLUS ONLY START==========
+#
+## it's okay if config in this section duplicates with the above section
+#
+#
+#### METADATA | ENV ###
+#
+## realization providers
+#kylin.metadata.realization-providers=org.apache.kylin.cube.CubeManager,org.apache.kylin.storage.hybrid.HybridManager,io.kyligence.kap.cube.raw.RawTableManager
+#
+## hbasemapping adapter
+#kylin.metadata.hbasemapping-adapter=io.kyligence.kap.cube.hbasemapping.HBaseMappingAdapter
+#
+#### STORAGE ###
+#
+#kap.storage.init-spark-at-starting=true
+#
+## set the this to true to enable kap columnar storage before running kylin.sh
+#kap.storage.columnar.start-own-spark=true
+#
+## columnar storage definition
+#kylin.storage.provider.100=io.kyligence.kap.storage.parquet.ParquetStorage
+#kylin.storage.provider.99=io.kyligence.kap.storage.parquet.ParquetSpliceStorage
+#kylin.storage.default=99
+#
+#
+#### ENGINE ###
+#
+## columnar engine definition
+#kylin.engine.provider.98=io.kyligence.kap.engine.spark.KapSparkCubingEngine
+#kylin.engine.provider.100=io.kyligence.kap.engine.mr.KapMRBatchCubingEngine
+#kylin.engine.default=100
+#
+### use snappy for prod env
+#kap.storage.columnar.page-compression=SNAPPY
+#kap.storage.columnar.ii-spill-threshold-mb=512
+#
+#
+#### SPARK CONFIGURATION ###
+#
+## for any spark config entry in http://spark.apache.org/docs/latest/configuration.html#environment-variables, prefix it with "kap.storage.columnar.env" and append here
+#
+#### path to hadoop conf, must be local on the server running kylin.sh. the value is set to be ${kylin_hadoop_conf_dir}, whose value will be set during bootstrap scripts.
+#### In most cases, the value can be auto-detected with possible value like /etc/hadoop/conf, so that normal users do not need to worry about this config.
+#kap.storage.columnar.spark-env.HADOOP_CONF_DIR=${kylin_hadoop_conf_dir}
+#
+## for any spark config entry in http://spark.apache.org/docs/latest/configuration.html#spark-properties, prefix it with "kap.storage.columnar.spark-conf" and append here
+#
+#kap.storage.columnar.spark-conf.spark.executor.extraJavaOptions=-Dhdp.version=current -Dzipkin.collector-hostname=${ZIPKIN_HOSTNAME} -Dzipkin.collector-port=${ZIPKIN_SCRIBE_PORT} -DinfluxDB.address=${INFLUXDB_ADDRESS} -Dlog4j.configuration=spark-executor-log4j.properties -Dlog4j.debug -Dkap.spark.identifier=${KAP_SPARK_IDENTIFIER} -Dkap.hdfs.working.dir=${KAP_HDFS_WORKING_DIR} -Dkap.metadata.url=${KAP_METADATA_URL} -XX:MaxDirectMemorySize=896M
+#kap.storage.columnar.spark-conf.spark.yarn.am.extraJavaOptions=-Dhdp.version=current
+##kap.storage.columnar.spark-conf.spark.serializer=org.apache.spark.serializer.JavaSerializer
+#kap.storage.columnar.spark-conf.spark.driver.memory=4096m
+#kap.storage.columnar.spark-conf.spark.executor.memory=4096m
+#kap.storage.columnar.spark-conf.spark.yarn.executor.memoryOverhead=1024
+#kap.storage.columnar.spark-conf.yarn.am.memory=1024m
+#kap.storage.columnar.spark-conf.spark.executor.cores=5
+#kap.storage.columnar.spark-conf.spark.executor.instances=4
+#kap.storage.columnar.spark-conf.spark.task.maxFailures=1
+#kap.storage.columnar.spark-conf.spark.ui.port=4041
+#kap.storage.columnar.spark-conf.spark.locality.wait=0s
+#kap.storage.columnar.spark-conf.spark.sql.dialect=hiveql
+#kap.storage.columnar.spark-conf.spark.hadoop.yarn.timeline-service.enabled=false
+#kap.storage.columnar.spark-conf.hive.execution.engine=MR
+#kap.storage.columnar.spark-conf.spark.scheduler.listenerbus.eventqueue.size=100000000
+#
+#
+#### QUERY ENGINE ###
+#
+##kylin.query.pushdown.runner-class-name=io.kyligence.kap.storage.parquet.adhoc.PushDownRunnerSparkImpl
+##kylin.query.pushdown.update-enabled=false
+#kylin.query.pushdown.converter-class-names=io.kyligence.kap.query.util.RestoreFromComputedColumn,io.kyligence.kap.query.util.SparkSQLFunctionConverter,org.apache.kylin.source.adhocquery.HivePushDownConverter
+#kylin.query.schema-factory=io.kyligence.kap.query.schema.KapSchemaFactory
+#kap.query.engine.sparder-enabled=false
+#
+#### CANARY ###
+#kap.canary.default-canaries=MetaStoreCanary,HiveCanary,MetadataCanary,MetaSyncErrorCanary,SparkSqlContextCanary,ZookeeperCanary
+#
+##==========KAP PLUS ONLY END==========
+ 
+
+
+#***************KAP PLUS on Qingcloud Start*************************************************************************
+#For testing
+#kap.channel.user=QingCloudMkt
+#kylin.metadata.url=kylin_default_instance@jdbc,url=jdbc:mysql://192.168.100.43:3306/kylin,username=kylin,password=kylin,maxActive=10,maxIdle=10
+#kylin.env.zookeeper-connect-string=192.168.100.32:2181,192.168.100.31:2181,192.168.100.10:2181
+#kap.storage.columnar.spark-conf.spark.executor.cores=2
+#kap.storage.columnar.spark-conf.spark.executor.instances=2
+#kap.storage.columnar.spark-conf.spark.driver.memory=1024m
+#kap.storage.columnar.spark-conf.spark.executor.memory=1024m
+#kap.channel.user=QingCloudMkt 
+
+
+#===============kylin.metadata.url Start============================================== 
+{{range $dir := lsdir "/hosts/yarn-master/"}}{{$mysqlip := printf "/hosts/yarn-master/%s/ip" $dir}} 
+#mysqlNodeIPinCluster={{getv $mysqlip}}
+	{{if eq (getv "/env/use_remote_mysql") "false"}}  
+kylin.metadata.url=kylin_default_instance@jdbc,url=jdbc:mysql://{{getv $mysqlip}}:3306/kylin?createDatabaseIfNotExist=true,username={{getv "/env/kylin_metastore_username" "kylin"}},password={{getv "/env/kylin_metastore_password" "kylin"}},maxActive=10,maxIdle=10 
+ 	{{else}} 
+kylin.metadata.url=kylin_default_instance@jdbc,url=jdbc:mysql://{{getv "/env/remote_mysql_ip"}}:3306/kylin?createDatabaseIfNotExist=true,username={{getv "/env/kylin_metastore_username" "kylin"}},password={{getv "/env/kylin_metastore_password" "kylin"}},maxActive=10,maxIdle=10 
+ 	{{end}} 
+{{end}} 
+#===============kylin.metadata.url End================================================
+
+
+#===============kylin.env.zookeeper-connect-string Start================================   
+{{range $service_name := lsdir "/links" | filter "zookeeper4kylin*"}}
+{{$port := getv (printf "/links/%s/cluster/endpoints/client/port" $service_name)}}
+kylin.env.zookeeper-connect-string={{range $i, $host := ls (printf "/links/%s/hosts" $service_name)}}{{$ip := (printf "/links/%s/hosts/%s/ip" $service_name $host)}}{{if $i}},{{end}}{{getv $ip}}:{{$port}}{{end}}
+{{end}}
+ 
+
+#===============kylin.env.zookeeper-connect-string End==================================
+
+kap.storage.columnar.spark-conf.spark.executor.cores={{getv "/env/kap.storage.columnar.spark-conf.spark.executor.cores"}}
+kap.storage.columnar.spark-conf.spark.executor.instances={{getv "/env/kap.storage.columnar.spark-conf.spark.executor.instances"}}
+kap.storage.columnar.spark-conf.spark.driver.memory={{getv "/env/kap.storage.columnar.spark-conf.spark.driver.memory"}}m
+kap.storage.columnar.spark-conf.spark.executor.memory={{getv "/env/kap.storage.columnar.spark-conf.spark.executor.memory"}}m
+kap.kyaccount.site.url=https://account.kyligence.io 
+
+
+#***************KAP PLUS on Qingcloud End*************************************************************************
+
+
+ 
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+

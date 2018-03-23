@@ -22,4 +22,3 @@ node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"slave\", \"NodeMan
 node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"Bigdata client\", \"\"],"{{end}}
 node_info=${node_info%,*}
 node_info=${node_info}"]}"
-echo $node_info

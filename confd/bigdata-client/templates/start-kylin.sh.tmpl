@@ -1,0 +1,53 @@
+#!/bin/bash
+source /etc/profile
+
+#check1:check hive is ready or not 
+/opt/hive/bin/hive -e "show databases;"    
+if [  $? -ne 0 ] 
+then 
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - Warning - HIVE is not running,could not start Kylin." 1>>$KYLINAPP_LOG  2>&1
+	exit 0 
+else
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - INFO - HIVE is running,could start Kylin." 1>>$KYLINAPP_LOG  2>&1
+fi 
+ 
+#check2:check zookeeper env param is setted or not.  
+zkport=""
+{{range $service_name := lsdir "/links" | filter "zookeeper4kylin*"}}
+{{$port := getv (printf "/links/%s/cluster/endpoints/client/port" $service_name)}}  
+zkport={{$port}}
+{{end}} 
+
+if [ "$zkport"x == ""x ]
+then
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - Error - zookeeper4kylin does not exit,could not start Kylin." 1>>$KYLINAPP_LOG  2>&1
+	exit 1	
+fi 
+  
+source /home/kylin/.profile    
+USER=kylin /opt/kap-plus/bin/kylin.sh start  1>>$KYLINAPP_LOG  2>&1
+
+pid=`ps ax | grep kylin | grep -v grep | grep -v 'su kylin' | grep -v 'bash' | grep 'Dkylin.hive.dependency' | awk '{print $1}'` 
+if [ "$pid"x == ""x ]
+then 
+	 echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - Error - Start Kylin Service failed." 1>>$KYLINAPP_LOG  2>&1	 
+     exit 1
+fi 
+echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - INFO - Started Kylin Service successfully." 1>>$KYLINAPP_LOG  2>&1
+ 
+ 
+ 
+USER=kylin /opt/kyanalyzer/start-analyzer.sh  1>>$KYLINAPP_LOG  2>&1 
+pid=`ps ax | grep kyanalyzer | grep -v grep  | awk '{print $1}'`
+if [ "$pid"x == ""x ]
+then 
+	 echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - Error - Start kyanalyzer Service failed." 1>>$KYLINAPP_LOG  2>&1	 
+     exit 1
+fi  
+echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - INFO - Started KyAnalyzer Service successfully." 1>>$KYLINAPP_LOG  2>&1 
+  
+
+exit 0
+
+
+ 

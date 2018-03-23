@@ -1,0 +1,50 @@
+#!/bin/bash 
+source /etc/profile
+
+
+if [  -f "/root/ignore_agent_enable" ]
+then 
+   echo "`date '+%Y-%m-%d %H:%M:%S'` - check-kylin.sh - INFO - 在/root目录下发现ignore_agent_enable文件，check-kylin.sh始终返回0。" 1>>$KYLINAPP_LOG  2>&1 
+   exit 0
+fi 
+
+
+if [  -f "/root/ignore_agent_action" ]
+then    
+   echo "`date '+%Y-%m-%d %H:%M:%S'` - check-kylin.sh - INFO - 在/root目录下发现ignore_agent_action文件，check-kylin.sh始终返回0。" 1>>$KYLINAPP_LOG  2>&1 
+   exit 0
+fi 
+
+ret_val=0  
+
+{{if eq (getv "/env/enable_kylin") "true"}}   
+	pid=`ps ax | grep kylin | grep -v grep | grep -v 'su kylin'| grep -v 'bash' | grep 'Dkylin.hive.dependency' | awk '{print $1}'`  
+	if [ "$pid"x == ""x ]
+	then   
+	    echo "`date '+%Y-%m-%d %H:%M:%S'` - check-kylin.sh - Error - Kylin is not running!" 1>>$KYLINAPP_LOG  2>&1 
+	    ret_val=$[$ret_val + 1]
+	    exit $ret_val   
+	fi 
+	  
+	
+	#如果创建集群后，remove了zookeeper的依赖服务，kylin运行会出问题，Kylin里任务调度会用到zk，分布式锁  
+		 zkport=""
+	{{range $service_name := lsdir "/links" | filter "zookeeper4kylin*"}}
+	{{$port := getv (printf "/links/%s/cluster/endpoints/client/port" $service_name)}} 
+	     zkport={{$port}}		
+	{{end}}
+	
+	if [ "$zkport"x == ""x ]
+	then
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - check-kylin.sh - Error - zookeeper4kylin does not exit,Kylin is running with issue.." 1>>$KYLINAPP_LOG  2>&1
+		ret_val=$[$ret_val + 1]
+		exit $ret_val  
+	fi 
+ 
+{{else}}	
+
+
+	exit $ret_val
+
+{{end}}  
+ 

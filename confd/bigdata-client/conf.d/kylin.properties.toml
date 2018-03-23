@@ -1,0 +1,7 @@
+[template]
+src = "kylin.properties.tmpl"
+dest = "/opt/kap-plus/conf/kylin.properties"
+keys = ["/",]
+reload_cmd = "/opt/kap-plus/sbin/action-kylin.sh restart"  
+
+
