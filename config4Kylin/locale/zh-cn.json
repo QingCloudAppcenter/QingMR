@@ -154,5 +154,21 @@
 	"restart-hive" : "重启 Hive 服务",
 	"Role" : "角色",
 	"Running service" : "运行服务",
-	"node_details_tab" : "服务详情"
+	"node_details_tab" : "服务详情",
+	"Enable Kylin" : "开启 Kylin",
+	"Cores number of each spark executer for query" : "单个查询Spark Executor所用CPU核数",
+	"Number of spark executers for query" : "查询Spark Executor数",
+	"Memory size of spark driver for query" : "查询Spark Driver内存大小",
+	"Memory size of each spark executer for query" : "单个查询Spark Executor内存大小",
+	"Launch/shutdown Kylin service on bigdata client." : "开启/关闭 Kylin 服务,注意当'开启Kylin'为true时，'依赖服务ZooKeeper'为必填，'开启 Hive'参数也必须是true",
+	"Default to kylin for local mysql" : "本地 mysql 数据库默认为 kylin",
+	"Kylin Metastore username" : "Kylin Metadata 用户名",
+	"Kylin Metastore password" : "Kylin Metadata 密码",
+	"The zookeeper service for kylin service on bigdata client." : "Kylin 所依赖的ZooKeeper集群,注意当'开启Kylin'为true时为必填",
+	"Resource Configuration":"资源配置类型",
+	"Basic":"基础版",
+	"Premium":"高级版",
+	"Kylin":"Kylin版",
+	"The resource configuration of the service":"资源配置类型，可以快速定义集群的资源配置类型。"  ,
+	"zookeeper4kylin":"ZooKeeper"
 }

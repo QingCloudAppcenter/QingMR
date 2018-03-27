@@ -12,7 +12,8 @@ fi
 
 
 {{if eq (getv "/env/enable_kylin") "false"}}  
-echo "`date '+%Y-%m-%d %H:%M:%S'` - enable-kylin.sh - INFO - enable_kylin is false，不启动Kylin，退出！" 1>>$KYLINAPP_LOG  2>&1
+echo "`date '+%Y-%m-%d %H:%M:%S'` - enable-kylin.sh - INFO - enable_kylin is false，不启动Kylin。" 1>>$KYLINAPP_LOG  2>&1 
+/opt/kap-plus/sbin/action-kylin.sh stop 
 exit 0
 {{end}}	
 
@@ -115,17 +116,19 @@ fi
 	echo "`date '+%Y-%m-%d %H:%M:%S'` - enable-kylin.sh - INFO - Chmod 777 hdfs dir /tmp" 1>>$KYLINAPP_LOG  2>&1 
 	
 	rm /root/ignore_agent_enable  
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - enable-kylin.sh - INFO - 删除/root/ignore_agent_enable,hive启动后恢复健康检查。" 1>>$KYLINAPP_LOG  2>&1   
- 
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - enable-kylin.sh - INFO - 删除/root/ignore_agent_enable,hive启动后恢复健康检查。" 1>>$KYLINAPP_LOG  2>&1    
 	
 	
-	/opt/kap-plus/sbin/action-kylin.sh start 
-	#echo "`date '+%Y-%m-%d %H:%M:%S'` - enable-kylin.sh - INFO - Enabled Kylin Service! "  1>>$KYLINAPP_LOG  2>&1  
-	   
-{{else}}	
-
-    /opt/kap-plus/sbin/action-kylin.sh stop   	 
-    #echo "`date '+%Y-%m-%d %H:%M:%S'` - enable-kylin.sh - INFO - Disabled Kylin Service! "  1>>$KYLINAPP_LOG  2>&1   
+	/opt/kap-plus/sbin/action-kylin.sh start
+	
+	
+	if [ ! -f "/opt/kap-plus/bin/sample_loaded" ]
+	then 
+		/opt/kap-plus/bin/sample.sh   
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - enable-kylin.sh - INFO - 初始化KAP导入sample数据." 1>>$KYLINAPP_LOG  2>&1  
+		touch  /opt/kap-plus/bin/sample_loaded
+	    echo "`date '+%Y-%m-%d %H:%M:%S'` - enable-kylin.sh - INFO - 初始化KAP导入sample数据完成，创建/opt/kap-plus/bin/sample_loaded标识文件." 1>>$KYLINAPP_LOG  2>&1  
+	fi  
 	
 {{end}}  
  

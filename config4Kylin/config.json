@@ -11,7 +11,7 @@
                         "label": "name",
                         "description": "The name of the service",
                         "type": "string",
-                        "default": "SparkMR",
+                        "default": "Kyligence Analytics Platform",
                         "required": "no"
                     },
                     {
@@ -49,9 +49,9 @@
 							"app-tg3lbp0a": [ 
 							]
 						},
-						"allowed_operations": ["add", "modify", "delete"],
+						"allowed_operations": ["modify"],
 						"default": "",
-						"required": "no"
+						"required": "yes"
 					},
 	        	    {
 		                "key": "external_service",
@@ -261,7 +261,7 @@
                                 "description": "CPUs of each node",
                                 "type": "integer",
                                 "default": 2,
-                                "range": [1,2,4,8,12,16],
+                                "range": [2,4,8,12,16],
                                 "required": "yes",
                                 "resource_group": [2, 4, 4]
                             },
@@ -271,7 +271,7 @@
                                 "description": "memory of each node (in MB)",
                                 "type": "integer",
                                 "default": 4096,
-                                "range": [2048,4096,6144,8192,12288,16384,24576,32768,40960,49152,65536],
+                                "range": [4096,6144,8192,12288,16384,24576,32768,40960,49152,65536],
                                 "required": "yes",
                                 "resource_group": [4096,16384, 16384]
                             },
@@ -329,7 +329,7 @@
                     "label": "Enable Hive",
                     "description": "Launch/shutdown Hive Metastore and HiveServer2 services",
                     "type": "boolean",
-                    "default": false,
+                    "default": true,
                     "range": [true, false],
                     "required": "yes"
                 }, 
@@ -338,7 +338,7 @@
                     "label": "Enable Kylin",
                     "description": "Launch/shutdown Kylin service on bigdata client.",
                     "type": "boolean",
-                    "default": false,
+                    "default": true,
                     "range": [true, false],
                     "required": "yes"
                 },

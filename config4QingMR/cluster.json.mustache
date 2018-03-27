@@ -2,12 +2,13 @@
         "name": {{cluster.name}},
         "description": {{cluster.description}},
         "vxnet": {{cluster.vxnet}},
-        "links": {
-            "external_service":{{cluster.external_service}}
-        },
-		"upgrade_policy": [
-            "appv-zs79n0vo"
+        "upgrade_policy": [
+            "appv-zs79n0vo","appv-oc2it1sa"
     	],
+        "links": {
+        	"zookeeper4kylin": {{cluster.zookeeper4kylin}},
+            "external_service":{{cluster.external_service}}            
+        },		
         "nodes": [            
             {
                 "role": "hdfs-master",
@@ -132,7 +133,7 @@
                 "container": {
             	   "zone": "sh1a",
             	   "type": "kvm",
-            	   "image": "img-jux5u9eq"
+            	   "image": "img-std87no7"
             	},
             	"instance_class": {{cluster.yarn-master.instance_class}},
             	"count": 1,
@@ -350,8 +351,7 @@
 						"order": 2,
                         "cmd": "USER=root /opt/spark/sbin/action-slave.sh;/opt/hadoop/sbin/copy-custom-files.sh"
                     },
-		    		"destroy": {
-                		"nodes_to_execute_on": 1,
+		    		"destroy": { 
                 		"cmd": "USER=root /opt/spark/sbin/stop-slave.sh"
            	    	}
                 },
@@ -457,18 +457,37 @@
         	    	"display": ["Storage", "Blocks", "Gc", "Containers", "NMMemory", "Compute", "WorkerMemory"]
 	        	},
 				"advanced_actions": ["change_vxnet", "scale_horizontal"]
-            },
+            }, 
 	    	{
                 "role": "bigdata-client",
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-5bzyho87"
+                    "image": "img-p69ipjv3"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},
                 "cpu": {{cluster.bigdata-client.cpu}},
                 "memory": {{cluster.bigdata-client.memory}},
+                "services": { 
+                	"start": {
+						"order": 3,
+                        "cmd": "/opt/kap-plus/sbin/action-kylin.sh start"
+                    },
+		    		"stop": { 
+                		"cmd": "/opt/kap-plus/sbin/action-kylin.sh stop"
+           	    	}
+                },
+                "health_check": {
+	            "enable": true,
+	            "interval_sec": 60,
+	            "timeout_sec": 30,
+	            "action_timeout_sec": 60,
+	            "healthy_threshold": 2,
+	            "unhealthy_threshold": 2,
+	            "check_cmd": "/opt/kap-plus/sbin/check-kylin.sh",
+	            "action_cmd": "/opt/kap-plus/sbin/check-kylin-action.sh"
+	        	},               
                 "volume": {
                     "size": {{cluster.bigdata-client.volume_size}},
                     "mount_point": "/data",
@@ -483,16 +502,19 @@
 		"display_tabs": {
         	"node_details_tab": {
         	    "cmd": "/opt/qingcloud/sbin/get_node_detail.sh",
-        	    "roles_to_execute_on": ["bigdata-client", "hdfs-master", "yarn-master", "slave"],
+        	    "roles_to_execute_on": ["yarn-master"],
         	    "timeout": 10
         	}
     	},
-        "env": {
+        "env": {        
       		"enable_hive": {{env.enable_hive}},
        		"use_remote_mysql": {{env.use_remote_mysql}},
 			"remote_mysql_ip": {{env.remote_mysql_ip}},
 			"hive_metastore_username": {{env.hive_metastore_username}},
 			"hive_metastore_password": {{env.hive_metastore_password}},
+            "enable_kylin": {{env.enable_kylin}},           
+            "kylin_metastore_username": {{env.kylin_metastore_username}},
+			"kylin_metastore_password": {{env.kylin_metastore_password}},
             "QingStor": {{env.QingStor}},
 	    	"QingStor_zone": {{env.QingStor_zone}},
             "access_key": {{env.access_key}},
@@ -514,7 +536,7 @@
             "dfs.namenode.handler.count": {{env.dfs_namenode_handler_count}},
             "dfs.datanode.handler.count": {{env.dfs_datanode_handler_count}},
             "dfs.replication":{{env.dfs_replication}},
-            "fs.trash.interval": {{env.fs_trash_interval}},
+            "fs.trash.interval": {{env.fs_trash_interval}},            
             "yarn.resourcemanager.scheduler.class": {{env.yarn.resourcemanager.scheduler.class}},
 			"yarn.resourcemanager.client.thread-count": {{env.yarn.resourcemanager.client.thread-count}},
 			"yarn.resourcemanager.amlauncher.thread-count": {{env.yarn.resourcemanager.amlauncher.thread-count}},
@@ -546,7 +568,11 @@
             "yarn.log-aggregation.retain-seconds": {{env.yarn_log-aggregation_retain-seconds}},
 			"yarn.log-aggregation.retain-check-interval-seconds": {{env.yarn.log-aggregation.retain-check-interval-seconds}},
 			"yarn.nodemanager.remote-app-log-dir": {{env.yarn.nodemanager.remote-app-log-dir}},
-			"yarn.nodemanager.remote-app-log-dir-suffix": {{env.yarn.nodemanager.remote-app-log-dir-suffix}}
+			"yarn.nodemanager.remote-app-log-dir-suffix": {{env.yarn.nodemanager.remote-app-log-dir-suffix}},
+			"kap.storage.columnar.spark-conf.spark.executor.cores": {{env.kap.storage.columnar.spark-conf.spark.executor.cores}},
+            "kap.storage.columnar.spark-conf.spark.executor.instances": {{env.kap.storage.columnar.spark-conf.spark.executor.instances}},
+            "kap.storage.columnar.spark-conf.spark.driver.memory": {{env.kap.storage.columnar.spark-conf.spark.driver.memory}},
+            "kap.storage.columnar.spark-conf.spark.executor.memory": {{env.kap.storage.columnar.spark-conf.spark.executor.memory}}		 
         },
         "endpoints": {
             "hdfs.client_port": {
