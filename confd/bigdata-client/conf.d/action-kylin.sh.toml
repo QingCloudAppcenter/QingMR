@@ -1,5 +1,0 @@
-[template]
-src = "action-kylin.sh.tmpl"
-dest = "/opt/kap-plus/sbin/action-kylin.sh"
-keys = ["/",]  
-

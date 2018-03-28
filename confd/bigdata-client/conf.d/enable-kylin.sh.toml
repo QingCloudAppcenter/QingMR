@@ -1,5 +1,0 @@
-[template]
-src = "enable-kylin.sh.tmpl"
-dest = "/opt/kap-plus/sbin/enable-kylin.sh"
-keys = ["/",]
-reload_cmd = "/opt/kap-plus/sbin/enable-kylin.sh"  

@@ -457,8 +457,12 @@ kap.kyaccount.site.url=https://account.kyligence.io
 #***************KAP PLUS on Qingcloud End*************************************************************************
 
 
- 
-  
+enable_kylin={{getv "/env/enable_kylin"}}  
+enable_hive={{getv "/env/enable_hive"}}  
+{{range $service_name := lsdir "/links" | filter "zookeeper4kylin*"}}
+{{$port := getv (printf "/links/%s/cluster/endpoints/client/port" $service_name)}}  
+zkport={{$port}}
+{{end}}   
 
 
 

@@ -3,3 +3,4 @@ src = "start-kylin.sh.tmpl"
 dest = "/opt/kap-plus/sbin/start-kylin.sh"
 keys = ["/",]   
  
+  

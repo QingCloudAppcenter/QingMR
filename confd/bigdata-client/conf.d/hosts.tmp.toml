@@ -1,7 +1,5 @@
-#it is a fix and not apply in production.
-#The issue is: If update hosts file directly it will rewrite the information(eg: metadata server) by appcenter or by users.
 [template]
 src = "hosts.tmp.tmpl"
 dest = "/opt/qingcloud/conf/hosts.tmp"
 keys = ["/",]
-reload_cmd = "/usr/bin/python /opt/qingcloud/sbin/reload-hosts.py"  
+reload_cmd = "/usr/bin/python /opt/qingcloud/sbin/reload-hosts.py"    
