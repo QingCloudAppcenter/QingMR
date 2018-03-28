@@ -11,6 +11,7 @@ then
     echo "`date '+%Y-%m-%d %H:%M:%S'` - stop-kylin.sh - INFO - Kylin Service is not running." 1>>$KYLINAPP_LOG  2>&1 
     exit 0	 
 else
+	#echo "`date '+%Y-%m-%d %H:%M:%S'` - stop-kylin.sh - INFO - StopKAP" 1>>$KYLINAPP_LOG  2>&1
 	$(StopKAP) 
 fi
 
@@ -21,6 +22,7 @@ then
     echo "`date '+%Y-%m-%d %H:%M:%S'` - stop-kylin.sh - INFO - KyAnalyzer Service is not running." 1>>$KYLINAPP_LOG  2>&1 
     exit 0	 
 else
+	#echo "`date '+%Y-%m-%d %H:%M:%S'` - stop-kylin.sh - INFO - StopKyAnalyzer" 1>>$KYLINAPP_LOG  2>&1
 	$(StopKyAnalyzer)
 fi
  

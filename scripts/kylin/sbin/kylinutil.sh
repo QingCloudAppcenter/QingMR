@@ -2,7 +2,8 @@
 
 function checkHiveIsRunning(){   
 	for i in {1..500}
-	do 
+	do
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Excute cmd:/opt/hive/bin/hive -e 'show databases;'" 1>>$KYLINAPP_LOG  2>&1 
 		/opt/hive/bin/hive -e "show databases;"  1>>$KYLINAPP_LOG  2>&1  
 		if [  $? -ne 0 ] 
 		then 
@@ -23,7 +24,7 @@ function checkHiveIsRunning(){
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - checkHiveIsRunning:HIVE is Runing!" 1>>$KYLINAPP_LOG  2>&1
 		isRunning="true"  
 	fi 
-	#echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - isRunning=$isRunning" 1>>$KYLINAPP_LOG  2>&1
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - isRunning=$isRunning" 1>>$KYLINAPP_LOG  2>&1
 	echo $isRunning    
 }
 
@@ -113,9 +114,9 @@ function DealWithHDFS4Kylin(){
 
 
 
-function loadSampleData4Kylin(){   
-	/opt/kap-plus/bin/sample.sh   1>>$KYLINAPP_LOG  2>&1
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Load sample data for kylin service init." 1>>$KYLINAPP_LOG  2>&1  
+function loadSampleData4Kylin(){ 
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Excute cmd: /opt/kap-plus/bin/sample.sh" 1>>$KYLINAPP_LOG  2>&1  
+	/opt/kap-plus/bin/sample.sh   1>>$KYLINAPP_LOG  2>&1   
 	touch  /opt/kap-plus/sbin/sample_loaded
 	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Load sample data for kylin service init finished,create /opt/kap-plus/bin/sample_loadedFlag file." 1>>$KYLINAPP_LOG  2>&1  
 	
