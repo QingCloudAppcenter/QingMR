@@ -382,7 +382,8 @@
                     "description": "Default to kylin for local mysql",
                     "type": "string",
                     "default": "kylin",
-                    "required": "no"
+                    "required": "no",
+           			"changeable": false
                 },
                 {
                     "key": "kylin_metastore_password",
@@ -390,7 +391,8 @@
                     "description": "Default to kylin for local mysql",
                     "type": "password",
                     "default": "kylin",
-                    "required": "no"
+                    "required": "no",
+           			"changeable": false
                 },
 		        {
             		"key": "QingStor",

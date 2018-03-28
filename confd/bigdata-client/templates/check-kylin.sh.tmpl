@@ -3,7 +3,7 @@ source /etc/profile
 
 if [  -f "/root/ignore_healthcheck" ]
 then 
-   echo "`date '+%Y-%m-%d %H:%M:%S'` - check-kylin.sh - INFO - 在/root目录下发现ignore_healthcheck文件，check-kylin.sh始终返回0。" 1>>$KYLINAPP_LOG  2>&1 
+   echo "`date '+%Y-%m-%d %H:%M:%S'` - check-kylin.sh - INFO - found /root/ignore_healthcheck Flag file, check-kylin.sh always return 0。" 1>>$KYLINAPP_LOG  2>&1 
    exit 0
 fi 
  

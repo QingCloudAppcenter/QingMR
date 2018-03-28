@@ -460,7 +460,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-2nun6zpm"
+                    "image": "img-sytsfw87"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},
@@ -468,11 +468,14 @@
                 "memory": {{cluster.bigdata-client.memory}},
                 "services": { 
                 	"start": {
-						"order": 3,
+						"order": 2,
                         "cmd": "/opt/kap-plus/sbin/action-kylin.sh start"
                     },
 		    		"stop": { 
                 		"cmd": "/opt/kap-plus/sbin/action-kylin.sh stop"
+           	    	},
+           	    	"restart": { 
+                		"cmd": "/opt/kap-plus/sbin/action-kylin.sh restart"
            	    	}
                 },
                 "health_check": {

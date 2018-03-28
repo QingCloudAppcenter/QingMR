@@ -471,11 +471,14 @@
                 "memory": {{cluster.bigdata-client.memory}},
                 "services": { 
                 	"start": {
-						"order": 3,
+						"order": 2,
                         "cmd": "/opt/kap-plus/sbin/action-kylin.sh start"
                     },
 		    		"stop": { 
                 		"cmd": "/opt/kap-plus/sbin/action-kylin.sh stop"
+           	    	},
+           	    	"restart": { 
+                		"cmd": "/opt/kap-plus/sbin/action-kylin.sh restart"
            	    	}
                 },
                 "health_check": {

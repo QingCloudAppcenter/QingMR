@@ -3,7 +3,7 @@ source /etc/profile
 source /home/kylin/.profile  
 source /opt/kap-plus/sbin/kylinutil.sh
 
-######################################################################################################################################## 
+#================================================================================== 
 enable_kylin={{getv "/env/enable_kylin"}}
 enable_hive={{getv "/env/enable_hive"}}  
  
@@ -12,6 +12,7 @@ zkport=""
 {{$port := getv (printf "/links/%s/cluster/endpoints/client/port" $service_name)}}  
 zkport={{$port}}
 {{end}}  
+#==================================================================================
 
 #检查参数配置是否正确,正确启动服务，不正确给出错误信息到日志。  
 #0.参数设置正确，启动KAP和KyAnalyzer服务
