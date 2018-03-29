@@ -26,7 +26,7 @@
 			            "label": "Resource Configuration",
 			            "description": "The resource configuration of the service",
 			            "type": "string",
-			            "default": "Basic",
+			            "default": "Kylin",
 			            "range": ["Basic", "Premium", "Kylin"]
 			         },
                     {
