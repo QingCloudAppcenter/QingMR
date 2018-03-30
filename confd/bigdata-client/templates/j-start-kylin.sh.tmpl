@@ -19,30 +19,30 @@ zkport={{$port}}
 if [ "$enable_kylin"x == "true"x ] && [ "$enable_hive"x == "true"x ] && [ "$zkport"x != ""x ]
 then
 	#启动前检查Hive 是否running，检查等待时间是500s	  
-	isHiveRunning=$(checkHiveIsRunning)
+	isHiveRunning=$(waitHiveReady)
 	 
 	if [ "$isHiveRunning"x == "true"x ]
 	then
-		#echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - INFO - StartKAP." 1>>$KYLINAPP_LOG  2>&1
+		#echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - INFO - StartKAP." 1>>$KYLINAPP_LOG  2>&1
 		$(StartKAP)
 		if [  $? -ne 0 ] 
 		then 
-			echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - Error - Start Kylin Service failed." 1>>$KYLINAPP_LOG  2>&1	 
+			echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - Error - Start Kylin Service failed." 1>>$KYLINAPP_LOG  2>&1	 
 			exit 1  
 		fi
 		
-		#echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - INFO - StartKyAnalyzer." 1>>$KYLINAPP_LOG  2>&1
+		#echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - INFO - StartKyAnalyzer." 1>>$KYLINAPP_LOG  2>&1
 		$(StartKyAnalyzer) 
 		if [  $? -ne 0 ] 
 		then 
-			echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - Error - Start kyanalyzer Service failed." 1>>$KYLINAPP_LOG  2>&1	 
+			echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - Error - Start kyanalyzer Service failed." 1>>$KYLINAPP_LOG  2>&1	 
 			exit 2  
 		fi
 		
-		echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - INFO - Start KAP and kyanalyzer Service successfully." 1>>$KYLINAPP_LOG  2>&1 
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - INFO - Start KAP and kyanalyzer Service successfully." 1>>$KYLINAPP_LOG  2>&1 
 		exit 0 
 	else
-		echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - Error - Wait hive to start for 500s,but hive is still not running,kylin can not start." 1>>$KYLINAPP_LOG  2>&1 
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - Error - Wait hive to start for 500s,but hive is still not running,kylin can not start." 1>>$KYLINAPP_LOG  2>&1 
 		exit 3
 	fi 
 	 
@@ -51,7 +51,7 @@ fi
 #1.设置enable_kylin为false，检查是否有启动的kylin服务，如果有就关闭，如果没有直接退出。   
 if [ "$enable_kylin"x == "false"x ]
 then
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - INFO - enable_kylin is disabled,No need to start Kylin. " 1>>$KYLINAPP_LOG  2>&1 
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - INFO - enable_kylin is disabled,No need to start Kylin. " 1>>$KYLINAPP_LOG  2>&1 
 	/opt/kap-plus/sbin/stop-kylin.sh  
 	exit 0	
 fi  
@@ -60,20 +60,20 @@ fi
 #2.设置enable_kylin为true,enable_hive 为false，参数错误，启动失败  
 if [ "$enable_kylin"x == "true"x ] && [ "$enable_hive"x == "false"x ]
 then
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - Error - Wrong user parameters:hive is disabled,can not start Kylin!" 1>>$KYLINAPP_LOG  2>&1 
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - Error - Wrong user parameters:hive is disabled,can not start Kylin!" 1>>$KYLINAPP_LOG  2>&1 
 	exit 4 
 fi  
 
 #3.设置enable_kylin为true,设置enable_hive为true,zkport 为未设置，参数错误，启动失败。
 if [ "$enable_kylin"x == "true"x ] && [ "$enable_hive"x == "true"x ] && [ "$zkport"x == ""x ]
 then
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - Error - Wrong user parameters:no zk service,can not start Kylin!" 1>>$KYLINAPP_LOG  2>&1 
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - Error - Wrong user parameters:no zk service,can not start Kylin!" 1>>$KYLINAPP_LOG  2>&1 
 	exit 5
 fi 
  	 
 
 #4.其他未考虑到的参数设置都为错误设置，直接报错退出。
-echo "`date '+%Y-%m-%d %H:%M:%S'` - start-kylin.sh - Error - Wrong user parameters:other wrong settings,can not start Kylin!" 1>>$KYLINAPP_LOG  2>&1 
+echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - Error - Wrong user parameters:other wrong settings,can not start Kylin!" 1>>$KYLINAPP_LOG  2>&1 
 exit 6
  
   
