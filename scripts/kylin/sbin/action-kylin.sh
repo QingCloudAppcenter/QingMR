@@ -17,20 +17,31 @@ then
 	then 
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - Error -exit code=$?, Start Kylin Service failed." 1>>$KYLINAPP_LOG  2>&1	
 		rm /root/ignore_healthcheck
-		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - rm /root/ignore_healthcheck to recovery appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1  
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - rm /root/ignore_healthcheck to recovery appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1 
+		
+		if [  -f "/opt/kap-plus/sbin/neverStartFlag" ]
+		then 
+			rm /opt/kap-plus/sbin/neverStartFlag
+			echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - After cluster init, remove the neverStartFlag when start service." 1>>$KYLINAPP_LOG  2>&1
+		fi
+		 
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1 
 		exit 1  
 	fi
 	
-	if [ ! -f "/opt/kap-plus/sbin/hdfsfolder_created" ]
-	then 
-		$(DealWithHDFS4Kylin) 
-	fi
-	
-	if [ ! -f "/opt/kap-plus/sbin/sample_loaded" ]
-	then 
-		$(loadSampleData4Kylin) 
-	fi
+	enable_kylin=$(curl -s http://metadata/self/env/enable_kylin)
+	if [ "$enable_kylin"x == "true"x ]
+	then
+		if [ ! -f "/opt/kap-plus/sbin/hdfsfolder_created" ]
+		then 
+			$(DealWithHDFS4Kylin) 
+		fi
+		
+		if [ ! -f "/opt/kap-plus/sbin/sample_loaded" ]
+		then 
+			$(loadSampleData4Kylin) 
+		fi 
+	fi 
 	
 	if [  -f "/opt/kap-plus/sbin/neverStartFlag" ]
 	then 
@@ -86,8 +97,18 @@ then
 fi  
 
 
+
 rm /root/ignore_healthcheck
 echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - rm /root/ignore_healthcheck to recovery appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1  
+
+if [  -f "/opt/kap-plus/sbin/neverStartFlag" ]
+then 
+	rm /opt/kap-plus/sbin/neverStartFlag
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - After cluster init, remove the neverStartFlag when start service." 1>>$KYLINAPP_LOG  2>&1
+fi
+
+
+
 echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1
 
 

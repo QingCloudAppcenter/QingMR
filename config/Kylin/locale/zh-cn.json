@@ -168,7 +168,7 @@
 	"Resource Configuration":"资源配置类型",
 	"Basic":"基础版",
 	"Premium":"高级版",
-	"Kylin":"Kylin版",
+	"Kylin":"Kylin",
 	"The resource configuration of the service":"资源配置类型，可以快速定义集群的资源配置类型。"  ,
 	"zookeeper4kylin":"ZooKeeper"
 }

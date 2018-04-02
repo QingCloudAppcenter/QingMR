@@ -27,14 +27,17 @@
                 "passphraseless":"ssh-rsa",
                 "services": {
                     "init": {
-                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;mkdir -p /data/hadoop;/opt/hadoop/bin/hdfs namenode -format -force"
+                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;mkdir -p /data/hadoop;/opt/hadoop/bin/hdfs namenode -format -force",
+                        "timeout": 3600
                     },
                     "start": {
 					"order": 0,
-                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/start-dfs.sh"
+                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/start-dfs.sh",
+                        "timeout": 3600
                     },
                     "stop": {
-                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/stop-dfs.sh"
+                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/stop-dfs.sh",
+                        "timeout": 3600
                     },
                     "scale_in": {
                         "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/exclude-node.sh",
@@ -147,14 +150,17 @@
             	"services": {
 					"init": {
 						"post_start_service": true,
-						"cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/bin/hdfs dfs -chmod -R 777 /tmp/"
+						"cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/bin/hdfs dfs -chmod -R 777 /tmp/",
+						"timeout": 3600
 					},
 					"start": {
 						"order": 1,
-						"cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/start-all-services.sh;/opt/hadoop/sbin/copy-custom-files.sh"
+						"cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/start-all-services.sh;/opt/hadoop/sbin/copy-custom-files.sh",
+						"timeout": 3600
 					},
 					"stop": {
-						"cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/stop-all-services.sh"
+						"cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/stop-all-services.sh",
+						"timeout": 3600
 					},
 					"scale_in": {
 						"cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/refresh-yarn-nodes.sh",
@@ -162,11 +168,13 @@
 					},
 					"update-yarn-scheduler": {
 						"type" : "custom",
-						"cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/copy-custom-files.sh"
+						"cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/copy-custom-files.sh",
+						"timeout": 3600
 					},
 					"restart-hive": {
 						"type" : "custom",
-						"cmd": "export JAVA_HOME=/usr/jdk;/opt/hive/sbin/restart-hive.sh"
+						"cmd": "export JAVA_HOME=/usr/jdk;/opt/hive/sbin/restart-hive.sh",
+						"timeout": 3600
 					}
             	},
 	        	"health_check": {
@@ -348,10 +356,12 @@
 				"services": {
                     "start": {
 						"order": 2,
-                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/spark/sbin/action-slave.sh;/opt/hadoop/sbin/copy-custom-files.sh"
+                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/spark/sbin/action-slave.sh;/opt/hadoop/sbin/copy-custom-files.sh",
+                        "timeout": 3600
                     },
 		    		"destroy": { 
-                		"cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/spark/sbin/stop-slave.sh"
+                		"cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/spark/sbin/stop-slave.sh",
+                		"timeout": 3600
            	    	}
                 },
 	        	"health_check": {
@@ -462,7 +472,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-mzo8w9v3"
+                    "image": "img-ytw5wckk"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},
@@ -472,13 +482,15 @@
                 	"start": {
 						"order": 2,
                         "cmd": "/opt/kap-plus/sbin/action-kylin.sh start",
-                        "timeout": 86400
+                        "timeout": 3600
                     },
 		    		"stop": { 
-                		"cmd": "/opt/kap-plus/sbin/action-kylin.sh stop"
+                		"cmd": "/opt/kap-plus/sbin/action-kylin.sh stop",
+                		"timeout": 3600
            	    	},
            	    	"restart": { 
-                		"cmd": "/opt/kap-plus/sbin/action-kylin.sh restart"
+                		"cmd": "/opt/kap-plus/sbin/action-kylin.sh restart",
+                		"timeout": 3600
            	    	}
                 },
                 "health_check": {
