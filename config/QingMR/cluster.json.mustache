@@ -2,6 +2,9 @@
         "name": {{cluster.name}},
         "description": {{cluster.description}},
         "vxnet": {{cluster.vxnet}},
+        "upgrade_policy": [
+            "appv-zs79n0vo","appv-oc2it1sa"
+    	],
         "links": {
         	"zookeeper4kylin": {{cluster.zookeeper4kylin}},
             "external_service":{{cluster.external_service}}            
@@ -27,17 +30,17 @@
                 "passphraseless":"ssh-rsa",
                 "services": {
                     "init": {
-                        "cmd": "USER=root mkdir -p /data/hadoop;/opt/hadoop/bin/hdfs namenode -format -force"
+                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;mkdir -p /data/hadoop;/opt/hadoop/bin/hdfs namenode -format -force"
                     },
                     "start": {
 					"order": 0,
-                        "cmd": "USER=root /opt/hadoop/sbin/start-dfs.sh"
+                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/start-dfs.sh"
                     },
                     "stop": {
-                        "cmd": "USER=root /opt/hadoop/sbin/stop-dfs.sh"
+                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/stop-dfs.sh"
                     },
                     "scale_in": {
-                        "cmd": "USER=root /opt/hadoop/sbin/exclude-node.sh",
+                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/exclude-node.sh",
                         "timeout": 86400
                     }
                 },
@@ -147,26 +150,26 @@
             	"services": {
 					"init": {
 						"post_start_service": true,
-						"cmd": "USER=root /opt/hadoop/bin/hdfs dfs -chmod -R 777 /tmp/"
+						"cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/bin/hdfs dfs -chmod -R 777 /tmp/"
 					},
 					"start": {
 						"order": 1,
-						"cmd": "/opt/hadoop/sbin/start-all-services.sh;/opt/hadoop/sbin/copy-custom-files.sh"
+						"cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/start-all-services.sh;/opt/hadoop/sbin/copy-custom-files.sh"
 					},
 					"stop": {
-						"cmd": "/opt/hadoop/sbin/stop-all-services.sh"
+						"cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/stop-all-services.sh"
 					},
 					"scale_in": {
-						"cmd": "USER=root /opt/hadoop/sbin/refresh-yarn-nodes.sh",
+						"cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/refresh-yarn-nodes.sh",
 						"timeout": 86400
 					},
 					"update-yarn-scheduler": {
 						"type" : "custom",
-						"cmd": "/opt/hadoop/sbin/copy-custom-files.sh"
+						"cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/copy-custom-files.sh"
 					},
 					"restart-hive": {
 						"type" : "custom",
-						"cmd": "/opt/hive/sbin/restart-hive.sh"
+						"cmd": "export JAVA_HOME=/usr/jdk;/opt/hive/sbin/restart-hive.sh"
 					}
             	},
 	        	"health_check": {
@@ -348,10 +351,10 @@
 				"services": {
                     "start": {
 						"order": 2,
-                        "cmd": "USER=root /opt/spark/sbin/action-slave.sh;/opt/hadoop/sbin/copy-custom-files.sh"
+                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/spark/sbin/action-slave.sh;/opt/hadoop/sbin/copy-custom-files.sh"
                     },
 		    		"destroy": { 
-                		"cmd": "USER=root /opt/spark/sbin/stop-slave.sh"
+                		"cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/spark/sbin/stop-slave.sh"
            	    	}
                 },
 	        	"health_check": {
@@ -600,14 +603,6 @@
             },
             "livy.port": {
                 "port":8998,
-                "protocol": "tcp"
-            },
-            "kylin.port": {
-                "port":7070,
-                "protocol": "tcp"
-            },
-            "kyanalyzer.port": {
-                "port":8080,
                 "protocol": "tcp"
             }
         }
