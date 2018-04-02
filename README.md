@@ -1,10 +1,10 @@
 # 简介
 
-*SparkMR on QingCloud AppCenter* 将 *Apache Hadoop* 和 *Apache Spark* 集成到同一个集群服务中，以AppCenter云应用的形式交付给用户使用。
+*QingMR on QingCloud AppCenter* 将 *Apache Hadoop* 和 *Apache Spark* 集成到同一个集群服务中，以AppCenter云应用的形式交付给用户使用。
 >目前支持的Hadoop和Spark版本分别是 *Apache Hadoop 2.7.3* 和 *Apache Spark 2.2.0* 
 
 
-## *SparkMR* 的主要功能
+## *QingMR* 的主要功能
 
 - *Apache Hadoop*  提供的MapReduce、YARN、HDFS等功能
 - *Apache Spark* 提供的Spark streaming、Spark SQL、DataFrame and DataSet、Structed Streaming、MLlib、GraphX、SparkR等功能
@@ -22,6 +22,6 @@
 - 支持水平与垂直扩容
 - 可选Client节点（为了使用上述全部功能，建议Client节点为必选），全自动配置无需任何手动操作
 
-> 更多介绍详见[用户指南](http://appcenter-docs.qingcloud.com/user-guide/apps/docs/SparkMR/)
+> 更多介绍详见[用户指南](http://appcenter-docs.qingcloud.com/user-guide/apps/docs/QingMR/)
 
-> [SparkMR试用](https://appcenter.qingcloud.com/apps/app-6iuoe9qs)
+> [QingMR试用](https://appcenter.qingcloud.com/apps/app-6iuoe9qs)

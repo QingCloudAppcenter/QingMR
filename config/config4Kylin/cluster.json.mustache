@@ -37,7 +37,8 @@
                         "cmd": "USER=root /opt/hadoop/sbin/stop-dfs.sh"
                     },
                     "scale_in": {
-                        "cmd": "USER=root /opt/hadoop/sbin/exclude-node.sh"
+                        "cmd": "USER=root /opt/hadoop/sbin/exclude-node.sh",
+                        "timeout": 86400
                     }
                 },
         		"health_check": {
@@ -130,7 +131,7 @@
                 "container": {
             	   "zone": "sh1a",
             	   "type": "kvm",
-            	   "image": "img-qn0rywg0"
+            	   "image": "img-vw0z3yqd"
             	},
             	"instance_class": {{cluster.yarn-master.instance_class}},
             	"count": 1,
@@ -156,7 +157,8 @@
 						"cmd": "/opt/hadoop/sbin/stop-all-services.sh"
 					},
 					"scale_in": {
-						"cmd": "USER=root /opt/hadoop/sbin/refresh-yarn-nodes.sh"
+						"cmd": "USER=root /opt/hadoop/sbin/refresh-yarn-nodes.sh",
+						"timeout": 86400
 					},
 					"update-yarn-scheduler": {
 						"type" : "custom",
@@ -460,7 +462,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-7nsiltwh"
+                    "image": "img-mzo8w9v3"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},
