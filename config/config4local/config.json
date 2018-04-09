@@ -11,7 +11,7 @@
                         "label": "name",
                         "description": "The name of the service",
                         "type": "string",
-                        "default": "Kyligence Analytics Platform",
+                        "default": "SparkMR",
                         "required": "no"
                     },
                     {
@@ -26,8 +26,8 @@
 			            "label": "Resource Configuration",
 			            "description": "The resource configuration of the service",
 			            "type": "string",
-			            "default": "Kylin",
-			            "range": ["Kylin"]
+			            "default": "Basic",
+			            "range": ["Basic", "Premium", "Kylin"]
 			         },
                     {
                         "key": "vxnet",
@@ -49,9 +49,9 @@
 							"app-tg3lbp0a": [ 
 							]
 						},
-						"allowed_operations": ["modify"],
+						"allowed_operations": ["add", "modify", "delete"],
 						"default": "",
-						"required": "yes"
+						"required": "no"
 					},
 	        	    {
 		                "key": "external_service",
@@ -76,7 +76,7 @@
                                 "default": 2,
                                 "range": [2,4,8,12,16],
                                 "required": "yes",
-                                "resource_group": [2]
+                                "resource_group": [2, 4, 2]
                             },
                             {
                                 "key": "memory",
@@ -86,7 +86,7 @@
                                 "default": 4096,
                                 "range": [2048,4096,6144,8192,12288,16384,24576,32768,40960,49152,65536],
                                 "required": "yes",
-                                "resource_group": [4096]
+                                "resource_group": [4096, 8192, 4096]
                             },
                             {
                                 "key": "instance_class",
@@ -96,7 +96,7 @@
                                 "default": 1,
                                 "range": [0,1],
                                 "required": "yes" ,
-                                "resource_group": [0]
+                                "resource_group": [0, 0, 0]
                             },
                             {
                                 "key": "volume_class",
@@ -106,7 +106,7 @@
                                 "default": 3,
                                 "range": [0,3],
                                 "required": "yes" ,
-                                "resource_group": [0]
+                                "resource_group": [0, 0, 0]
                             },
                             {
                                 "key": "volume_size",
@@ -135,7 +135,7 @@
                                 "default": 2,
                                 "range": [2,4,8,12,16],
                                 "required": "yes",
-                                "resource_group": [2]
+                                "resource_group": [2, 4, 2]
                             },
                             {
                                 "key": "memory",
@@ -145,7 +145,7 @@
                                 "default": 4096,
                                 "range": [2048,4096,6144,8192,12288,16384,24576,32768,40960,49152,65536],
                                 "required": "yes",
-                                "resource_group": [4096]
+                                "resource_group": [4096,8192, 4096]
                             },
                             {
                                 "key": "instance_class",
@@ -155,7 +155,7 @@
                                 "default": 1,
                                 "range": [0,1],
                                 "required": "yes" ,
-                                "resource_group": [ 0]
+                                "resource_group": [0, 0, 0]
                             },
                             {
                                 "key": "volume_class",
@@ -165,7 +165,7 @@
                                 "default": 3,
                                 "range": [0,3],
                                 "required": "yes",
-                                "resource_group": [ 0]
+                                "resource_group": [0, 0, 0]
                             },
                             {
                                 "key": "volume_size",
@@ -194,7 +194,7 @@
                                 "default": 4,
                                 "range": [2,4,8,12,16],
                                 "required": "yes",
-                                "resource_group": [4]
+                                "resource_group": [4, 8, 4]
                             },
                             {
                                 "key": "memory",
@@ -204,7 +204,7 @@
                                 "default": 8192,
                                 "range": [2048,4096,6144,8192,12288,16384,24576,32768,40960,49152,65536],
                                 "required": "yes",
-                                "resource_group": [8192]
+                                "resource_group": [8192,16384, 8192]
                             },
                             {
                                 "key": "count",
@@ -223,7 +223,7 @@
                                 "default": 1,
                                 "range": [0,1],
                                 "required": "yes" ,
-                                "resource_group": [0]
+                                "resource_group": [0, 0, 0]
                             },
                             {
                                 "key": "volume_class",
@@ -233,7 +233,7 @@
                                 "default": 3,
                                 "range": [0,3],
                                 "required": "yes",
-                                "resource_group": [0]
+                                "resource_group": [0, 0, 0]
                             },
                             {
                                 "key": "volume_size",
@@ -245,7 +245,7 @@
 			                	"min":	10,
 			                	"max":	1000,
                                 "required": "yes",
-                                "resource_group": [100]
+                                "resource_group": [10, 100, 100]
                             }
                         ]
                     },
@@ -261,9 +261,9 @@
                                 "description": "CPUs of each node",
                                 "type": "integer",
                                 "default": 2,
-                                "range": [2,4,8,12,16],
+                                "range": [1,2,4,8,12,16],
                                 "required": "yes",
-                                "resource_group": [4]
+                                "resource_group": [2, 4, 4]
                             },
                             {
                                 "key": "memory",
@@ -271,9 +271,9 @@
                                 "description": "memory of each node (in MB)",
                                 "type": "integer",
                                 "default": 4096,
-                                "range": [4096,6144,8192,12288,16384,24576,32768,40960,49152,65536],
+                                "range": [2048,4096,6144,8192,12288,16384,24576,32768,40960,49152,65536],
                                 "required": "yes",
-                                "resource_group": [16384]
+                                "resource_group": [4096,16384, 16384]
                             },
                             {
                                 "key": "count",
@@ -292,7 +292,7 @@
                                 "default":1,
                                 "range": [0,1],
                                 "required":"yes",
-                                "resource_group": [0]
+                                "resource_group": [0, 0, 0]
                             },
                             {
                                 "key": "volume_class",
@@ -302,7 +302,7 @@
                                 "default":3,
                                 "range": [0,3],
                                 "required":"yes",
-                                "resource_group": [0]
+                                "resource_group": [0, 0, 0]
                             },
                             {
                                 "key": "volume_size",
@@ -329,49 +329,18 @@
                     "label": "Enable Hive",
                     "description": "Launch/shutdown Hive Metastore and HiveServer2 services",
                     "type": "boolean",
-                    "default": true,
-                    "range": [true],
-                    "required": "no"
+                    "default": false,
+                    "range": [true, false],
+                    "required": "yes"
                 }, 
                 {
                     "key": "enable_kylin",
                     "label": "Enable Kylin",
                     "description": "Launch/shutdown Kylin service on bigdata client.",
                     "type": "boolean",
-                    "default": true,                    
-                    "range": [true],
-                    "required": "no"
-                },  {
-                    "key": "kap.storage.columnar.spark-conf.spark.executor.cores",
-                    "label": "kap.storage.columnar.spark-conf.spark.executor.cores",
-                    "description": "Cores number of each spark executer for query",
-                    "type": "integer",
-                    "default": 2, 
-                    "required":"yes"
-                } ,
-                {
-                    "key": "kap.storage.columnar.spark-conf.spark.executor.instances",
-                    "label": "kap.storage.columnar.spark-conf.spark.executor.instances",
-                    "description": "Number of spark executers for query",
-                    "type": "integer",
-                    "default": 2, 
-                    "required":"yes"
-                } ,
-                {
-                    "key": "kap.storage.columnar.spark-conf.spark.driver.memory",
-                    "label": "kap.storage.columnar.spark-conf.spark.driver.memory",
-                    "description": "Memory size of spark driver for query",
-                    "type": "integer",
-                    "default": 1024, 
-                    "required":"yes"
-                } ,
-                {
-                    "key": "kap.storage.columnar.spark-conf.spark.executor.memory",
-                    "label": "kap.storage.columnar.spark-conf.spark.executor.memory",
-                    "description": "Memory size of each spark executer for query",
-                    "type": "integer",
-                    "default": 1024, 
-                    "required":"yes"
+                    "default": false,
+                    "range": [true, false],
+                    "required": "yes"
                 },
                 {
                     "key": "use_remote_mysql",
@@ -468,7 +437,7 @@
 			        "type": "boolean",
 			        "default": false,
 		            "range": [true,false],
-		            "required":"no"
+		            "required":"yes"
 		        },
 		        {
                     "key": "spark_master_daemon_memory",
@@ -497,7 +466,7 @@
                     "type": "string",
                     "default": "python2",
                     "range": ["python2","python3"],
-                    "required":"no"
+                    "required":"yes"
                 },
                 {
                     "key": "spark_worker_cleanup_enabled",
@@ -903,8 +872,39 @@
                     "type": "string",
                     "default": "logs",
                     "required": "no"
-                }               
-              
+                },                
+                {
+                    "key": "kap.storage.columnar.spark-conf.spark.executor.cores",
+                    "label": "kap.storage.columnar.spark-conf.spark.executor.cores",
+                    "description": "Cores number of each spark executer for query",
+                    "type": "integer",
+                    "default": 2, 
+                    "required":"no"
+                } ,
+                {
+                    "key": "kap.storage.columnar.spark-conf.spark.executor.instances",
+                    "label": "kap.storage.columnar.spark-conf.spark.executor.instances",
+                    "description": "Number of spark executers for query",
+                    "type": "integer",
+                    "default": 2, 
+                    "required":"no"
+                } ,
+                {
+                    "key": "kap.storage.columnar.spark-conf.spark.driver.memory",
+                    "label": "kap.storage.columnar.spark-conf.spark.driver.memory",
+                    "description": "Memory size of spark driver for query",
+                    "type": "integer",
+                    "default": 1024, 
+                    "required":"no"
+                } ,
+                {
+                    "key": "kap.storage.columnar.spark-conf.spark.executor.memory",
+                    "label": "kap.storage.columnar.spark-conf.spark.executor.memory",
+                    "description": "Memory size of each spark executer for query",
+                    "type": "integer",
+                    "default": 1024, 
+                    "required":"no"
+                }
                 ]
             }
         ]

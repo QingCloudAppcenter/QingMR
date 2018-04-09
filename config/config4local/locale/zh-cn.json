@@ -166,9 +166,9 @@
 	"Kylin Metastore password" : "Kylin Metadata 密码",
 	"The zookeeper service for kylin service on bigdata client." : "Kylin 所依赖的ZooKeeper集群,注意当'开启Kylin'为true时为必填",
 	"Resource Configuration":"资源配置类型",
-	"Basic":"基础型",
-	"Premium":"增强型",
-	"Kylin":"Kylin推荐型",
-	"The resource configuration of the service":"请选择合适的资源配置类型，快速定义集群配置。Kylin 选项为运行 Kylin 的推荐配置，若选择自定义配置并计划启用 Kylin ，请参考 Kylin 选项进行自定义。" ,
+	"Basic":"基础版",
+	"Premium":"高级版",
+	"Kylin":"Kylin版",
+	"The resource configuration of the service":"资源配置类型，可以快速定义集群的资源配置类型。"  ,
 	"zookeeper4kylin":"ZooKeeper"
 }
