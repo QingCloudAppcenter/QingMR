@@ -1,0 +1,5 @@
+[template]
+src = "hosts.tmp.tmpl"
+dest = "/opt/qingcloud/conf/hosts.tmp"
+keys = ["/",]
+reload_cmd = "/usr/bin/python /opt/qingcloud/sbin/reload-hosts.py"    

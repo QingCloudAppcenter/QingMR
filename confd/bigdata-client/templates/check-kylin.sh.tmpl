@@ -1,0 +1,45 @@
+#!/bin/bash 
+source /etc/profile 
+
+if [  -f "/root/ignore_healthcheck" ]
+then 
+   echo "`date '+%Y-%m-%d %H:%M:%S'` - check-kylin.sh - INFO - found /root/ignore_healthcheck Flag file, check-kylin.sh always return 0。" 1>>$KYLINAPP_LOG  2>&1 
+   exit 0
+fi 
+ 
+enable_kylin={{getv "/env/enable_kylin"}}
+
+if [ "$enable_kylin"x == "true"x ] 
+then  
+	pid=`ps ax | grep kylin | grep -v grep | grep -v 'su kylin'| grep -v 'bash' | grep 'Dkylin.hive.dependency' | awk '{print $1}'`  
+	if [ "$pid"x == ""x ]
+	then   
+	    echo "`date '+%Y-%m-%d %H:%M:%S'` - check-kylin.sh - Error - Kylin is not running!" 1>>$KYLINAPP_LOG  2>&1 
+	    exit 1   
+	fi 
+	
+	pid=`ps ax | grep kyanalyzer | grep -v grep  | awk '{print $1}'`
+	if [ "$pid"x == ""x ]
+	then   
+	    echo "`date '+%Y-%m-%d %H:%M:%S'` - check-kylin.sh - Error - kyanalyzer is not running!" 1>>$KYLINAPP_LOG  2>&1 
+	    exit 2   
+	fi
+	  
+	
+	#如果创建集群后，remove了zookeeper的依赖服务，kylin运行会出问题，Kylin里任务调度会用到zk，分布式锁  
+	zkport=""
+	{{range $service_name := lsdir "/links" | filter "zookeeper4kylin*"}}
+	{{$port := getv (printf "/links/%s/cluster/endpoints/client/port" $service_name)}} 
+	zkport={{$port}}		
+	{{end}} 
+	if [ "$zkport"x == ""x ]
+	then
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - check-kylin.sh - Error - zookeeper4kylin does not exit,Kylin is running with issue.." 1>>$KYLINAPP_LOG  2>&1 
+		exit 3  
+	fi 
+ 
+else  
+	exit 0
+
+fi
+ 

@@ -1,25 +1,41 @@
 #!/bin/bash
 {{if eq (getv "/env/enable_spark_standalone") "true"}}
-spark_master=", Spark Master"
-spark_slave=", Spark Slave"
+	spark_master=", Spark Master"
+	spark_slave=", Spark Slave"
 {{end}}
+
 {{if eq (getv "/env/use_remote_mysql") "false"}}
-mysql_service=", Mysql"
+	mysql_service=", Mysql"
 {{end}}
+
 {{if eq (getv "/env/enable_hive") "true"}}
-hive_service=", Hive Metastore, HiveServer2"
+	hive_service=", Hive Metastore, HiveServer2"
 {{else}}
-mysql_service=""
+	mysql_service=""
 {{end}}
-node_info="{\"labels\": [\"Hostname\", \"IP\", \"Role\", \"Running service\"],\"data\":["
+
+{{if eq (getv "/env/enable_kylin") "true"}}
+	kylin_service="KAP Plus, KyAnalyzer"
+{{else}}
+	kylin_service=""
+{{end}}
+
+
+
+	node_info="{\"labels\": [\"Hostname\", \"IP\", \"Role\", \"Running service\"],\"data\":["
 {{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}
 node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"YARN master\", \"ResourceManager${spark_master}${mysql_service}${hive_service}\"],"{{end}}
+
 {{range $dir := lsdir "/hosts/hdfs-master/"}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}{{$ip := printf "/hosts/hdfs-master/%s/ip" $dir}}
 node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"HDFS master\", \"Namenode, Secondary Namenode\"],"{{end}}
+
 {{range $dir := lsdir "/hosts/slave/"}}{{$ip := printf "/hosts/slave/%s/ip" $dir}}
 node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"slave\", \"NodeManager, Datanode${spark_slave}\"],"{{end}}
+
 {{range $dir := lsdir "/hosts/bigdata-client/"}}{{$ip := printf "/hosts/bigdata-client/%s/ip" $dir}}
-node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"Bigdata client\", \"\"],"{{end}}
+node_info=${node_info}"[\""{{$dir}}"\", \""{{getv $ip}}"\", \"Bigdata client\", \"${kylin_service}\"],"{{end}}
+
 node_info=${node_info%,*}
 node_info=${node_info}"]}"
+
 echo $node_info

@@ -11,7 +11,7 @@
                         "label": "name",
                         "description": "The name of the service",
                         "type": "string",
-                        "default": "SparkMR",
+                        "default": "QingMR",
                         "required": "no"
                     },
                     {
@@ -21,7 +21,14 @@
                         "type": "string",
                         "default": "",
                         "required": "no"
-                    },
+                    },{
+			            "key": "resource_group",
+			            "label": "Resource Configuration",
+			            "description": "The resource configuration of the service",
+			            "type": "string",
+			            "default": "Basic",
+			            "range": ["Basic", "Premium"]
+			         },
                     {
                         "key": "vxnet",
                         "label": "VxNet",
@@ -36,7 +43,8 @@
                 		"description": "Choose another application service to use, all the nodes in this external service will be added to hosts of current application service",
                  		"type": "service",
                  		"default": "",
-                 		"required": "no"
+                 		"required": "no",
+                 		"allowed_operations": ["add", "modify", "delete"]
         		    },
                     {
                         "key": "hdfs-master",
@@ -51,7 +59,8 @@
                                 "type": "integer",
                                 "default": 2,
                                 "range": [2,4,8,12,16],
-                                "required": "yes"
+                                "required": "yes",
+                                "resource_group": [2, 4]
                             },
                             {
                                 "key": "memory",
@@ -60,7 +69,8 @@
                                 "type": "integer",
                                 "default": 4096,
                                 "range": [2048,4096,6144,8192,12288,16384,24576,32768,40960,49152,65536],
-                                "required": "yes"
+                                "required": "yes",
+                                "resource_group": [4096, 8192]
                             },
                             {
                                 "key": "instance_class",
@@ -69,7 +79,8 @@
                                 "type": "integer",
                                 "default": 1,
                                 "range": [0,1],
-                                "required": "yes"
+                                "required": "yes" ,
+                                "resource_group": [0, 0]
                             },
                             {
                                 "key": "volume_class",
@@ -78,7 +89,8 @@
                                 "type": "integer",
                                 "default": 3,
                                 "range": [0,3],
-                                "required": "yes"
+                                "required": "yes" ,
+                                "resource_group": [0, 0]
                             },
                             {
                                 "key": "volume_size",
@@ -89,7 +101,7 @@
                                 "default": 10,
                 				"min":	10,
                 				"max":	1000,
-                                "required": "yes"
+                                "required": "yes" 
                             }
                         ]
                     },
@@ -106,7 +118,8 @@
                                 "type": "integer",
                                 "default": 2,
                                 "range": [2,4,8,12,16],
-                                "required": "yes"
+                                "required": "yes",
+                                "resource_group": [2, 4]
                             },
                             {
                                 "key": "memory",
@@ -115,7 +128,8 @@
                                 "type": "integer",
                                 "default": 4096,
                                 "range": [2048,4096,6144,8192,12288,16384,24576,32768,40960,49152,65536],
-                                "required": "yes"
+                                "required": "yes",
+                                "resource_group": [4096,8192]
                             },
                             {
                                 "key": "instance_class",
@@ -124,7 +138,8 @@
                                 "type": "integer",
                                 "default": 1,
                                 "range": [0,1],
-                                "required": "yes"
+                                "required": "yes" ,
+                                "resource_group": [0, 0]
                             },
                             {
                                 "key": "volume_class",
@@ -133,7 +148,8 @@
                                 "type": "integer",
                                 "default": 3,
                                 "range": [0,3],
-                                "required": "yes"
+                                "required": "yes",
+                                "resource_group": [0, 0]
                             },
                             {
                                 "key": "volume_size",
@@ -144,7 +160,7 @@
                                 "default": 10,
                 				"min":	10,
                 				"max":	1000,
-                                "required": "yes"
+                                "required": "yes" 
                             }
                         ]
                     },
@@ -161,7 +177,8 @@
                                 "type": "integer",
                                 "default": 4,
                                 "range": [2,4,8,12,16],
-                                "required": "yes"
+                                "required": "yes",
+                                "resource_group": [4, 8]
                             },
                             {
                                 "key": "memory",
@@ -170,7 +187,8 @@
                                 "type": "integer",
                                 "default": 8192,
                                 "range": [2048,4096,6144,8192,12288,16384,24576,32768,40960,49152,65536],
-                                "required": "yes"
+                                "required": "yes",
+                                "resource_group": [8192,16384]
                             },
                             {
                                 "key": "count",
@@ -188,7 +206,8 @@
                                 "type": "integer",
                                 "default": 1,
                                 "range": [0,1],
-                                "required": "yes"
+                                "required": "yes" ,
+                                "resource_group": [0, 0]
                             },
                             {
                                 "key": "volume_class",
@@ -197,7 +216,8 @@
                                 "type": "integer",
                                 "default": 3,
                                 "range": [0,3],
-                                "required": "yes"
+                                "required": "yes",
+                                "resource_group": [0, 0]
                             },
                             {
                                 "key": "volume_size",
@@ -208,7 +228,8 @@
                                 "default": 10,
 			                	"min":	10,
 			                	"max":	1000,
-                                "required": "yes"
+                                "required": "yes",
+                                "resource_group": [10, 100]
                             }
                         ]
                     },
@@ -224,8 +245,9 @@
                                 "description": "CPUs of each node",
                                 "type": "integer",
                                 "default": 2,
-                                "range": [1,2,4,8],
-                                "required": "yes"
+                                "range": [1,2,4,8,12,16],
+                                "required": "yes",
+                                "resource_group": [2, 4]
                             },
                             {
                                 "key": "memory",
@@ -233,8 +255,9 @@
                                 "description": "memory of each node (in MB)",
                                 "type": "integer",
                                 "default": 4096,
-                                "range": [2048,4096,6144,8192,12288,16384],
-                                "required": "yes"
+                                "range": [2048,4096,6144,8192,12288,16384,24576,32768,40960,49152,65536],
+                                "required": "yes",
+                                "resource_group": [4096,16384]
                             },
                             {
                                 "key": "count",
@@ -252,7 +275,8 @@
                                 "type":"integer",
                                 "default":1,
                                 "range": [0,1],
-                                "required":"yes"
+                                "required":"yes",
+                                "resource_group": [0, 0]
                             },
                             {
                                 "key": "volume_class",
@@ -261,7 +285,8 @@
                                 "type":"integer",
                                 "default":3,
                                 "range": [0,3],
-                                "required":"yes"
+                                "required":"yes",
+                                "resource_group": [0, 0]
                             },
                             {
                                 "key": "volume_size",
@@ -272,7 +297,7 @@
                                 "default":10,
 				                "min":	10,
 				                "max":	1000,
-                                "required":"yes"
+                                "required":"yes" 
                             }
                         ]
                     }
@@ -291,7 +316,7 @@
                     "default": false,
                     "range": [true, false],
                     "required": "yes"
-                },
+                }, 
                 {
                     "key": "use_remote_mysql",
                     "label": "Use remote mysql",
@@ -325,8 +350,8 @@
                     "type": "password",
                     "default": "hive",
                     "required": "no"
-                },
-		        {
+                } ,
+    	        {
             		"key": "QingStor",
 			        "label": "QingStor",
 			        "description": "Whether to use QingStor or not",
@@ -361,7 +386,7 @@
 			        "pattern": "[A-Za-z0-9]{40}|^$",
             		"default": "",
             		"required":"no"
-		        },
+		        }, 
 		        {
             		"key": "enable_spark_standalone",
 			        "label": "enable_spark_standalone",
@@ -804,7 +829,7 @@
                     "type": "string",
                     "default": "logs",
                     "required": "no"
-                }
+                }                
                 ]
             }
         ]

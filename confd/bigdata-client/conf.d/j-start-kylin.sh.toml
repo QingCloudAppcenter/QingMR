@@ -1,0 +1,6 @@
+[template]
+src = "j-start-kylin.sh.tmpl"
+dest = "/opt/kap-plus/sbin/j-start-kylin.sh"
+keys = ["/",]   
+ 
+  
