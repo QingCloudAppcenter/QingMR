@@ -6,4 +6,4 @@ if [ ! -d "/data/var" ]; then
 fi
 service mysql start
 ret=$?
-exit ret
+exit $ret
