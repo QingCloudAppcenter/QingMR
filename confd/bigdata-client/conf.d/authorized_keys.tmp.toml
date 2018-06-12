@@ -1,0 +1,9 @@
+#upated by Jo@20180611 修复client节点authorized_keys文件被覆盖的问题
+#hdfs-master和yarn-master是2个单节点,在集群中不会增加或者删除，需要把这2个节点的pub_key写到client节点的authorized_keys文件中。
+[template]
+src = "authorized_keys.tmp.tmpl"
+dest = "/root/.ssh/authorized_keys.tmp" 
+keys = ["/hosts/hdfs-master/","/hosts/yarn-master/"] 
+reload_cmd = "grep -vxFf /root/.ssh/authorized_keys  /root/.ssh/authorized_keys.tmp>>/root/.ssh/authorized_keys;grep -vxFf /root/.ssh/authorized_keys.tmp /root/.ssh/authorized_keys>>/root/.ssh/authorized_keys;"
+ 
+ 

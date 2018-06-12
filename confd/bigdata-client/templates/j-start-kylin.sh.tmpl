@@ -1,8 +1,8 @@
 #!/bin/bash
-source /etc/profile
-source /home/kylin/.profile  
+source /opt/kap-plus/sbin/kylin-spark-env.sh
 source /opt/kap-plus/sbin/kylinutil.sh
 
+ 
 #================================================================================== 
 enable_kylin={{getv "/env/enable_kylin"}}
 enable_hive={{getv "/env/enable_hive"}}  
@@ -19,19 +19,19 @@ zkport={{$port}}
 if [ "$enable_kylin"x == "true"x ] && [ "$enable_hive"x == "true"x ] && [ "$zkport"x != ""x ]
 then
 	#启动前检查Hive 是否running，检查等待时间是500s	  
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - INFO - Before start KAP,Check Hive is runing,wait time is 500s." 1>>$KYLINAPP_LOG  2>&1	 
 	isHiveRunning=$(waitHiveReady)
 	 
 	if [ "$isHiveRunning"x == "true"x ]
 	then
-		#echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - INFO - StartKAP." 1>>$KYLINAPP_LOG  2>&1
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - INFO - StartKAP." 1>>$KYLINAPP_LOG  2>&1
 		$(StartKAP)
 		if [  $? -ne 0 ] 
 		then 
 			echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - Error - Start Kylin Service failed." 1>>$KYLINAPP_LOG  2>&1	 
 			exit 1  
 		fi
-		
-		#echo "`date '+%Y-%m-%d %H:%M:%S'` - j-start-kylin.sh - INFO - StartKyAnalyzer." 1>>$KYLINAPP_LOG  2>&1
+		 
 		$(StartKyAnalyzer) 
 		if [  $? -ne 0 ] 
 		then 

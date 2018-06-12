@@ -1,4 +1,6 @@
-#! /bin/bash 
+#! /bin/bash  
+source /opt/kap-plus/sbin/kylin-spark-env.sh
+
 function checkHiveIsOK(){  
 	hivedefaultDB=$(/opt/hive/bin/hive -e "show databases;"|grep "default" |sed 's/ //g' )  
 	hiveIsOK='false' 
@@ -14,13 +16,12 @@ function checkHiveIsOK(){
 } 
 
 
-function waitHiveReady(){   
+function waitHiveReady(){  
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Excute cmd:/opt/hive/bin/hive -e 'show databases;',to checkHiveIsOK." 1>>$KYLINAPP_LOG  2>&1 
 	i=1   
 	while [ ${i} -le 50 ]  
-	do   	
-	  	#echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Excute cmd:/opt/hive/bin/hive -e 'show databases;',to checkHiveIsOK." 1>>$KYLINAPP_LOG  2>&1  
-		hiveIsOK=$(checkHiveIsOK) 
-		#echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - waitHiveReady : hiveIsOK2=$hiveIsOK" 1>>$KYLINAPP_LOG  2>&1
+	do   		   
+		hiveIsOK=$(checkHiveIsOK)
 			
 		if [  "$hiveIsOK"x == "false"x ] 
 		then 
@@ -45,11 +46,12 @@ function waitHiveReady(){
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - waitHiveReady : HIVE is Runing!" 1>>$KYLINAPP_LOG  2>&1
 		isRunning="true"  
 	fi 
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - isRunning=$isRunning" 1>>$KYLINAPP_LOG  2>&1
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - isHiveRunning=$isRunning" 1>>$KYLINAPP_LOG  2>&1
 	echo $isRunning    
 } 
 
-function StartKAP(){   
+function StartKAP(){    
+    echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - test - StartKAP,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
 	USER=kylin /opt/kap-plus/bin/kylin.sh start  1>>$KYLINAPP_LOG  2>&1 
 	pid=`ps ax | grep kylin | grep -v grep | grep -v 'su kylin' | grep -v 'bash' | grep 'Dkylin.hive.dependency' | awk '{print $1}'` 
 	if [ "$pid"x == ""x ]
@@ -60,7 +62,8 @@ function StartKAP(){
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - StartKAP:Started Kylin Service successfully." 1>>$KYLINAPP_LOG  2>&1
 }
 
-function StartKyAnalyzer(){   
+function StartKyAnalyzer(){ 
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - test - StartKyAnalyzer,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1 
 	USER=kylin /opt/kyanalyzer/start-analyzer.sh  1>>$KYLINAPP_LOG  2>&1 
 	pid=`ps ax | grep kyanalyzer | grep -v grep  | awk '{print $1}'`
 	if [ "$pid"x == ""x ]
@@ -72,7 +75,8 @@ function StartKyAnalyzer(){
 }
 
 
-function StopKAP(){   
+function StopKAP(){  
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - test - StopKAP,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1   
 	USER=kylin /opt/kap-plus/bin/kylin.sh stop   1>>$KYLINAPP_LOG  2>&1  
 	pid=`ps ax | grep kylin | grep -v grep | grep -v 'su kylin' | grep -v 'bash' | grep 'Dkylin.hive.dependency' | awk '{print $1}'` 
 	if [ "$pid"x != ""x ]
@@ -83,7 +87,8 @@ function StopKAP(){
 		echo "`date '+%Y-%m-%d %H:%M:%S'`- kylinutil.sh - INFO - Stopped Kylin Service successfully." 1>>$KYLINAPP_LOG  2>&1
 }
 
-function StopKyAnalyzer(){   
+function StopKyAnalyzer(){
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - test - StopKyAnalyzer,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
 	USER=kylin /opt/kyanalyzer/stop-analyzer.sh  1>>$KYLINAPP_LOG  2>&1 
 	pid=`ps ax | grep kyanalyzer | grep -v grep  | awk '{print $1}'`
 	if [ "$pid"x != ""x ]

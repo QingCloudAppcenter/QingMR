@@ -7,3 +7,4 @@ fi
 service mysql start
 ret=$?
 exit $ret
+
