@@ -1,6 +1,6 @@
 #!/bin/bash  
-#source /etc/profile  
-source /opt/kap-plus/sbin/kylin-spark-env.sh
+source /etc/profile  
+#source /opt/kap-plus/sbin/kylin-spark-env.sh
 source /opt/kap-plus/sbin/kylinutil.sh   
 
 #vim /home/kylin/.profile

@@ -3,7 +3,7 @@
         "description": {{cluster.description}},
         "vxnet": {{cluster.vxnet}},
         "upgrade_policy": [
-            "appv-zs79n0vo","appv-oc2it1sa"
+            "appv-zs79n0vo","appv-oc2it1sa","appv-fxan6qzp"
     	],
         "links": {
         	"zookeeper4kylin": {{cluster.zookeeper4kylin}},
@@ -15,7 +15,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-djsd6pev"
+                    "image": "img-qc3pxlw0"
                 },
                 "instance_class": {{cluster.hdfs-master.instance_class}},
                 "count": 1,
@@ -137,7 +137,7 @@
                 "container": {
             	   "zone": "sh1a",
             	   "type": "kvm",
-            	   "image": "img-vw0z3yqd"
+            	   "image": "img-zvzoowg8"
             	},
             	"instance_class": {{cluster.yarn-master.instance_class}},
             	"count": 1,
@@ -344,7 +344,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-y2vt8m6o"
+                    "image": "img-skxpz0xm"
                 },
                 "instance_class": {{cluster.slave.instance_class}},
                 "count": {{cluster.slave.count}},
@@ -475,7 +475,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-agsphmwd"
+                    "image": "img-jjv9srhn"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},

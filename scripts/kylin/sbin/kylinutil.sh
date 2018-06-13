@@ -1,5 +1,6 @@
 #! /bin/bash  
-source /opt/kap-plus/sbin/kylin-spark-env.sh
+source /etc/profile  
+#source /opt/kap-plus/sbin/kylin-spark-env.sh
 
 function checkHiveIsOK(){  
 	hivedefaultDB=$(/opt/hive/bin/hive -e "show databases;"|grep "default" |sed 's/ //g' )  
