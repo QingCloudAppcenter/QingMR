@@ -1,7 +1,0 @@
-[template]
-src = "profile.tmpl"
-dest = "/etc/profile" 
-keys = ["/env/enable_kylin"] 
-reload_cmd = "source /etc/profile; echo `date '+%Y-%m-%d %H:%M:%S'`$SPARK_HOME >>/tmp/testlog; "
- 
- 
