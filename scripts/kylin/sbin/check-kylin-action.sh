@@ -1,5 +1,5 @@
 #!/bin/bash 
-source /etc/profile
+source /etc/profile   
 
     
 echo "`date '+%Y-%m-%d %H:%M:%S'` - check-kylin-action.sh - INFO - Try to Start Kylin Start........." 1>>$KYLINAPP_LOG  2>&1;

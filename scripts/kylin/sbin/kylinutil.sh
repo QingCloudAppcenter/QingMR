@@ -139,12 +139,24 @@ function loadSampleData4Kylin(){
 	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Excute cmd: /opt/kap-plus/bin/sample.sh" 1>>$KYLINAPP_LOG  2>&1  
 	/opt/kap-plus/bin/sample.sh    >/dev/null 2>&1
 	touch  /opt/kap-plus/sbin/sample_loaded
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Load sample data for kylin service init finished,create /opt/kap-plus/bin/sample_loadedFlag file." 1>>$KYLINAPP_LOG  2>&1  
-	
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Load sample data for kylin service init finished,create /opt/kap-plus/bin/sample_loadedFlag file." 1>>$KYLINAPP_LOG  2>&1 	
 }
 
 
+function changeSparkHome4kylin(){ 
+	sed -i 's/SPARK_HOME=\/opt\/spark/SPARK_HOME=\$KYLIN_HOME\/spark/g' /etc/profile
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - Info - change Spark Home." 1>>$KYLINAPP_LOG  2>&1
+	source /etc/profile
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - test2 - SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
+	 
+}
 
+function changeSparkHomeBack4kylin(){ 
+	sed -i 's/SPARK_HOME=\$KYLIN_HOME\/spark/SPARK_HOME=\/opt\/spark/g' /etc/profile 
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - Info - change Spark Home back." 1>>$KYLINAPP_LOG  2>&1
+	source /etc/profile
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - test3 - SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1	 
+}
 
 
 
