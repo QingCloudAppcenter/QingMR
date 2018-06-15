@@ -19,8 +19,6 @@ echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - `whoami`,Action=$ac
 touch /home/kylin/ignore_healthcheck
 echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - add /home/kylin/ignore_healthcheck to ignore appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1 	 
 
-
-
 if [ "$action"x == "start"x ]
 then 
 	/opt/kap-plus/sbin/j-start-kylin.sh   
