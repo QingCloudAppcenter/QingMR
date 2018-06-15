@@ -1,6 +1,4 @@
-#! /bin/bash  
-source /etc/profile  
-#source /opt/kap-plus/sbin/kylin-spark-env.sh
+#! /bin/bash   
 
 function checkHiveIsOK(){  
 	hivedefaultDB=$(/opt/hive/bin/hive -e "show databases;"|grep "default" |sed 's/ //g' )  
@@ -51,9 +49,18 @@ function waitHiveReady(){
 	echo $isRunning    
 } 
 
-function StartKAP(){    
-    echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - test - StartKAP,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
-	USER=kylin /opt/kap-plus/bin/kylin.sh start  1>>$KYLINAPP_LOG  2>&1 
+function StartKAP(){  
+	hadoop fs -test -e /kylin
+	if [ $? -ne 0 ]
+    then  
+    	hadoop fs -chmod -R 777 /tmp 
+    	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - `whoami`,chmod -R 777 /tmp" 1>>$KYLINAPP_LOG  2>&1
+	fi
+	
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - `whoami`,kylin.sh start" 1>>$KYLINAPP_LOG  2>&1 
+	
+	/opt/kap-plus/bin/kylin.sh start  1>>$KYLINAPP_LOG  2>&1
+	
 	pid=`ps ax | grep kylin | grep -v grep | grep -v 'su kylin' | grep -v 'bash' | grep 'Dkylin.hive.dependency' | awk '{print $1}'` 
 	if [ "$pid"x == ""x ]
 	then 
@@ -63,9 +70,10 @@ function StartKAP(){
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - StartKAP:Started Kylin Service successfully." 1>>$KYLINAPP_LOG  2>&1
 }
 
-function StartKyAnalyzer(){ 
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - test - StartKyAnalyzer,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1 
-	USER=kylin /opt/kyanalyzer/start-analyzer.sh  1>>$KYLINAPP_LOG  2>&1 
+function StartKyAnalyzer(){  
+	#su - kylin -c "/opt/kyanalyzer/start-analyzer.sh  1>>$KYLINAPP_LOG  2>&1"
+	/opt/kyanalyzer/start-analyzer.sh  1>>$KYLINAPP_LOG  2>&1
+	
 	pid=`ps ax | grep kyanalyzer | grep -v grep  | awk '{print $1}'`
 	if [ "$pid"x == ""x ]
 	then 
@@ -76,9 +84,9 @@ function StartKyAnalyzer(){
 }
 
 
-function StopKAP(){  
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - test - StopKAP,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1   
-	USER=kylin /opt/kap-plus/bin/kylin.sh stop   1>>$KYLINAPP_LOG  2>&1  
+function StopKAP(){   
+	#su - kylin -c "/opt/kap-plus/bin/kylin.sh stop  1>>$KYLINAPP_LOG  2>&1"
+	/opt/kap-plus/bin/kylin.sh stop  1>>$KYLINAPP_LOG  2>&1
 	pid=`ps ax | grep kylin | grep -v grep | grep -v 'su kylin' | grep -v 'bash' | grep 'Dkylin.hive.dependency' | awk '{print $1}'` 
 	if [ "$pid"x != ""x ]
 	then  
@@ -88,9 +96,9 @@ function StopKAP(){
 		echo "`date '+%Y-%m-%d %H:%M:%S'`- kylinutil.sh - INFO - Stopped Kylin Service successfully." 1>>$KYLINAPP_LOG  2>&1
 }
 
-function StopKyAnalyzer(){
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - test - StopKyAnalyzer,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
-	USER=kylin /opt/kyanalyzer/stop-analyzer.sh  1>>$KYLINAPP_LOG  2>&1 
+function StopKyAnalyzer(){ 
+	#su - kylin -c "/opt/kyanalyzer/stop-analyzer.sh  1>>$KYLINAPP_LOG  2>&1"
+	/opt/kyanalyzer/stop-analyzer.sh  1>>$KYLINAPP_LOG  2>&1
 	pid=`ps ax | grep kyanalyzer | grep -v grep  | awk '{print $1}'`
 	if [ "$pid"x != ""x ]
 	then  	
@@ -142,21 +150,6 @@ function loadSampleData4Kylin(){
 	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Load sample data for kylin service init finished,create /opt/kap-plus/bin/sample_loadedFlag file." 1>>$KYLINAPP_LOG  2>&1 	
 }
 
-
-function changeSparkHome4kylin(){ 
-	sed -i 's/SPARK_HOME=\/opt\/spark/SPARK_HOME=\$KYLIN_HOME\/spark/g' /etc/profile
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - Info - change Spark Home." 1>>$KYLINAPP_LOG  2>&1
-	source /etc/profile
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - test2 - SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
-	 
-}
-
-function changeSparkHomeBack4kylin(){ 
-	sed -i 's/SPARK_HOME=\$KYLIN_HOME\/spark/SPARK_HOME=\/opt\/spark/g' /etc/profile 
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - Info - change Spark Home back." 1>>$KYLINAPP_LOG  2>&1
-	source /etc/profile
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - test3 - SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1	 
-}
-
+ 
 
 

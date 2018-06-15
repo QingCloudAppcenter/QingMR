@@ -1,5 +1,5 @@
 #!/bin/bash  
-source /etc/profile   
+source /etc/profile    
 source /opt/kap-plus/sbin/kylinutil.sh   
 
 #vim /home/kylin/.profile
@@ -8,15 +8,18 @@ source /opt/kap-plus/sbin/kylinutil.sh
 #export SPARK_HOME=$KYLIN_HOME/spark
 #export KYLINAPP_LOG=/opt/qingcloud/sbin/kylinapp.log
 
-echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - test - SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
+echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - test1 - `whoami`,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
+export SPARK_HOME=$KYLIN_HOME/spark
+echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - test2 - `whoami`,export SPARK_HOME,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
+
  
 action=$1  
-echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - Action=$action Start ...." 1>>$KYLINAPP_LOG  2>&1
+echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - `whoami`,Action=$action Start ...." 1>>$KYLINAPP_LOG  2>&1
+ 
+touch /home/kylin/ignore_healthcheck
+echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - add /home/kylin/ignore_healthcheck to ignore appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1 	 
 
-touch /root/ignore_healthcheck
-echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - add /root/ignore_healthcheck to ignore appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1 	 
 
-$(changeSparkHome4kylin)
 
 if [ "$action"x == "start"x ]
 then 
@@ -24,8 +27,8 @@ then
 	if [  $? -ne 0 ] 
 	then 
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - Error -j-start-kylin.sh failed,Start Kylin Service failed." 1>>$KYLINAPP_LOG  2>&1	
-		rm /root/ignore_healthcheck
-		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - rm /root/ignore_healthcheck to recovery appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1 
+		rm /home/kylin/ignore_healthcheck
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - rm /home/kylin/ignore_healthcheck to recovery appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1 
 		
 		if [  -f "/opt/kap-plus/sbin/neverStartFlag" ]
 		then 
@@ -33,7 +36,7 @@ then
 			echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - After cluster init, remove the neverStartFlag when start service." 1>>$KYLINAPP_LOG  2>&1
 		fi
 		
-		$(changeSparkHomeBack4kylin)		 
+			 
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1		
 		exit 1  
 	fi
@@ -84,9 +87,8 @@ then
 			echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - found neverStartFlag." 1>>$KYLINAPP_LOG  2>&1	
 	    fi
 	
-		rm /root/ignore_healthcheck
-		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - rm /root/ignore_healthcheck to recovery appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1  
-		$(changeSparkHomeBack4kylin)
+		rm /home/kylin/ignore_healthcheck
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - rm /home/kylin/ignore_healthcheck to recovery appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1  
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1 		
 		exit 0
 	fi
@@ -102,9 +104,8 @@ then
 	if [  $? -ne 0 ] 
 	then 
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - Error - Start Kylin Service failed." 1>>$KYLINAPP_LOG  2>&1
-		rm /root/ignore_healthcheck
-		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - rm /root/ignore_healthcheck to recovery appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1
-		$(changeSparkHomeBack4kylin)  
+		rm /home/kylin/ignore_healthcheck
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - rm /home/kylin/ignore_healthcheck to recovery appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1	 		
 		exit 1  
 	fi 
@@ -113,8 +114,8 @@ fi
 
 
 
-rm /root/ignore_healthcheck
-echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - rm /root/ignore_healthcheck to recovery appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1  
+rm /home/kylin/ignore_healthcheck
+echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - rm /home/kylin/ignore_healthcheck to recovery appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1  
 
 if [  -f "/opt/kap-plus/sbin/neverStartFlag" ]
 then 
@@ -122,8 +123,7 @@ then
 	echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - After cluster init, remove the neverStartFlag when start service." 1>>$KYLINAPP_LOG  2>&1
 fi
 
-
-$(changeSparkHomeBack4kylin)
+ 
 echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1
 
 
