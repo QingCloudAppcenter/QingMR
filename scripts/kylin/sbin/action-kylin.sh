@@ -8,19 +8,27 @@ source /opt/kap-plus/sbin/kylinutil.sh
 #export SPARK_HOME=$KYLIN_HOME/spark
 #export KYLINAPP_LOG=/opt/qingcloud/sbin/kylinapp.log
 
-echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - test1 - `whoami`,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
+echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - test1 - user=`whoami`,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
 export SPARK_HOME=$KYLIN_HOME/spark
-echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - test2 - `whoami`,export SPARK_HOME,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
+echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - test2 - user=`whoami`,export SPARK_HOME,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
 
  
 action=$1  
-echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - `whoami`,Action=$action Start ...." 1>>$KYLINAPP_LOG  2>&1
+echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - user=`whoami`,Action=$action Start ...." 1>>$KYLINAPP_LOG  2>&1
  
 touch /home/kylin/ignore_healthcheck
 echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - add /home/kylin/ignore_healthcheck to ignore appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1 	 
 
 if [ "$action"x == "start"x ]
 then 
+	sudo /opt/hadoop/bin/hadoop fs -test -e /tmp
+	if [ $? -ne 0 ]
+    then  
+    	sudo /opt/hadoop/bin/hadoop fs -mkdir /tmp
+    	sudo /opt/hadoop/bin/hadoop fs -chmod -R 777 /tmp 
+    	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - user=`whoami`,chmod -R 777 /tmp" 1>>$KYLINAPP_LOG  2>&1
+	fi
+	
 	/opt/kap-plus/sbin/j-start-kylin.sh   
 	if [  $? -ne 0 ] 
 	then 
@@ -33,7 +41,6 @@ then
 			rm /opt/kap-plus/sbin/neverStartFlag
 			echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - After cluster init, remove the neverStartFlag when start service." 1>>$KYLINAPP_LOG  2>&1
 		fi
-		
 			 
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1		
 		exit 1  

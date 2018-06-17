@@ -1,7 +1,7 @@
 #! /bin/bash   
 
 function checkHiveIsOK(){  
-	hivedefaultDB=$(/opt/hive/bin/hive -e "show databases;"|grep "default" |sed 's/ //g' )  
+	hivedefaultDB=$(sudo /opt/hive/bin/hive -e "show databases;"|grep "default" |sed 's/ //g' )  
 	hiveIsOK='false' 
 	if [ "$hivedefaultDB"x == "default"x ] 
 	then 
@@ -16,7 +16,7 @@ function checkHiveIsOK(){
 
 
 function waitHiveReady(){  
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Excute cmd:/opt/hive/bin/hive -e 'show databases;',to checkHiveIsOK." 1>>$KYLINAPP_LOG  2>&1 
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Excute cmd:sudo /opt/hive/bin/hive -e 'show databases;',to checkHiveIsOK." 1>>$KYLINAPP_LOG  2>&1 
 	i=1   
 	while [ ${i} -le 50 ]  
 	do   		   
@@ -49,15 +49,8 @@ function waitHiveReady(){
 	echo $isRunning    
 } 
 
-function StartKAP(){  
-	hadoop fs -test -e /kylin
-	if [ $? -ne 0 ]
-    then  
-    	hadoop fs -chmod -R 777 /tmp 
-    	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - `whoami`,chmod -R 777 /tmp" 1>>$KYLINAPP_LOG  2>&1
-	fi
-	
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - `whoami`,kylin.sh start" 1>>$KYLINAPP_LOG  2>&1 
+function StartKAP(){    
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - user=`whoami`,kylin.sh start" 1>>$KYLINAPP_LOG  2>&1 
 	
 	/opt/kap-plus/bin/kylin.sh start  1>>$KYLINAPP_LOG  2>&1
 	
@@ -70,8 +63,7 @@ function StartKAP(){
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - StartKAP:Started Kylin Service successfully." 1>>$KYLINAPP_LOG  2>&1
 }
 
-function StartKyAnalyzer(){  
-	#su - kylin -c "/opt/kyanalyzer/start-analyzer.sh  1>>$KYLINAPP_LOG  2>&1"
+function StartKyAnalyzer(){   
 	/opt/kyanalyzer/start-analyzer.sh  1>>$KYLINAPP_LOG  2>&1
 	
 	pid=`ps ax | grep kyanalyzer | grep -v grep  | awk '{print $1}'`
@@ -85,7 +77,6 @@ function StartKyAnalyzer(){
 
 
 function StopKAP(){   
-	#su - kylin -c "/opt/kap-plus/bin/kylin.sh stop  1>>$KYLINAPP_LOG  2>&1"
 	/opt/kap-plus/bin/kylin.sh stop  1>>$KYLINAPP_LOG  2>&1
 	pid=`ps ax | grep kylin | grep -v grep | grep -v 'su kylin' | grep -v 'bash' | grep 'Dkylin.hive.dependency' | awk '{print $1}'` 
 	if [ "$pid"x != ""x ]
@@ -96,8 +87,7 @@ function StopKAP(){
 		echo "`date '+%Y-%m-%d %H:%M:%S'`- kylinutil.sh - INFO - Stopped Kylin Service successfully." 1>>$KYLINAPP_LOG  2>&1
 }
 
-function StopKyAnalyzer(){ 
-	#su - kylin -c "/opt/kyanalyzer/stop-analyzer.sh  1>>$KYLINAPP_LOG  2>&1"
+function StopKyAnalyzer(){  
 	/opt/kyanalyzer/stop-analyzer.sh  1>>$KYLINAPP_LOG  2>&1
 	pid=`ps ax | grep kyanalyzer | grep -v grep  | awk '{print $1}'`
 	if [ "$pid"x != ""x ]
@@ -112,26 +102,27 @@ function StopKyAnalyzer(){
 function DealWithHDFS4Kylin(){   
 #Deal with HDFS 
 #if enable_kylin is true,for the first time it needs to create HDFS folder for kylin.	 
-	hadoop fs -test -e /kylin
+	sudo /opt/hadoop/bin/hadoop fs -test -e /kylin
 	if [ $? -ne 0 ]
     then  
-    	hdfs dfs -mkdir /kylin  
-    	hdfs dfs -chown kylin /kylin
+    	sudo /opt/hadoop/bin/hadoop fs -mkdir /kylin  
+    	sudo /opt/hadoop/bin/hadoop fs -chown kylin /kylin
     	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Create hdfs dir /kylin" 1>>$KYLINAPP_LOG  2>&1
 	fi 
     	 
-	hadoop fs -test -e /user
+	sudo /opt/hadoop/bin/hadoop fs -test -e /user
 	if [ $? -ne 0 ]
     then  
-    	hdfs dfs -mkdir /user 
+    	sudo /opt/hadoop/bin/hadoop fs -mkdir /user 
     	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Create hdfs dir /user" 1>>$KYLINAPP_LOG  2>&1
 	fi 
 	
-	hadoop fs -test -e /user/kylin
+	sudo /opt/hadoop/bin/hadoop fs -test -e /user/kylin
 	if [ $? -ne 0 ]
     then  
-    	hdfs dfs -mkdir /user/kylin
-    	hdfs dfs -chown kylin /user/kylin
+    	sudo /opt/hadoop/bin/hadoop fs -mkdir /user/kylin
+    	sudo /opt/hadoop/bin/hadoop fs -chown kylin /user/kylin
+    	sudo /opt/hadoop/bin/hadoop fs -chmod -R 777 /kylin
     	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Create hdfs dir /user/kylin" 1>>$KYLINAPP_LOG  2>&1 
 	fi    
 	
