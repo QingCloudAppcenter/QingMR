@@ -14,6 +14,8 @@ echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - add /home/kylin/ign
   
 if [ "$action"x == "start"x ]
 then 
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - SPARK_HOME=$SPARK_HOME" 1>>$KYLINAPP_LOG  2>&1
+	
  	enable_kylin=$(curl -s http://metadata/self/env/enable_kylin)
 	echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - enable_kylin=$enable_kylin" 1>>$KYLINAPP_LOG  2>&1
 	
