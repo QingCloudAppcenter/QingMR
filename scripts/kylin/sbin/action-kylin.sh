@@ -1,33 +1,34 @@
 #!/bin/bash  
 source /etc/profile    
-source /opt/kap-plus/sbin/kylinutil.sh   
-
-#vim /home/kylin/.profile
-#export KYLIN_HOME=/opt/kap-plus
-#export PATH=/opt/hadoop/bin:/opt/hive/bin:/opt/sqoop/bin:/opt/spark/bin:/usr/jdk/bin:${PATH}
-#export SPARK_HOME=$KYLIN_HOME/spark
-#export KYLINAPP_LOG=/opt/qingcloud/sbin/kylinapp.log
-
-echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - test1 - user=`whoami`,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
-export SPARK_HOME=$KYLIN_HOME/spark
-echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - test2 - user=`whoami`,export SPARK_HOME,SPARK_HOME=$SPARK_HOME " 1>>$KYLINAPP_LOG  2>&1
-
+source /opt/kap-plus/sbin/kylinutil.sh    
+ 
+export SPARK_HOME=$KYLIN_HOME/spark  
  
 action=$1  
+
+echo " " 1>>$KYLINAPP_LOG  2>&1
 echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - user=`whoami`,Action=$action Start ...." 1>>$KYLINAPP_LOG  2>&1
  
 touch /home/kylin/ignore_healthcheck
 echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - add /home/kylin/ignore_healthcheck to ignore appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1 	 
-
+  
 if [ "$action"x == "start"x ]
 then 
-	sudo /opt/hadoop/bin/hadoop fs -test -e /tmp
-	if [ $? -ne 0 ]
-    then  
-    	sudo /opt/hadoop/bin/hadoop fs -mkdir /tmp
-    	sudo /opt/hadoop/bin/hadoop fs -chmod -R 777 /tmp 
-    	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - user=`whoami`,chmod -R 777 /tmp" 1>>$KYLINAPP_LOG  2>&1
+ 	enable_kylin=$(curl -s http://metadata/self/env/enable_kylin)
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - enable_kylin=$enable_kylin" 1>>$KYLINAPP_LOG  2>&1
+	
+	if [ "$enable_kylin"x == "true"x ]
+	then 
+		#change当前目录为kylin账号的home目录，因为在KAP的hdfs权限测试阶段会有在当前目录创建文件并上传到hdfs的操作，不切换到home目录会报无法创建测试目录。
+		cd /home/kylin
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - change current path to /home/kylin." 1>>$KYLINAPP_LOG  2>&1
+		
+		if [ ! -f "/opt/kap-plus/sbin/hdfsfolder_created" ]
+		then  
+			$(DealWithHDFS4Kylin) 
+		fi 
 	fi
+	
 	
 	/opt/kap-plus/sbin/j-start-kylin.sh   
 	if [  $? -ne 0 ] 
@@ -44,18 +45,11 @@ then
 			 
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1		
 		exit 1  
-	fi
+	fi 
 	
-	enable_kylin=$(curl -s http://metadata/self/env/enable_kylin)
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - enable_kylin=$enable_kylin" 1>>$KYLINAPP_LOG  2>&1
 	
 	if [ "$enable_kylin"x == "true"x ]
-	then
-		if [ ! -f "/opt/kap-plus/sbin/hdfsfolder_created" ]
-		then 
-			$(DealWithHDFS4Kylin) 
-		fi
-		
+	then		
 		if [ ! -f "/opt/kap-plus/sbin/sample_loaded" ]
 		then 
 			$(loadSampleData4Kylin) 
@@ -66,9 +60,7 @@ then
 	then 
 		rm /opt/kap-plus/sbin/neverStartFlag
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - After cluster init, remove the neverStartFlag when start service." 1>>$KYLINAPP_LOG  2>&1
-	fi  
-	
-	
+	fi   
 fi
 
 if [ "$action"x == "stop"x ]
@@ -129,8 +121,8 @@ then
 fi
 
  
-echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1
-
+echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - user=`whoami`,Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1
+echo " " 1>>$KYLINAPP_LOG  2>&1
 
 
 

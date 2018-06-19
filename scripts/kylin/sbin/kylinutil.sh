@@ -1,11 +1,11 @@
 #! /bin/bash   
 
-function checkHiveIsOK(){  
-	hivedefaultDB=$(sudo /opt/hive/bin/hive -e "show databases;"|grep "default" |sed 's/ //g' )  
-	hiveIsOK='false' 
+function checkHiveIsOK(){   
+	hivedefaultDB=$(/opt/hive/bin/hive -e "show databases;"|grep "default" |sed 's/ //g' )  
+	hiveIsOK="false" 
 	if [ "$hivedefaultDB"x == "default"x ] 
 	then 
-		hiveIsOK='true' 
+		hiveIsOK="true" 
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - checkHiveIsOK : HIVE is Runing!" 1>>$KYLINAPP_LOG  2>&1
 		echo $hiveIsOK
 		exit 0
@@ -16,7 +16,7 @@ function checkHiveIsOK(){
 
 
 function waitHiveReady(){  
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Excute cmd:sudo /opt/hive/bin/hive -e 'show databases;',to checkHiveIsOK." 1>>$KYLINAPP_LOG  2>&1 
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Excute cmd: /opt/hive/bin/hive -e 'show databases;',to checkHiveIsOK." 1>>$KYLINAPP_LOG  2>&1 
 	i=1   
 	while [ ${i} -le 50 ]  
 	do   		   
@@ -102,29 +102,37 @@ function StopKyAnalyzer(){
 function DealWithHDFS4Kylin(){   
 #Deal with HDFS 
 #if enable_kylin is true,for the first time it needs to create HDFS folder for kylin.	 
-	sudo /opt/hadoop/bin/hadoop fs -test -e /kylin
+    #必须要用sudo去执行创建和修改hdfs目录的操作，否则在kylin用户下执行不成功。
+    sudo /opt/hadoop/bin/hadoop fs -chmod -R 777 /tmp   1>>$KYLINAPP_LOG  2>&1  
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - sudo chmod hdfs -R 777 /tmp" 1>>$KYLINAPP_LOG  2>&1 
+ 	
+	/opt/hadoop/bin/hadoop fs -test -e /kylin  
 	if [ $? -ne 0 ]
     then  
-    	sudo /opt/hadoop/bin/hadoop fs -mkdir /kylin  
-    	sudo /opt/hadoop/bin/hadoop fs -chown kylin /kylin
-    	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Create hdfs dir /kylin" 1>>$KYLINAPP_LOG  2>&1
+    	sudo /opt/hadoop/bin/hadoop fs -mkdir /kylin  1>>$KYLINAPP_LOG  2>&1
+    	sudo /opt/hadoop/bin/hadoop fs -chown kylin /kylin  1>>$KYLINAPP_LOG  2>&1
+    	sudo /opt/hadoop/bin/hadoop fs -chmod -R 777 /kylin  1>>$KYLINAPP_LOG  2>&1	
+    	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - sudo Create hdfs dir /kylin" 1>>$KYLINAPP_LOG  2>&1
 	fi 
-    	 
-	sudo /opt/hadoop/bin/hadoop fs -test -e /user
+    	
+  
+	/opt/hadoop/bin/hadoop fs -test -e /user
 	if [ $? -ne 0 ]
     then  
-    	sudo /opt/hadoop/bin/hadoop fs -mkdir /user 
-    	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Create hdfs dir /user" 1>>$KYLINAPP_LOG  2>&1
+    	sudo /opt/hadoop/bin/hadoop fs -mkdir /user  1>>$KYLINAPP_LOG  2>&1
+    	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - sudo Create hdfs dir /user" 1>>$KYLINAPP_LOG  2>&1
 	fi 
 	
-	sudo /opt/hadoop/bin/hadoop fs -test -e /user/kylin
+	/opt/hadoop/bin/hadoop fs -test -e /user/kylin
 	if [ $? -ne 0 ]
     then  
-    	sudo /opt/hadoop/bin/hadoop fs -mkdir /user/kylin
-    	sudo /opt/hadoop/bin/hadoop fs -chown kylin /user/kylin
-    	sudo /opt/hadoop/bin/hadoop fs -chmod -R 777 /kylin
-    	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Create hdfs dir /user/kylin" 1>>$KYLINAPP_LOG  2>&1 
+    	sudo /opt/hadoop/bin/hadoop fs -mkdir /user/kylin 1>>$KYLINAPP_LOG  2>&1
+    	sudo /opt/hadoop/bin/hadoop fs -chown kylin /user/kylin  1>>$KYLINAPP_LOG  2>&1
+    	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - sudo Create hdfs dir /user/kylin" 1>>$KYLINAPP_LOG  2>&1 
 	fi    
+	
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - hdfs dir info - =============================" 1>>$KYLINAPP_LOG  2>&1	
+	/opt/hadoop/bin/hadoop fs -ls /  1>>$KYLINAPP_LOG  2>&1   
 	
 	touch  /opt/kap-plus/sbin/hdfsfolder_created
 	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - DealWithHDFS4Kylin for kylin service init finished,create /opt/kap-plus/bin/sample_loaded Flag file." 1>>$KYLINAPP_LOG  2>&1
