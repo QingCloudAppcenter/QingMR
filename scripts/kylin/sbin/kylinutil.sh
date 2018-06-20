@@ -129,19 +129,21 @@ function DealWithHDFS4Kylin(){
     	sudo /opt/hadoop/bin/hadoop fs -mkdir /user/kylin 1>>$KYLINAPP_LOG  2>&1
     	sudo /opt/hadoop/bin/hadoop fs -chown kylin /user/kylin  1>>$KYLINAPP_LOG  2>&1
     	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - sudo Create hdfs dir /user/kylin" 1>>$KYLINAPP_LOG  2>&1 
-	fi    
+	fi   
 	
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - hdfs dir info - =============================" 1>>$KYLINAPP_LOG  2>&1	
-	/opt/hadoop/bin/hadoop fs -ls /  1>>$KYLINAPP_LOG  2>&1   
-	
-	touch  /opt/kap-plus/sbin/hdfsfolder_created
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - DealWithHDFS4Kylin for kylin service init finished,create /opt/kap-plus/bin/sample_loaded Flag file." 1>>$KYLINAPP_LOG  2>&1
-	  
+	/opt/hadoop/bin/hadoop fs -test -e /user/hive
+	if [ $? -ne 0 ]
+	then
+	    sudo /opt/hadoop/bin/hadoop fs -mkdir /user/hive 1>>$KYLINAPP_LOG  2>&1   
+	    sudo /opt/hadoop/bin/hadoop fs -chmod -R 777 /user/hive  1>>$KYLINAPP_LOG  2>&1 
+	    echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - sudo hadoop fs mkdir and chmod -R 777 /user/hive" 1>>$KYLINAPP_LOG  2>&1 
+	fi
+   
 } 
-function loadSampleData4Kylin(){  
-	#/opt/kap-plus/bin/sample.sh    >/dev/null 2>&1 
-	sudo /opt/kap-plus/bin/sample.sh     1>>$KYLINAPP_LOG  2>&1  
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Excute cmd:sudo /opt/kap-plus/bin/sample.sh" 1>>$KYLINAPP_LOG  2>&1
+function loadSampleData4Kylin(){   
+	
+	/opt/kap-plus/bin/sample.sh     1>>$KYLINAPP_LOG  2>&1  
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Excute cmd:/opt/kap-plus/bin/sample.sh" 1>>$KYLINAPP_LOG  2>&1
 		
 			
 	touch  /opt/kap-plus/sbin/sample_loaded

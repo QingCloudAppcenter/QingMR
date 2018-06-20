@@ -49,15 +49,7 @@ then
 	
 	
 	if [ "$enable_kylin"x == "true"x ]
-	then
-		/opt/hadoop/bin/hadoop fs -test -e /user/hive
-		if [ $? -eq 0 ]
-	    then
-	    	sudo /opt/hadoop/bin/hadoop fs -mkdir /user/hive 1>>$KYLINAPP_LOG  2>&1   
-	    	sudo /opt/hadoop/bin/hadoop fs -chmod -R 777 /user/hive  1>>$KYLINAPP_LOG  2>&1 
-	    	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - sudo hadoop fs mkdir and chmod -R 777 /user/hive" 1>>$KYLINAPP_LOG  2>&1 
-		fi 
-				
+	then  	
 		if [ ! -f "/opt/kap-plus/sbin/sample_loaded" ]
 		then 
 			$(loadSampleData4Kylin) 
