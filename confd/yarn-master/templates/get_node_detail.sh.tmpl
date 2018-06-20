@@ -13,14 +13,13 @@
 {{else}}
 	mysql_service=""
 {{end}}
-
+ 
+kylin_service=""
+{{if exists "/env/enable_kylin"}}
 {{if eq (getv "/env/enable_kylin") "true"}}
-	kylin_service="KAP Plus, KyAnalyzer"
-{{else}}
-	kylin_service=""
+ kylin_service="KAP Plus, KyAnalyzer"
 {{end}}
-
-
+{{end}}
 
 	node_info="{\"labels\": [\"Hostname\", \"IP\", \"Role\", \"Running service\"],\"data\":["
 {{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}

@@ -13,11 +13,9 @@ touch /home/kylin/ignore_healthcheck
 echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - add /home/kylin/ignore_healthcheck to ignore appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1 	 
   
 if [ "$action"x == "start"x ]
-then 
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - SPARK_HOME=$SPARK_HOME" 1>>$KYLINAPP_LOG  2>&1
-	
+then  
  	enable_kylin=$(curl -s http://metadata/self/env/enable_kylin)
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - enable_kylin=$enable_kylin" 1>>$KYLINAPP_LOG  2>&1
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - enable_kylin=$enable_kylin,SPARK_HOME=$SPARK_HOME" 1>>$KYLINAPP_LOG  2>&1
 	
 	if [ "$enable_kylin"x == "true"x ]
 	then 
@@ -45,13 +43,21 @@ then
 			echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - After cluster init, remove the neverStartFlag when start service." 1>>$KYLINAPP_LOG  2>&1
 		fi
 			 
-		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1		
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - user=`whoami`,Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1		
 		exit 1  
 	fi 
 	
 	
 	if [ "$enable_kylin"x == "true"x ]
-	then		
+	then
+		/opt/hadoop/bin/hadoop fs -test -e /user/hive
+		if [ $? -eq 0 ]
+	    then
+	    	sudo /opt/hadoop/bin/hadoop fs -mkdir /user/hive 1>>$KYLINAPP_LOG  2>&1   
+	    	sudo /opt/hadoop/bin/hadoop fs -chmod -R 777 /user/hive  1>>$KYLINAPP_LOG  2>&1 
+	    	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - sudo hadoop fs mkdir and chmod -R 777 /user/hive" 1>>$KYLINAPP_LOG  2>&1 
+		fi 
+				
 		if [ ! -f "/opt/kap-plus/sbin/sample_loaded" ]
 		then 
 			$(loadSampleData4Kylin) 
@@ -88,7 +94,7 @@ then
 	
 		rm /home/kylin/ignore_healthcheck
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - rm /home/kylin/ignore_healthcheck to recovery appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1  
-		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1 		
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - user=`whoami`,Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1 		
 		exit 0
 	fi
 	
@@ -105,10 +111,9 @@ then
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - Error - Start Kylin Service failed." 1>>$KYLINAPP_LOG  2>&1
 		rm /home/kylin/ignore_healthcheck
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - rm /home/kylin/ignore_healthcheck to recovery appcenter healthcheck. " 1>>$KYLINAPP_LOG  2>&1
-		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1	 		
+		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - user=`whoami`,Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1	 		
 		exit 1  
-	fi 
-	
+	fi  
 fi  
 
 
@@ -123,7 +128,7 @@ then
 fi
 
  
-echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - user=`whoami`,Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1
+echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - user=`whoami`,user=`whoami`,Action=$action End ...." 1>>$KYLINAPP_LOG  2>&1
 echo " " 1>>$KYLINAPP_LOG  2>&1
 
 
