@@ -102,9 +102,15 @@ function StopKyAnalyzer(){
 function DealWithHDFS4Kylin(){   
 #Deal with HDFS 
 #if enable_kylin is true,for the first time it needs to create HDFS folder for kylin.	 
-    #必须要用sudo去执行创建和修改hdfs目录的操作，否则在kylin用户下执行不成功。
+    #必须要用sudo去执行创建和修改hdfs目录的操作，否则在kylin用户下执行不成功。 
+    
+    echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - hdfs dir info - =============================" 1>>$KYLINAPP_LOG  2>&1
+	/opt/hadoop/bin/hadoop fs -ls /  1>>$KYLINAPP_LOG  2>&1		
+	 
+    
+    
     sudo /opt/hadoop/bin/hadoop fs -chmod -R 777 /tmp   1>>$KYLINAPP_LOG  2>&1  
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - sudo chmod hdfs -R 777 /tmp" 1>>$KYLINAPP_LOG  2>&1 
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - sudo chmod hdfs -R 777 /tmp" 1>>$KYLINAPP_LOG  2>&1
  	
 	/opt/hadoop/bin/hadoop fs -test -e /kylin  
 	if [ $? -ne 0 ]
@@ -138,20 +144,19 @@ function DealWithHDFS4Kylin(){
 	    sudo /opt/hadoop/bin/hadoop fs -chmod -R 777 /user/hive  1>>$KYLINAPP_LOG  2>&1 
 	    echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - sudo hadoop fs mkdir and chmod -R 777 /user/hive" 1>>$KYLINAPP_LOG  2>&1 
 	fi
-   
-} 
-function loadSampleData4Kylin(){   
 	
-	/opt/kap-plus/bin/sample.sh     1>>$KYLINAPP_LOG  2>&1  
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Excute cmd:/opt/kap-plus/bin/sample.sh" 1>>$KYLINAPP_LOG  2>&1
-		
-			
-	touch  /opt/kap-plus/sbin/sample_loaded
-	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Load sample data for kylin service init finished,create /opt/kap-plus/bin/sample_loadedFlag file." 1>>$KYLINAPP_LOG  2>&1 	
-	 
 	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - hdfs dir info - =============================" 1>>$KYLINAPP_LOG  2>&1
 	/opt/hadoop/bin/hadoop fs -ls /  1>>$KYLINAPP_LOG  2>&1		
 	/opt/hadoop/bin/hadoop fs -ls /user  1>>$KYLINAPP_LOG  2>&1
+   
+} 
+function loadSampleData4Kylin(){
+	/opt/kap-plus/bin/sample.sh     1>>$KYLINAPP_LOG  2>&1  
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Excute cmd:/opt/kap-plus/bin/sample.sh" 1>>$KYLINAPP_LOG  2>&1	
+			
+	touch  /opt/kap-plus/sbin/sample_loaded
+	echo "`date '+%Y-%m-%d %H:%M:%S'` - kylinutil.sh - INFO - Load sample data for kylin service init finished,create /opt/kap-plus/bin/sample_loadedFlag file." 1>>$KYLINAPP_LOG  2>&1 
+	
 }
 
  

@@ -24,7 +24,8 @@ then
 		echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - change current path to /home/kylin." 1>>$KYLINAPP_LOG  2>&1
 		
 		if [ ! -f "/opt/kap-plus/sbin/hdfsfolder_created" ]
-		then  
+		then 
+			echo "`date '+%Y-%m-%d %H:%M:%S'` - action-kylin.sh - INFO - DealWithHDFS4Kylin" 1>>$KYLINAPP_LOG  2>&1 
 			$(DealWithHDFS4Kylin) 
 		fi 
 	fi

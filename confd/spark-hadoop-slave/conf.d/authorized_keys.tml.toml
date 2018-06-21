@@ -1,5 +1,0 @@
-[template]
-src = "authorized_keys.tmp.tmpl"
-dest = "/root/.ssh/authorized_keys.tmp" 
-keys = ["/hosts/hdfs-master/","/hosts/yarn-master/"] 
-reload_cmd = "grep -vxFf /root/.ssh/authorized_keys  /root/.ssh/authorized_keys.tmp>>/root/.ssh/authorized_keys;grep -vxFf /root/.ssh/authorized_keys.tmp /root/.ssh/authorized_keys>>/root/.ssh/authorized_keys;"

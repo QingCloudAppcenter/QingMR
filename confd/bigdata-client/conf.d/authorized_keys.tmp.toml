@@ -4,7 +4,5 @@
 src = "authorized_keys.tmp.tmpl"
 dest = "/root/.ssh/authorized_keys.tmp" 
 keys = ["/hosts/hdfs-master/","/hosts/yarn-master/"] 
-reload_cmd = "grep -vxFf /root/.ssh/authorized_keys  /root/.ssh/authorized_keys.tmp>>/root/.ssh/authorized_keys1;grep -vxFf /root/.ssh/authorized_keys.tmp /root/.ssh/authorized_keys>>/root/.ssh/authorized_keys1;cat /root/.ssh/authorized_keys1 >/root/.ssh/authorized_keys ; rm /root/.ssh/authorized_keys1; "
- 
- 
- 
+reload_cmd ="grep -vxFf /root/.ssh/authorized_keys.tmp /root/.ssh/authorized_keys >>/root/.ssh/authorized_keys.tmp;cat /root/.ssh/authorized_keys.tmp > /root/.ssh/authorized_keys;"
+  
