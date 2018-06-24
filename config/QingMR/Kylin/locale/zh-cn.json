@@ -106,7 +106,7 @@
 	"Specify the python version used by a python spark job, current supported python versions are 2.7.13 and 3.6.1. Anaconda distribution data science packages numpy, scikit-learn, scipy, Pandas, NLTK and Matplotlib are also included." : "指定Python Spark程序所用的Python版本，目前支持Anaconda发行版的Python 2.7.13和3.6.1。两个Python版本对应的Anaconda发行版数据科学库numpy, scikit-learn, scipy, Pandas, NLTK和Matplotlib也包含在内",
 	"Whether to enable spark standalone mode or not" : "是否开启Spark Standalone模式。开启后将可以以Spark Standalone模式提交Spark应用；关闭后可以以Spark on Yarn模式提交Spark应用；如仅以Spark on YARN模式提交Spark应用或者仅使用hadoop相关功能，则可以选择关闭Spark Standalone模式以释放资源。此选项最好不要和其他配置参数项一起改，单独改动此项然后保存设置是推荐的作法",
 	"Whether to use QingStor or not" : "是否将 QingStor 与 Hadoop, Spark 及 Hive 集成，如需集成则必须输入相应的access_key及secret_key",
-	"Specify QingStor zone, current available zones are pek3a and sh1a" : "指定QingStor的分区，目前开放了pek3a和sh1a, 其他分区何时开放请关注SparkMR用户指南",
+	"Specify QingStor zone, current available zones are pek3a, sh1a and pek3b." : "指定QingStor的分区，目前开放了pek3a,sh1a和pek3b, 其他分区何时开放请关注QingMR用户指南",
 	"Scheduler mode within an spark application for parallel jobs that can run simultaneously if they were submitted from separate threads" : "Spark应用内调度模式，针对Spark应用内不同线程提交的可同时运行的任务",
 	"The maximum amount of heap(in MB) to use by node manager. The upper limit is half of total memory" : "NodeManager最大可用堆内存大小(MB)，该值上限为总内存的一半",
 	"The class to use as the resource scheduler" : "YARN ResourceManager调度器，默认为CapacityScheduler，可选FairScheduler。如果选择FairScheduler，需要上传自定义的fair-scheduler.xml到HDFS的/tmp/hadoop-yarn/目录，然后右键点击集群选择更新调度器。如需对CapacityScheduler的默认行为进行更改，同样需要上传自定义的capacity-scheduler.xml到HDFS的/tmp/hadoop-yarn/目录，然后更新调度器",

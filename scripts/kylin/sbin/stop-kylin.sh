@@ -1,8 +1,5 @@
-#!/bin/bash  
- 
-source /opt/kap-plus/sbin/kylinutil.sh 
-
-
+#!/bin/bash   
+source /opt/kap-plus/sbin/kylinutil.sh  
 pid=`ps ax | grep kylin | grep -v grep | grep -v 'su kylin' | grep -v 'bash' | grep 'Dkylin.hive.dependency' | awk '{print $1}'` 
 
 if [ "$pid"x == ""x ]

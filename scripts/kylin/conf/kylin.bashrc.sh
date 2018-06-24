@@ -13,4 +13,4 @@ export SPARK_S3=/opt/hadoop/share/hadoop/common/lib/hadoop-aws-2.7.3.jar,/opt/ha
 
 
 
-#echo "`date '+%Y-%m-%d %H:%M:%S'` - whoami=`whoami`,SPARK_HOME=$SPARK_HOME,source /home/kylin/.bashrc " 1>>/opt/qingcloud/sbin/kylinapp.log  2>&1
+ 
