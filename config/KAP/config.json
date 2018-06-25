@@ -437,7 +437,7 @@
                 {
                     "key": "QingStor_zone",
                     "label": "QingStor_zone",
-                    "description": "Specify QingStor zone, current available zones are pek3a and sh1a",
+                    "description": "Specify QingStor zone, current available zones are pek3a, sh1a and pek3b.",
                     "type": "string", 
                     "default": "pek3a",
 			        "range": ["pek3a","sh1a","pek3b","gd2a"],

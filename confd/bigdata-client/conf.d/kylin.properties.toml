@@ -2,7 +2,5 @@
 src = "kylin.properties.tmpl"
 dest = "/opt/kap-plus/conf/kylin.properties"
 keys = ["/",]
-reload_cmd = "/opt/kap-plus/sbin/action-kylin.sh restart"  
-
-
+reload_cmd = "sudo -u kylin /opt/kap-plus/sbin/action-kylin.sh  reload_kylinpro;"  
  

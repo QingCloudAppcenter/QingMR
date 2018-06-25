@@ -3,7 +3,7 @@
         "description": {{cluster.description}},
         "vxnet": {{cluster.vxnet}},
         "upgrade_policy": [
-            "appv-zs79n0vo","appv-oc2it1sa"
+            "appv-zs79n0vo","appv-oc2it1sa","appv-fxan6qzp"
     	],
         "links": {
         	"zookeeper4kylin": {{cluster.zookeeper4kylin}},
@@ -15,7 +15,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-djsd6pev"
+                    "image": "img-zrnv9ja6"
                 },
                 "instance_class": {{cluster.hdfs-master.instance_class}},
                 "count": 1,
@@ -137,7 +137,7 @@
                 "container": {
             	   "zone": "sh1a",
             	   "type": "kvm",
-            	   "image": "img-vw0z3yqd"
+            	   "image": "img-r2vqprw5"
             	},
             	"instance_class": {{cluster.yarn-master.instance_class}},
             	"count": 1,
@@ -344,7 +344,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-y2vt8m6o"
+                    "image": "img-5kzogi7t"
                 },
                 "instance_class": {{cluster.slave.instance_class}},
                 "count": {{cluster.slave.count}},
@@ -475,7 +475,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-agsphmwd"
+                    "image": "img-hqkrf962"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},
@@ -484,16 +484,16 @@
                 "services": { 
                 	"start": {
 						"order": 2,
-                        "cmd": "/opt/kap-plus/sbin/action-kylin.sh start",
-                        "timeout": 3600
+                        "cmd": "sudo -u kylin /opt/kap-plus/sbin/action-kylin.sh start",
+                        "timeout": 900
                     },
 		    		"stop": { 
-                		"cmd": "/opt/kap-plus/sbin/action-kylin.sh stop",
-                		"timeout": 3600
+                		"cmd": "sudo -u kylin /opt/kap-plus/sbin/action-kylin.sh stop",
+                		"timeout": 900
            	    	},
            	    	"restart": { 
-                		"cmd": "/opt/kap-plus/sbin/action-kylin.sh restart",
-                		"timeout": 3600
+                		"cmd": "sudo -u kylin /opt/kap-plus/sbin/action-kylin.sh  restart",
+                		"timeout": 900
            	    	}
                 },
                 "health_check": {
