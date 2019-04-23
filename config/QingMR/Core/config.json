@@ -99,8 +99,6 @@
                                 "type": "integer",
 			                	"step": 10,
                                 "default": 10,
-                				"min":	10,
-                				"max":	1000,
                                 "required": "yes" 
                             }
                         ]
@@ -158,8 +156,6 @@
                                 "type": "integer",
 		                		"step": 10,
                                 "default": 10,
-                				"min":	10,
-                				"max":	1000,
                                 "required": "yes" 
                             }
                         ]
@@ -212,10 +208,10 @@
                             {
                                 "key": "volume_class",
                                 "label": "volume class",
-                                "description": "The volume type for each instance, such as high performance, high performance plus",
+                                "description": "The volume type for each instance, such as high performance, high performance plus, NeonSAN",
                                 "type": "integer",
                                 "default": 3,
-                                "range": [0,3],
+                                "range": [0,3,5],
                                 "required": "yes",
                                 "resource_group": [0, 0]
                             },
@@ -226,8 +222,6 @@
                                 "type": "integer",
                                 "step": 10,
                                 "default": 10,
-			                	"min":	10,
-			                	"max":	1000,
                                 "required": "yes",
                                 "resource_group": [10, 100]
                             }
@@ -295,8 +289,6 @@
                                 "type":"integer",
 			                	"step": 10,
                                 "default":10,
-				                "min":	10,
-				                "max":	1000,
                                 "required":"yes" 
                             }
                         ]
@@ -350,7 +342,128 @@
                     "type": "password",
                     "default": "hive",
                     "required": "no"
-                } ,
+                },
+                {
+                    "key": "hive_execution_engine",
+                    "label": "hive.execution.engine",
+                    "description": "hive execution engine",
+                    "type": "string",
+                    "default": "spark",
+                    "range": ["spark","mr"],
+                    "required":"no"
+                },
+                {
+                    "key": "hive_exec_parallel",
+                    "label": "hive.exec.parallel",
+                    "description": "Whether to execute jobs in parallel",
+                    "type": "string",
+                    "default": "true",
+                    "range": ["true","false"],
+                    "required":"no"
+                },
+                {
+                    "key": "hive_exec_parallel_thread_number",
+                    "label": "hive.exec.parallel.thread.number",
+                    "description": "How many jobs at most can be executed in parallel",
+                    "type": "integer",
+                    "default": 8,
+                    "min": 1,
+                    "required": "no"
+                },
+                {
+                    "key": "hive_merge_mapredfiles",
+                    "label": "hive.merge.mapredfiles",
+                    "description": "Merge small files at the end of a map-reduce job",
+                    "type": "string",
+                    "default": "true",
+                    "range": ["true","false"],
+                    "required":"no"
+                },
+                {
+                    "key": "hive_merge_size_per_task",
+                    "label": "hive.merge.size.per.task",
+                    "description": "Size of merged files at the end of the job",
+                    "type": "integer",
+                    "default": 128000000,
+                    "min": 32000000,
+                    "required": "no"
+                },
+                {
+                    "key": "hive_merge_smallfiles_avgsize",
+                    "label": "hive.merge.smallfiles.avgsize",
+                    "description": "When the average output file size of a job is less than this number, Hive will start an additional map-reduce job to merge the output files into bigger files. This is only done for map-only jobs if hive.merge.mapfiles is true, and for map-reduce jobs if hive.merge.mapredfiles is true",
+                    "type": "integer",
+                    "default": 5000000,
+                    "min": 2000000,
+                    "required": "no"
+                },
+                {
+                    "key": "hive_merge_sparkfiles",
+                    "label": "hive.merge.sparkfiles",
+                    "description": "Merge small files at the end of a Spark DAG Transformation",
+                    "type": "string",
+                    "default": "true",
+                    "range": ["true","false"],
+                    "required":"no"
+                },
+                {
+                    "key": "hive_spark_driver_memory",
+                    "label": "hive.spark.driver.memory",
+                    "description": "Amount of memory to use for the driver process, i.e. where SparkContext is initialized, in the same format as JVM memory strings with a size unit suffix (\"k\", \"m\", \"g\" or \"t\") (e.g. 512m, 2g)",
+                    "type": "string",
+                    "default": "512m",
+                    "required": "no"
+                },
+                {
+                    "key": "hive_spark_executor_memory",
+                    "label": "hive.spark.executor.memory",
+                    "description": "Amount of memory to use per executor process, in the same format as JVM memory strings with a size unit suffix (\"k\", \"m\", \"g\" or \"t\") (e.g. 512m, 2g)",
+                    "type": "string",
+                    "default": "512m",
+                    "required": "no"
+                },
+                {
+                    "key": "hive_spark_executor_cores",
+                    "label": "hive.spark.executor.cores",
+                    "description": "The number of cores to use on each executor",
+                    "type": "integer",
+                    "default": 1,
+                    "min": 1,
+                    "required": "no"
+                },
+                {
+                    "key": "hive_spark_executor_instances",
+                    "label": "hive.spark.executor.instances",
+                    "description": "The number of excutors to use on each job",
+                    "type": "integer",
+                    "default": 3,
+                    "min": 1,
+                    "required": "no"
+                },
+                {
+                    "key": "hive_server2_idle_session_timeout",
+                    "label": "hive.server2.idle.session.timeout",
+                    "description": "Session will be closed when it's not accessed for this duration, which can be disabled by setting to zero or negative value",
+                    "type": "string",
+                    "default": "7d",
+                    "required": "no"
+                },
+                {
+                    "key": "hive_server2_idle_operation_timeout",
+                    "label": "hive.server2.idle.operation.timeout",
+                    "description": "Operation will be closed when it's not accessed for this duration of time, which can be disabled by setting to zero value",
+                    "type": "string",
+                    "default": "5d",
+                    "required": "no"
+                },
+                {
+                    "key": "hive_server2_session_check_interval",
+                    "label": "hive.server2.session.check.interval",
+                    "description": "The check interval for session/operation timeout, which can be disabled by setting to zero or negative value",
+                    "type": "string",
+                    "default": "6h",
+                    "required": "no"
+                },
     	        {
             		"key": "QingStor",
 			        "label": "QingStor",
@@ -386,7 +499,7 @@
 			        "pattern": "[A-Za-z0-9]{40}|^$",
             		"default": "",
             		"required":"no"
-		        }, 
+		        },
 		        {
             		"key": "enable_spark_standalone",
 			        "label": "enable_spark_standalone",
@@ -829,7 +942,7 @@
                     "type": "string",
                     "default": "logs",
                     "required": "no"
-                }                
+                }
                 ]
             }
         ]

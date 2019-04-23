@@ -1,5 +1,5 @@
-{{getv "/host/ip"}} localhost
 {{getv "/host/ip"}} {{getv "/host/instance_id"}}
+{{getv "/host/ip"}} localhost
 
 # Hadoop Hosts
 {{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}

@@ -4,6 +4,8 @@
 {{getv $ip}} {{$dir}}{{end}}
 {{range $dir := lsdir "/hosts/slave/"}}{{$ip := printf "/hosts/slave/%s/ip" $dir}}
 {{getv $ip}} {{$dir}}{{end}}
+{{range $dir := lsdir "/hosts/bigdata-client/"}}{{$ip := printf "/hosts/bigdata-client/%s/ip" $dir}}
+{{getv $ip}} {{$dir}}{{end}}
 
 # External Service Hosts
 {{range $link_id := lsdir "/links/" | filter "external_service*"}}

@@ -2,19 +2,16 @@
         "name": {{cluster.name}},
         "description": {{cluster.description}},
         "vxnet": {{cluster.vxnet}},
-        "upgrade_policy": [
-            "appv-zs79n0vo","appv-oc2it1sa","appv-v8k570ic"
-    	],
         "links": {
             "external_service":{{cluster.external_service}}            
-        },		
+        },
         "nodes": [            
             {
                 "role": "hdfs-master",
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-zrnv9ja6"
+                    "image": "img-tjx1l1i7"
                 },
                 "instance_class": {{cluster.hdfs-master.instance_class}},
                 "count": 1,
@@ -136,7 +133,7 @@
                 "container": {
             	   "zone": "sh1a",
             	   "type": "kvm",
-            	   "image": "img-r2vqprw5"
+            	   "image": "img-ibb5i79p"
             	},
             	"instance_class": {{cluster.yarn-master.instance_class}},
             	"count": 1,
@@ -150,11 +147,11 @@
             	},
             	"passphraseless":"ssh-rsa",
             	"services": {
-					"init": {
-						"post_start_service": true,
-						"cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/bin/hdfs dfs -chmod -R 777 /tmp/",
-						"timeout": 3600
-					},
+                    "init": {
+                        "post_start_service": true,
+                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/bin/hdfs dfs -chmod -R 777 /tmp/",
+                        "timeout": 3600
+                    },
 					"start": {
 						"order": 1,
 						"cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/start-all-services.sh;/opt/hadoop/sbin/copy-custom-files.sh",
@@ -343,7 +340,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-5kzogi7t"
+                    "image": "img-0p99qxi6"
                 },
                 "instance_class": {{cluster.slave.instance_class}},
                 "count": {{cluster.slave.count}},
@@ -474,7 +471,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-hqkrf962"
+                    "image": "img-ysifghqp"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},
@@ -504,6 +501,20 @@
 			"remote_mysql_ip": {{env.remote_mysql_ip}},
 			"hive_metastore_username": {{env.hive_metastore_username}},
 			"hive_metastore_password": {{env.hive_metastore_password}},
+            "hive_execution_engine": {{env.hive_execution_engine}},
+            "hive_exec_parallel": {{env.hive_exec_parallel}},
+            "hive_exec_parallel_thread_number": {{env.hive_exec_parallel_thread_number}},
+            "hive_merge_mapredfiles": {{env.hive_merge_mapredfiles}},
+            "hive_merge_sparkfiles": {{env.hive_merge_sparkfiles}},
+            "hive_merge_size_per_task": {{env.hive_merge_size_per_task}},
+            "hive_merge_smallfiles_avgsize": {{env.hive_merge_smallfiles_avgsize}},
+            "hive_spark_driver_memory": {{env.hive_spark_driver_memory}},
+            "hive_spark_executor_memory": {{env.hive_spark_executor_memory}},
+            "hive_spark_executor_cores": {{env.hive_spark_executor_cores}},
+            "hive_spark_executor_instances": {{env.hive_spark_executor_instances}},
+            "hive_server2_idle_session_timeout": {{env.hive_server2_idle_session_timeout}},
+            "hive_server2_idle_operation_timeout": {{env.hive_server2_idle_operation_timeout}},
+            "hive_server2_session_check_interval": {{env.hive_server2_session_check_interval}},
             "QingStor": {{env.QingStor}},
 	    	"QingStor_zone": {{env.QingStor_zone}},
             "access_key": {{env.access_key}},
@@ -566,6 +577,10 @@
             },
             "hdfs.monitor_port": {
                 "port":50070,
+                "protocol": "http"
+            },
+            "hiveserver2.monitor_port": {
+                "port":10002,
                 "protocol": "http"
             },
             "spark.client_port": {
