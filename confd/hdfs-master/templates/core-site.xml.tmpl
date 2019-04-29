@@ -26,6 +26,14 @@
     <name>hadoop.proxyuser.yunify.groups</name>
     <value>*</value>
   </property>
+  <property>
+    <name>hadoop.proxyuser.hive.hosts</name>
+    <value>*</value>
+  </property>
+  <property>
+    <name>hadoop.proxyuser.hive.groups</name>
+    <value>*</value>
+  </property>
   {{if ne (getv "/env/hadoop.proxyuser") ""}}
   <property>
     <name>hadoop.proxyuser.{{getv "/env/hadoop.proxyuser"}}.hosts</name>

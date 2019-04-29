@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
 
+# for spark tmp dir
+export SPARK_LOCAL_DIRS=/data/spark/local_dirs
+if [ ! -d $SPARK_LOCAL_DIRS ]; then
+    mkdir -p $SPARK_LOCAL_DIRS
+    chmod 777 $SPARK_LOCAL_DIRS
+fi
+
 ret_spark=0
 ret_hadoop=0
 {{if eq (getv "/env/enable_spark_standalone") "true"}}
 /opt/spark/sbin/action-spark-slave.sh
 ret_spark=$?
 {{end}}
+
 /opt/hadoop/sbin/action-hadoop-slave.sh
 ret_hadoop=$?
 
