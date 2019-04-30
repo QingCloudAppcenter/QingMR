@@ -350,7 +350,7 @@
                     "type": "string",
                     "default": "spark",
                     "range": ["spark","mr"],
-                    "required":"no"
+                    "required":"yes"
                 },
                 {
                     "key": "hive_exec_parallel",
@@ -507,7 +507,7 @@
 			        "type": "boolean",
 			        "default": false,
 		            "range": [true,false],
-		            "required":"yes"
+		            "required":"no"
 		        },
 		        {
                     "key": "spark_master_daemon_memory",
