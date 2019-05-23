@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ -f /etc/hosts.exclude ] ; then
+    rm /etc/hosts.exclude
+fi
+{{range $dir := lsdir "/deleting-hosts/slave/"}}
+{{$ip := printf "/deleting-hosts/slave/%s/ip" $dir}}
+echo {{getv $ip}}" "{{$dir}} >> /etc/hosts.exclude
+{{end}}

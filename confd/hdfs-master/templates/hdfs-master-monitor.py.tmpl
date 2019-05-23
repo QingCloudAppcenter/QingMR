@@ -34,7 +34,7 @@ def parse_dfs_stat(role, hjson, stats):
 		stats["PercentRemaining"] = sub_dict["PercentRemaining"]                
     elif role == DFS_ROLE_SLAVE:
 	for sub_dict in hjson["beans"]:
-	    if "name" in sub_dict and sub_dict["name"] == "Hadoop:service=DataNode,name=FSDatasetState-null":
+	    if "name" in sub_dict and sub_dict["name"] == "Hadoop:service=DataNode,name=FSDatasetState":
 		stats["RemainingGB"] = sub_dict["Remaining"] / (1024*1024*1024)
 		stats["DfsUsedGB"] = sub_dict["DfsUsed"] / (1024*1024*1024)
 	    if "name" in sub_dict and re.match(r'Hadoop:service=DataNode,name=DataNodeActivity-.*', sub_dict["name"]):

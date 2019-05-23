@@ -2,4 +2,4 @@
 src = "hosts.tmp.tmpl"
 dest = "/etc/hosts.tmp"
 keys = ["/",]   
-reload_cmd =" grep -v -E '127.0.1.1|localhost'  /etc/hosts >> /etc/hosts1;   grep -vxFf /etc/hosts.tmp /etc/hosts1  >> /etc/hosts.tmp;  cat /etc/hosts.tmp >/etc/hosts ; rm /etc/hosts1;"
+reload_cmd ="/opt/hadoop/sbin/reload-hosts.sh"

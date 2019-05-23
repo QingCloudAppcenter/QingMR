@@ -942,6 +942,14 @@
                     "type": "string",
                     "default": "logs",
                     "required": "no"
+                },
+                {
+                    "key": "yarn.webapp.ui2.enable",
+                    "label": "yarn.webapp.ui2.enable",
+                    "description": "whether the new YARN-UI v2 is enabled or not. Defaults to true.",
+                    "type": "boolean",
+                    "default": true,
+                    "required":"no"
                 }
                 ]
             }
