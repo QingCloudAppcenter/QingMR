@@ -1,0 +1,6 @@
+{{if eq (getv "/env/QingStor") "true"}}
+export HIVE_AUX_JARS_PATH=$HIVE_AUX_JARS_PATH,$HADOOP_S3
+
+export AWS_ACCESS_KEY_ID={{getv "/env/access_key"}}
+export AWS_SECRET_ACCESS_KEY={{getv "/env/secret_key"}}
+{{end}}
