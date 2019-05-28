@@ -3,7 +3,7 @@
         "description": {{cluster.description}},
         "vxnet": {{cluster.vxnet}},
         "links": {
-            "external_service":{{cluster.external_service}}            
+            "external_service":{{cluster.external_service}}
         },
         "nodes": [            
             {
@@ -11,7 +11,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-tjx1l1i7"
+                    "image": "img-uquejjia"
                 },
                 "instance_class": {{cluster.hdfs-master.instance_class}},
                 "count": 1,
@@ -39,7 +39,8 @@
                         "timeout": 3600
                     },
                     "scale_in": {
-                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/exclude-node.sh",
+                        "order": 0,
+                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/exclude-node.sh;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
                         "timeout": 86400
                     }
                 },
@@ -133,7 +134,7 @@
                 "container": {
             	   "zone": "sh1a",
             	   "type": "kvm",
-            	   "image": "img-ibb5i79p"
+            	   "image": "img-8arxkl0k"
             	},
             	"instance_class": {{cluster.yarn-master.instance_class}},
             	"count": 1,
@@ -162,7 +163,8 @@
 						"timeout": 3600
 					},
 					"scale_in": {
-						"cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/refresh-yarn-nodes.sh",
+                        "order": 0,
+						"cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/refresh-yarn-nodes.sh;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
 						"timeout": 86400
 					},
 					"update-yarn-scheduler": {
@@ -340,7 +342,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-0p99qxi6"
+                    "image": "img-9u7qph7s"
                 },
                 "instance_class": {{cluster.slave.instance_class}},
                 "count": {{cluster.slave.count}},
@@ -356,6 +358,11 @@
                     "start": {
 						"order": 2,
                         "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/spark/sbin/action-slave.sh;/opt/hadoop/sbin/copy-custom-files.sh",
+                        "timeout": 3600
+                    },
+                    "scale_in": {
+                        "order": 1,
+                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
                         "timeout": 3600
                     },
 		    		"destroy": { 
@@ -471,7 +478,7 @@
                 "container": {
                     "type": "kvm",
                     "zone": "sh1a",
-                    "image": "img-ysifghqp"
+                    "image": "img-381x8m86"
                 },
                 "instance_class": {{cluster.bigdata-client.instance_class}},
                 "count": {{cluster.bigdata-client.count}},
@@ -482,6 +489,13 @@
                     "mount_point": "/data",
                     "filesystem": "ext4",
                     "class": {{cluster.bigdata-client.volume_class}}
+                },
+                "services": {
+                    "scale_in": {
+                        "order": 1,
+                        "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
+                        "timeout": 3600
+                    }
                 },
 				"user_access": true,
                 "passphraseless":"ssh-rsa",
@@ -568,7 +582,8 @@
             "yarn.log-aggregation.retain-seconds": {{env.yarn_log-aggregation_retain-seconds}},
 			"yarn.log-aggregation.retain-check-interval-seconds": {{env.yarn.log-aggregation.retain-check-interval-seconds}},
 			"yarn.nodemanager.remote-app-log-dir": {{env.yarn.nodemanager.remote-app-log-dir}},
-			"yarn.nodemanager.remote-app-log-dir-suffix": {{env.yarn.nodemanager.remote-app-log-dir-suffix}}
+			"yarn.nodemanager.remote-app-log-dir-suffix": {{env.yarn.nodemanager.remote-app-log-dir-suffix}},
+            "yarn.webapp.ui2.enable": {{env.yarn.webapp.ui2.enable}}
         },
         "endpoints": {
             "hdfs.client_port": {

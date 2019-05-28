@@ -1,0 +1,4 @@
+[template]
+src = "hive-env.sh.tmpl"
+dest = "/opt/hive/conf/hive-env.sh"
+keys = ["/",]

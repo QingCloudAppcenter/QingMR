@@ -1,21 +1,22 @@
 # 简介
 
-*QingMR* 将 Hadoop 生态圈重要组件包括 *Apache Hadoop* , *Apache Spark* ， *Apache Hive* 和 *Kylin* 集成到一起，以云端应用的形式交付给用户使用。当前支持的组件及版本如下：
+*QingMR* 将 Hadoop 生态圈重要组件包括 *Hadoop* , *Spark* ， *Hive* 和 *Kylin* 集成到一起，以云端应用的形式交付给用户使用。当前支持的组件及版本如下：
 
-| | Apache Hadoop | Apache Spark | Apache Hive |  
+| | Hadoop | Spark | Hive |  
 | :------: | ------: | ------: | ------: |
 | QingMR - Core 1.2.1 | 2.7.3 | 2.2.0 | 1.2.2 |
 | QingMR - Core 1.3.0 | 2.7.3 | 2.2.0 | 2.3.4 | 
-  
- 备注：*Kyligence Enterprise* 作为 *Apache Kylin* 的企业版也是构建在 *QingMR* 之上，如需使用可以[点击这里](https://appcenter.qingcloud.com/apps/app-66xhycwj/Kyligence%20Enterprise%20%20-%20Apache%20Kylin%20%E4%BC%81%E4%B8%9A%E7%89%88)获取。
+| QingMR - Core 2.0.0 | 2.9.2 | 2.2.3 | 2.3.5 |  
+
+备注：*Kyligence Enterprise* 作为 *Kylin* 的企业版也是构建在 *QingMR* 之上，如需使用可以[点击这里](https://appcenter.qingcloud.com/apps/app-66xhycwj/Kyligence%20Enterprise%20%20-%20Apache%20Kylin%20%E4%BC%81%E4%B8%9A%E7%89%88)获取。
  > 更多组件，敬请期待 
 
 ## *QingMR* 的主要功能
 
-- *Apache Hadoop*  的 MapReduce、YARN、HDFS 等服务  
-- *Apache Spark* 的 Spark streaming、Spark SQL、DataFrame and DataSet、Structed Streaming、MLlib、GraphX、SparkR 等功能  
-- *Apache Hive*  的以 SQL 语法读、写和管理分布式大规模数据集的 SQL on Hadoop 数据仓库功能  
-- *Kyligence Analytics Platformn* 基于 Apache Kylin 的企业级大数据智能分析平台
+- *Hadoop*  的 MapReduce、YARN、HDFS 等服务  
+- *Spark* 的 Spark streaming、Spark SQL、DataFrame and DataSet、Structed Streaming、MLlib、GraphX、SparkR 等功能  
+- *Hive*  的以 SQL 语法读、写和管理分布式大规模数据集的 SQL on Hadoop 数据仓库功能  
+- *Kyligence Analytics Platformn* 基于 Kylin 的企业级大数据智能分析平台
 - 同时支持 Spark Standalone 和 Spark on YARN 两种模式
 - 同时支持 Hive on MapReduce 和 Hive on Spark 两种模式
 - 为了方便用户提交 Python Spark 应用，提供了 Anaconda 发行版的 Python 2.7.13 和 Python 3.6.1 。用户可以选择 Python Spark 应用的运行环境，支持在 Python2 和 Python3 之间进行切换
@@ -24,6 +25,7 @@
 - 支持上传自定义的 Spark 应用内调度器 Fair Schudeler，并支持 spark 应用内调度模式在 FIFO 和 FAIR 切换
 - 支持用户自定义 Hadoop 代理用户及其能够代理哪些 hosts 和这些 hosts 中的哪些 groups
 - 支持上传自定义的 YARN 调度器 CapacityScheduler 和 FairScheduler，并支持在 CapacityScheduler 和 FairScheduler 之间进行切换
+- 支持基于 Spark 的分布式深度学习框架 BigDL
 - 配置参数增加到70多个，定制服务更方便
 - 针对 HDFS、YARN 和 Spark 服务级别的监控告警、健康检查与服务自动恢复
 - Hadoop, Spark 和 Hive 与 QingStor 集成

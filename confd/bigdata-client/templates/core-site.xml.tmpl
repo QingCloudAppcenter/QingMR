@@ -32,7 +32,6 @@
       <value>{{getv "/env/hadoop.proxyuser.groups"}}</value>
     </property>
     {{end}}
-<!--
    <property>
         <name>io.compression.codecs</name>
         <value>org.apache.hadoop.io.compress.GzipCodec,
@@ -46,7 +45,6 @@
         <name>io.compression.codec.lzo.class</name>
         <value>com.hadoop.compression.lzo.LzoCodec</value>
    </property>
--->
 {{if eq (getv "/env/QingStor") "true"}}
    <property>
      <name>fs.s3a.endpoint</name>

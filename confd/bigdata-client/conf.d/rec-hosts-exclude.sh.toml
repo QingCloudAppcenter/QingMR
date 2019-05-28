@@ -1,0 +1,4 @@
+[template]
+src = "rec-hosts-exclude.sh.tmpl"
+dest = "/opt/hadoop/sbin/rec-hosts-exclude.sh"
+keys = ["/",]

@@ -178,5 +178,6 @@
 	"The number of excutors to use on each job": "hive on spark作业中每个作业分配的executor个数",
 	"Session will be closed when it's not accessed for this duration, which can be disabled by setting to zero or negative value": "hiveserver2的session闲置超过该时间时将被关闭，置零或负值时将禁用。需填入时间值，单位(d/day, h/hour, m/min, s/sec, ms/msec, us/usec, ns/nsec)，不指定时默认msec",
 	"Operation will be closed when it's not accessed for this duration of time, which can be disabled by setting to zero value": "hiveserver2的session中operation超过该时间时将被取消，置零或负值时将禁用。需填入时间值，单位(d/day, h/hour, m/min, s/sec, ms/msec, us/usec, ns/nsec)，不指定时默认msec",
-	"The check interval for session/operation timeout, which can be disabled by setting to zero or negative value": "hiveserver2中检查session和operation超时的间隔时间，该值应该大于等于3000msec，置零或负值时将禁用。需填入时间值，单位(d/day, h/hour, m/min, s/sec, ms/msec, us/usec, ns/nsec)，不指定时默认msec"
+	"The check interval for session/operation timeout, which can be disabled by setting to zero or negative value": "hiveserver2中检查session和operation超时的间隔时间，该值应该大于等于3000msec，置零或负值时将禁用。需填入时间值，单位(d/day, h/hour, m/min, s/sec, ms/msec, us/usec, ns/nsec)，不指定时默认msec",
+	"whether the new YARN-UI v2 is enabled or not. Defaults to false.": "是否启用 YARN WEB UI v2 ，默认启用"
 }
