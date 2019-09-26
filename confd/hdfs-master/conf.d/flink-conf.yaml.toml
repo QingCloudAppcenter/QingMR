@@ -1,0 +1,4 @@
+[template]
+src = "flink-conf.yaml.tmpl"
+dest = "/opt/flink/conf/flink-conf.yaml"
+keys = ["/",]
