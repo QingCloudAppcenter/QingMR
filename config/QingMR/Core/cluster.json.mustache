@@ -1,139 +1,139 @@
 {
-    "name":{{cluster.name}},
-    "description":{{cluster.description}},
-    "vxnet":{{cluster.vxnet}},
-    "links":{
-        "external_service":{{cluster.external_service}}
+    "name": {{cluster.name}},
+    "description": {{cluster.description}},
+    "vxnet": {{cluster.vxnet}},
+    "links": {
+        "external_service": {{cluster.external_service}}
     },
-    "nodes":[
+    "nodes": [
         {
-            "role":"hdfs-master",
-            "container":{
-                "type":"kvm",
-                "zone":"sh1a",
-                "image":"img-pggb1n7"
+            "role": "hdfs-master",
+            "container": {
+                "type": "kvm",
+                "zone": "sh1a",
+                "image": "img-pggb1n7"
             },
-            "instance_class":{{cluster.hdfs-master.instance_class}},
-            "count":1,
-            "cpu":{{cluster.hdfs-master.cpu}},
-            "memory":{{cluster.hdfs-master.memory}},
-            "volume":{
-                "size":{{cluster.hdfs-master.volume_size}},
-                "mount_point":"/data",
-                "filesystem":"ext4",
-                "class":{{cluster.hdfs-master.volume_class}}
+            "instance_class": {{cluster.hdfs-master.instance_class}},
+            "count": 1,
+            "cpu": {{cluster.hdfs-master.cpu}},
+            "memory": {{cluster.hdfs-master.memory}},
+            "volume": {
+                "size": {{cluster.hdfs-master.volume_size}},
+                "mount_point": "/data",
+                "filesystem": "ext4",
+                "class": {{cluster.hdfs-master.volume_class}}
             },
-            "passphraseless":"ssh-rsa",
-            "services":{
-                "init":{
-                    "cmd":"USER=root export JAVA_HOME=/usr/jdk;mkdir -p /data/hadoop;/opt/hadoop/bin/hdfs namenode -format -force",
-                    "timeout":3600
+            "passphraseless": "ssh-rsa",
+            "services": {
+                "init": {
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;mkdir -p /data/hadoop;/opt/hadoop/bin/hdfs namenode -format -force",
+                    "timeout": 3600
                 },
-                "start":{
-                    "order":0,
-                    "cmd":"USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/start-dfs.sh;/opt/flink/sbin/start-historyserver.sh",
-                    "timeout":3600
+                "start": {
+                    "order": 0,
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/start-dfs.sh;/opt/flink/sbin/start-historyserver.sh",
+                    "timeout": 3600
                 },
-                "stop":{
-                    "cmd":"USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/stop-dfs.sh;/opt/flink/bin/historyserver.sh stop",
-                    "timeout":3600
+                "stop": {
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/stop-dfs.sh;/opt/flink/bin/historyserver.sh stop",
+                    "timeout": 3600
                 },
-                "scale_in":{
-                    "order":0,
-                    "cmd":"USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/exclude-node.sh;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
-                    "timeout":86400
+                "scale_in": {
+                    "order": 0,
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/exclude-node.sh;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
+                    "timeout": 86400
                 }
             },
-            "health_check":{
-                "enable":true,
-                "interval_sec":60,
-                "timeout_sec":10,
-                "action_timeout_sec":30,
-                "healthy_threshold":2,
-                "unhealthy_threshold":2,
-                "check_cmd":"/opt/hadoop/sbin/check-hdfs-master.sh",
-                "action_cmd":"/opt/hadoop/sbin/action-hdfs-master.sh"
+            "health_check": {
+                "enable": true,
+                "interval_sec": 60,
+                "timeout_sec": 10,
+                "action_timeout_sec": 30,
+                "healthy_threshold": 2,
+                "unhealthy_threshold": 2,
+                "check_cmd": "/opt/hadoop/sbin/check-hdfs-master.sh",
+                "action_cmd": "/opt/hadoop/sbin/action-hdfs-master.sh"
             },
-            "monitor":{
-                "enable":true,
-                "cmd":"/usr/bin/python /opt/hadoop/sbin/hdfs-master-monitor.py",
-                "items":{
-                    "FilesTotal":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+            "monitor": {
+                "enable": true,
+                "cmd": "/usr/bin/python /opt/hadoop/sbin/hdfs-master-monitor.py",
+                "items": {
+                    "FilesTotal": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "FilesCreated":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"delta"
+                    "FilesCreated": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "delta"
                     },
-                    "FilesAppended":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"delta"
+                    "FilesAppended": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "delta"
                     },
-                    "FilesRenamed":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"delta"
+                    "FilesRenamed": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "delta"
                     },
-                    "FilesDeleted":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"delta"
+                    "FilesDeleted": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "delta"
                     },
-                    "RemainingGB":{
-                        "unit":"GB",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "RemainingGB": {
+                        "unit": "GB",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "PercentUsed":{
-                        "unit":"%",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "PercentUsed": {
+                        "unit": "%",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "LiveNodes":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "LiveNodes": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "DeadNodes":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "DeadNodes": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "DecomLiveNodes":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "DecomLiveNodes": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "DecomDeadNodes":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "DecomDeadNodes": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "DecommissioningNodes":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "DecommissioningNodes": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     }
                 },
-                "groups":{
-                    "DFS Files":[
+                "groups": {
+                    "DFS Files": [
                         "FilesTotal",
                         "FilesCreated",
                         "FilesAppended",
                         "FilesRenamed",
                         "FilesDeleted"
                     ],
-                    "DFS Percentage":[
+                    "DFS Percentage": [
                         "PercentUsed"
                     ],
-                    "DFS Capacity":[
+                    "DFS Capacity": [
                         "RemainingGB"
                     ],
-                    "Data Nodes":[
+                    "Data Nodes": [
                         "LiveNodes",
                         "DeadNodes",
                         "DecomLiveNodes",
@@ -141,256 +141,256 @@
                         "DecommissioningNodes"
                     ]
                 },
-                "display":[
+                "display": [
                     "DFS Files",
                     "DFS Percentage",
                     "DFS Capacity",
                     "Data Nodes"
                 ]
             },
-            "advanced_actions":[
+            "advanced_actions": [
                 "change_vxnet"
             ]
         },
         {
-            "role":"yarn-master",
-            "container":{
-                "zone":"sh1a",
-                "type":"kvm",
-                "image":"img-x37op9ud"
+            "role": "yarn-master",
+            "container": {
+                "zone": "sh1a",
+                "type": "kvm",
+                "image": "img-x37op9ud"
             },
-            "instance_class":{{cluster.yarn-master.instance_class}},
-            "count":1,
-            "cpu":{{cluster.yarn-master.cpu}},
-            "memory":{{cluster.yarn-master.memory}},
-            "volume":{
-                "size":{{cluster.yarn-master.volume_size}},
-                "mount_point":"/data",
-                "filesystem":"ext4",
-                "class":{{cluster.yarn-master.volume_class}}
+            "instance_class": {{cluster.yarn-master.instance_class}},
+            "count": 1,
+            "cpu": {{cluster.yarn-master.cpu}},
+            "memory": {{cluster.yarn-master.memory}},
+            "volume": {
+                "size": {{cluster.yarn-master.volume_size}},
+                "mount_point": "/data",
+                "filesystem": "ext4",
+                "class": {{cluster.yarn-master.volume_class}}
             },
-            "passphraseless":"ssh-rsa",
-            "services":{
-                "init":{
-                    "post_start_service":true,
-                    "cmd":"USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/bin/hdfs dfs -chmod -R 777 /tmp/",
-                    "timeout":3600
+            "passphraseless": "ssh-rsa",
+            "services": {
+                "init": {
+                    "post_start_service": true,
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/bin/hdfs dfs -chmod -R 777 /tmp/",
+                    "timeout": 3600
                 },
-                "start":{
-                    "order":1,
-                    "cmd":"export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/start-all-services.sh;/opt/hadoop/sbin/copy-custom-files.sh",
-                    "timeout":3600
+                "start": {
+                    "order": 1,
+                    "cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/start-all-services.sh;/opt/hadoop/sbin/copy-custom-files.sh",
+                    "timeout": 3600
                 },
-                "stop":{
-                    "cmd":"export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/stop-all-services.sh",
-                    "timeout":3600
+                "stop": {
+                    "cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/stop-all-services.sh",
+                    "timeout": 3600
                 },
-                "scale_in":{
-                    "order":0,
-                    "cmd":"USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/refresh-yarn-nodes.sh;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
-                    "timeout":86400
+                "scale_in": {
+                    "order": 0,
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/refresh-yarn-nodes.sh;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
+                    "timeout": 86400
                 },
-                "update-yarn-scheduler":{
-                    "type":"custom",
-                    "cmd":"export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/copy-custom-files.sh",
-                    "timeout":3600
+                "update-yarn-scheduler": {
+                    "type": "custom",
+                    "cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/copy-custom-files.sh",
+                    "timeout": 3600
                 },
-                "restart-hive":{
-                    "type":"custom",
-                    "cmd":"export JAVA_HOME=/usr/jdk;/opt/hive/sbin/restart-hive.sh",
-                    "timeout":3600
+                "restart-hive": {
+                    "type": "custom",
+                    "cmd": "export JAVA_HOME=/usr/jdk;/opt/hive/sbin/restart-hive.sh",
+                    "timeout": 3600
                 }
             },
-            "health_check":{
-                "enable":true,
-                "interval_sec":60,
-                "timeout_sec":10,
-                "action_timeout_sec":30,
-                "healthy_threshold":2,
-                "unhealthy_threshold":2,
-                "check_cmd":"/opt/hadoop/sbin/check-yarn-spark-master.sh",
-                "action_cmd":"/opt/hadoop/sbin/action-yarn-spark-master.sh"
+            "health_check": {
+                "enable": true,
+                "interval_sec": 60,
+                "timeout_sec": 10,
+                "action_timeout_sec": 30,
+                "healthy_threshold": 2,
+                "unhealthy_threshold": 2,
+                "check_cmd": "/opt/hadoop/sbin/check-yarn-spark-master.sh",
+                "action_cmd": "/opt/hadoop/sbin/action-yarn-spark-master.sh"
             },
-            "monitor":{
-                "enable":true,
-                "cmd":"/usr/bin/python /opt/hadoop/sbin/yarn-spark-master-monitor.py",
-                "items":{
-                    "NumActiveNMs":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+            "monitor": {
+                "enable": true,
+                "cmd": "/usr/bin/python /opt/hadoop/sbin/yarn-spark-master-monitor.py",
+                "items": {
+                    "NumActiveNMs": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "NumDecommissionedNMs":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "NumDecommissionedNMs": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "NumLostNMs":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "NumLostNMs": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "NumUnhealthyNMs":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "NumUnhealthyNMs": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "NumRebootedNMs":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "NumRebootedNMs": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "running_0":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "running_0": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "running_60":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "running_60": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "running_300":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "running_300": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "running_1440":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "running_1440": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "AppsSubmitted":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"delta"
+                    "AppsSubmitted": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "delta"
                     },
-                    "AppsRunning":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "AppsRunning": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "AppsPending":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "AppsPending": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "AppsCompleted":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"delta"
+                    "AppsCompleted": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "delta"
                     },
-                    "AppsFailed":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"delta"
+                    "AppsFailed": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "delta"
                     },
-                    "AllocatedMB":{
-                        "unit":"MB",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "AllocatedMB": {
+                        "unit": "MB",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "AvailableMB":{
-                        "unit":"MB",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "AvailableMB": {
+                        "unit": "MB",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "ReservedMB":{
-                        "unit":"MB",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "ReservedMB": {
+                        "unit": "MB",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "AllocatedVCores":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "AllocatedVCores": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "AvailableVCores":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "AvailableVCores": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "ReservedVCores":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "ReservedVCores": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "AllocatedContainers":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "AllocatedContainers": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "ReservedContainers":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "ReservedContainers": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "WorkersTotal":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "WorkersTotal": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "WorkersAlive":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "WorkersAlive": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "RunningApps":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "RunningApps": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "WaitingApps":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "WaitingApps": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     }
                 },
-                "groups":{
-                    "NodeManagers":[
+                "groups": {
+                    "NodeManagers": [
                         "NumActiveNMs",
                         "NumDecommissionedNMs",
                         "NumLostNMs",
                         "NumUnhealthyNMs",
                         "NumRebootedNMs"
                     ],
-                    "Running":[
+                    "Running": [
                         "running_0",
                         "running_60",
                         "running_300",
                         "running_1440"
                     ],
-                    "Applications":[
+                    "Applications": [
                         "AppsSubmitted",
                         "AppsRunning",
                         "AppsPending",
                         "AppsCompleted",
                         "AppsFailed"
                     ],
-                    "YarnMemory":[
+                    "YarnMemory": [
                         "AllocatedMB",
                         "AvailableMB",
                         "ReservedMB"
                     ],
-                    "VirtualCores":[
+                    "VirtualCores": [
                         "AllocatedVCores",
                         "AvailableVCores",
                         "ReservedVCores"
                     ],
-                    "Containers":[
+                    "Containers": [
                         "AllocatedContainers",
                         "ReservedContainers"
                     ],
-                    "SparkWorkers":[
+                    "SparkWorkers": [
                         "WorkersTotal",
                         "WorkersAlive"
                     ],
-                    "SparkApps":[
+                    "SparkApps": [
                         "RunningApps",
                         "WaitingApps"
                     ]
                 },
-                "display":[
+                "display": [
                     "NodeManagers",
                     "Running",
                     "Applications",
@@ -401,167 +401,167 @@
                     "SparkApps"
                 ]
             },
-            "advanced_actions":[
+            "advanced_actions": [
                 "change_vxnet"
             ]
         },
         {
-            "role":"slave",
-            "container":{
-                "type":"kvm",
-                "zone":"sh1a",
-                "image":"img-kvftqx79"
+            "role": "slave",
+            "container": {
+                "type": "kvm",
+                "zone": "sh1a",
+                "image": "img-kvftqx79"
             },
-            "instance_class":{{cluster.slave.instance_class}},
-            "count":{{cluster.slave.count}},
-            "cpu":{{cluster.slave.cpu}},
-            "memory":{{cluster.slave.memory}},
-            "volume":{
-                "size":{{cluster.slave.volume_size}},
-                "mount_point":[
+            "instance_class": {{cluster.slave.instance_class}},
+            "count": {{cluster.slave.count}},
+            "cpu": {{cluster.slave.cpu}},
+            "memory": {{cluster.slave.memory}},
+            "volume": {
+                "size": {{cluster.slave.volume_size}},
+                "mount_point": [
                     "/data"
                 ],
-                "filesystem":"ext4",
-                "class":{{cluster.slave.volume_class}}
+                "filesystem": "ext4",
+                "class": {{cluster.slave.volume_class}}
             },
-            "services":{
-                "start":{
-                    "order":2,
-                    "cmd":"USER=root export JAVA_HOME=/usr/jdk;/opt/spark/sbin/action-slave.sh;/opt/hadoop/sbin/copy-custom-files.sh",
-                    "timeout":3600
+            "services": {
+                "start": {
+                    "order": 2,
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/spark/sbin/action-slave.sh;/opt/hadoop/sbin/copy-custom-files.sh",
+                    "timeout": 3600
                 },
-                "scale_in":{
-                    "order":1,
-                    "cmd":"USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
-                    "timeout":3600
+                "scale_in": {
+                    "order": 1,
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
+                    "timeout": 3600
                 },
-                "destroy":{
-                    "cmd":"USER=root export JAVA_HOME=/usr/jdk;/opt/spark/sbin/stop-slave.sh",
-                    "timeout":3600
+                "destroy": {
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/spark/sbin/stop-slave.sh",
+                    "timeout": 3600
                 }
             },
-            "health_check":{
-                "enable":true,
-                "interval_sec":60,
-                "timeout_sec":10,
-                "action_timeout_sec":30,
-                "healthy_threshold":2,
-                "unhealthy_threshold":2,
-                "check_cmd":"/opt/spark/sbin/check-slave.sh",
-                "action_cmd":"/opt/spark/sbin/action-slave.sh"
+            "health_check": {
+                "enable": true,
+                "interval_sec": 60,
+                "timeout_sec": 10,
+                "action_timeout_sec": 30,
+                "healthy_threshold": 2,
+                "unhealthy_threshold": 2,
+                "check_cmd": "/opt/spark/sbin/check-slave.sh",
+                "action_cmd": "/opt/spark/sbin/action-slave.sh"
             },
-            "monitor":{
-                "enable":true,
-                "cmd":"/usr/bin/python /opt/spark/sbin/slave-monitor.py",
-                "items":{
-                    "RemainingGB":{
-                        "unit":"GB",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+            "monitor": {
+                "enable": true,
+                "cmd": "/usr/bin/python /opt/spark/sbin/slave-monitor.py",
+                "items": {
+                    "RemainingGB": {
+                        "unit": "GB",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "BlocksWritten":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"delta"
+                    "BlocksWritten": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "delta"
                     },
-                    "BlocksRead":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"delta"
+                    "BlocksRead": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "delta"
                     },
-                    "GcCount":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"delta"
+                    "GcCount": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "delta"
                     },
-                    "GcNumWarnThresholdExceeded":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"delta"
+                    "GcNumWarnThresholdExceeded": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "delta"
                     },
-                    "CoresFree":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "CoresFree": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "CoresUsed":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "CoresUsed": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "Executors":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "Executors": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "MemFreeMB":{
-                        "unit":"MB",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "MemFreeMB": {
+                        "unit": "MB",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "MemUsedMB":{
-                        "unit":"MB",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "MemUsedMB": {
+                        "unit": "MB",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "ContainersIniting":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "ContainersIniting": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "ContainersRunning":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "ContainersRunning": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "AllocatedContainers":{
-                        "unit":"",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "AllocatedContainers": {
+                        "unit": "",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "AllocatedGB":{
-                        "unit":"GB",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "AllocatedGB": {
+                        "unit": "GB",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     },
-                    "AvailableGB":{
-                        "unit":"GB",
-                        "value_type":"int",
-                        "statistics_type":"latest"
+                    "AvailableGB": {
+                        "unit": "GB",
+                        "value_type": "int",
+                        "statistics_type": "latest"
                     }
                 },
-                "groups":{
-                    "Storage":[
+                "groups": {
+                    "Storage": [
                         "RemainingGB"
                     ],
-                    "Blocks":[
+                    "Blocks": [
                         "BlocksRead",
                         "BlocksWritten"
                     ],
-                    "Gc":[
+                    "Gc": [
                         "GcCount",
                         "GcNumWarnThresholdExceeded"
                     ],
-                    "Containers":[
+                    "Containers": [
                         "ContainersIniting",
                         "ContainersRunning",
                         "AllocatedContainers"
                     ],
-                    "NMMemory":[
+                    "NMMemory": [
                         "AllocatedGB",
                         "AvailableGB"
                     ],
-                    "Compute":[
+                    "Compute": [
                         "CoresFree",
                         "CoresUsed",
                         "Executors"
                     ],
-                    "WorkerMemory":[
+                    "WorkerMemory": [
                         "MemUsedMB",
                         "MemFreeMB"
                     ]
                 },
-                "display":[
+                "display": [
                     "Storage",
                     "Blocks",
                     "Gc",
@@ -571,163 +571,163 @@
                     "WorkerMemory"
                 ]
             },
-            "advanced_actions":[
+            "advanced_actions": [
                 "change_vxnet",
                 "scale_horizontal"
             ]
         },
         {
-            "role":"bigdata-client",
-            "container":{
-                "type":"kvm",
-                "zone":"sh1a",
-                "image":"img-eds1zlv2"
+            "role": "bigdata-client",
+            "container": {
+                "type": "kvm",
+                "zone": "sh1a",
+                "image": "img-eds1zlv2"
             },
-            "instance_class":{{cluster.bigdata-client.instance_class}},
-            "count":{{cluster.bigdata-client.count}},
-            "cpu":{{cluster.bigdata-client.cpu}},
-            "memory":{{cluster.bigdata-client.memory}},
-            "volume":{
-                "size":{{cluster.bigdata-client.volume_size}},
-                "mount_point":"/data",
-                "filesystem":"ext4",
-                "class":{{cluster.bigdata-client.volume_class}}
+            "instance_class": {{cluster.bigdata-client.instance_class}},
+            "count": {{cluster.bigdata-client.count}},
+            "cpu": {{cluster.bigdata-client.cpu}},
+            "memory": {{cluster.bigdata-client.memory}},
+            "volume": {
+                "size": {{cluster.bigdata-client.volume_size}},
+                "mount_point": "/data",
+                "filesystem": "ext4",
+                "class": {{cluster.bigdata-client.volume_class}}
             },
-            "services":{
-                "scale_in":{
-                    "order":1,
-                    "cmd":"USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
-                    "timeout":3600
+            "services": {
+                "scale_in": {
+                    "order": 1,
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
+                    "timeout": 3600
                 }
             },
-            "user_access":true,
-            "passphraseless":"ssh-rsa",
-            "advanced_actions":[
+            "user_access": true,
+            "passphraseless": "ssh-rsa",
+            "advanced_actions": [
                 "change_vxnet",
                 "scale_horizontal"
             ]
         }
     ],
-    "display_tabs":{
-        "node_details_tab":{
-            "cmd":"/opt/qingcloud/sbin/get_node_detail.sh",
-            "roles_to_execute_on":[
+    "display_tabs": {
+        "node_details_tab": {
+            "cmd": "/opt/qingcloud/sbin/get_node_detail.sh",
+            "roles_to_execute_on": [
                 "yarn-master"
             ],
-            "timeout":10
+            "timeout": 10
         }
     },
-    "env":{
-        "enable_hive":{{env.enable_hive}},
-        "use_remote_mysql":{{env.use_remote_mysql}},
-        "remote_mysql_ip":{{env.remote_mysql_ip}},
-        "hive_metastore_username":{{env.hive_metastore_username}},
-        "hive_metastore_password":{{env.hive_metastore_password}},
-        "hive_execution_engine":{{env.hive_execution_engine}},
-        "hive_exec_parallel":{{env.hive_exec_parallel}},
-        "hive_exec_parallel_thread_number":{{env.hive_exec_parallel_thread_number}},
-        "hive_merge_mapredfiles":{{env.hive_merge_mapredfiles}},
-        "hive_merge_sparkfiles":{{env.hive_merge_sparkfiles}},
-        "hive_merge_size_per_task":{{env.hive_merge_size_per_task}},
-        "hive_merge_smallfiles_avgsize":{{env.hive_merge_smallfiles_avgsize}},
-        "hive_spark_driver_memory":{{env.hive_spark_driver_memory}},
-        "hive_spark_executor_memory":{{env.hive_spark_executor_memory}},
-        "hive_spark_executor_cores":{{env.hive_spark_executor_cores}},
-        "hive_spark_executor_instances":{{env.hive_spark_executor_instances}},
-        "hive_server2_idle_session_timeout":{{env.hive_server2_idle_session_timeout}},
-        "hive_server2_idle_operation_timeout":{{env.hive_server2_idle_operation_timeout}},
-        "hive_server2_session_check_interval":{{env.hive_server2_session_check_interval}},
-        "QingStor":{{env.QingStor}},
-        "QingStor_zone":{{env.QingStor_zone}},
-        "access_key":{{env.access_key}},
-        "secret_key":{{env.secret_key}},
-        "enable_spark_standalone":{{env.enable_spark_standalone}},
-        "spark.master.SPARK_DAEMON_MEMORY":{{env.spark_master_daemon_memory}},
-        "spark.worker.SPARK_DAEMON_MEMORY":{{env.spark_worker_daemon_memory}},
-        "PYSPARK_PYTHON":{{env.PYSPARK_PYTHON}},
-        "spark.worker.cleanup.enabled":{{env.spark_worker_cleanup_enabled}},
-        "spark.worker.cleanup.interval":{{env.spark_worker_cleanup_interval}},
-        "spark.worker.cleanup.appDataTtl":{{env.spark_worker_cleanup_appDataTtl}},
-        "spark.scheduler.mode":{{env.spark.scheduler.mode}},
-        "flink.jobmanager.heap.size":{{env.flink.jobmanager.heap.size}},
-        "flink.taskmanager.heap.size":{{env.flink.taskmanager.heap.size}},
-        "flink.parallelism.default":{{env.flink.parallelism.default}},
-        "flink.jobmanager.archive.expiration-time":{{env.flink.jobmanager.archive.expiration-time}},
-        "flink.slot.idle.timeout":{{env.flink.slot.idle.timeout}},
-        "flink.slot.request.timeout":{{env.flink.slot.request.timeout}},
-        "flink.env.log.max":{{env.flink.env.log.max}},
-        "hadoop.proxyuser":{{env.hadoop_proxyuser}},
-        "hadoop.proxyuser.hosts":{{env.hadoop_proxyuser_hosts}},
-        "hadoop.proxyuser.groups":{{env.hadoop_proxyuser_groups}},
-        "resource_manager.YARN_HEAPSIZE":{{env.resource_manager_yarn_heapsize}},
-        "node_manager.YARN_HEAPSIZE":{{env.node_manager_yarn_heapsize}},
-        "datanode.HADOOP_HEAPSIZE":{{env.datanode_hadoop_heapsize}},
-        "dfs.namenode.handler.count":{{env.dfs_namenode_handler_count}},
-        "dfs.datanode.handler.count":{{env.dfs_datanode_handler_count}},
-        "dfs.replication":{{env.dfs_replication}},
-        "fs.trash.interval":{{env.fs_trash_interval}},
-        "yarn.resourcemanager.scheduler.class":{{env.yarn.resourcemanager.scheduler.class}},
-        "yarn.resourcemanager.client.thread-count":{{env.yarn.resourcemanager.client.thread-count}},
-        "yarn.resourcemanager.amlauncher.thread-count":{{env.yarn.resourcemanager.amlauncher.thread-count}},
-        "yarn.resourcemanager.scheduler.client.thread-count":{{env.yarn.resourcemanager.scheduler.client.thread-count}},
-        "yarn.resourcemanager.resource-tracker.client.thread-count":{{env.yarn.resourcemanager.resource-tracker.client.thread-count}},
-        "yarn.resourcemanager.admin.client.thread-count":{{env.yarn.resourcemanager.admin.client.thread-count}},
-        "yarn.nodemanager.container-manager.thread-count":{{env.yarn.nodemanager.container-manager.thread-count}},
-        "yarn.nodemanager.delete.thread-count":{{env.yarn.nodemanager.delete.thread-count}},
-        "yarn.nodemanager.localizer.client.thread-count":{{env.yarn.nodemanager.localizer.client.thread-count}},
-        "yarn.nodemanager.localizer.fetch.thread-count":{{env.yarn.nodemanager.localizer.fetch.thread-count}},
-        "yarn.nodemanager.pmem-check-enabled":{{env.yarn.nodemanager.pmem-check-enabled}},
-        "yarn.nodemanager.vmem-check-enabled":{{env.yarn.nodemanager.vmem-check-enabled}},
-        "yarn.nodemanager.vmem-pmem-ratio":{{env.yarn.nodemanager.vmem-pmem-ratio}},
-        "yarn.scheduler.minimum-allocation-mb":{{env.yarn.scheduler.minimum-allocation-mb}},
-        "yarn.scheduler.maximum-allocation-mb":{{env.yarn.scheduler.maximum-allocation-mb}},
-        "yarn.scheduler.minimum-allocation-vcores":{{env.yarn.scheduler.minimum-allocation-vcores}},
-        "yarn.scheduler.maximum-allocation-vcores":{{env.yarn.scheduler.maximum-allocation-vcores}},
-        "yarn.scheduler.fair.user-as-default-queue":{{env.yarn.scheduler.fair.user-as-default-queue}},
-        "yarn.scheduler.fair.preemption":{{env.yarn.scheduler.fair.preemption}},
-        "yarn.scheduler.fair.preemption.cluster-utilization-threshold":{{env.yarn.scheduler.fair.preemption.cluster-utilization-threshold}},
-        "yarn.scheduler.fair.sizebasedweight":{{env.yarn.scheduler.fair.sizebasedweight}},
-        "yarn.scheduler.fair.assignmultiple":{{env.yarn.scheduler.fair.assignmultiple}},
-        "yarn.scheduler.fair.max.assign":{{env.yarn.scheduler.fair.max.assign}},
-        "yarn.scheduler.fair.locality.threshold.node":{{env.yarn.scheduler.fair.locality.threshold.node}},
-        "yarn.scheduler.fair.locality.threshold.rack":{{env.yarn.scheduler.fair.locality.threshold.rack}},
-        "yarn.scheduler.fair.allow-undeclared-pools":{{env.yarn.scheduler.fair.allow-undeclared-pools}},
-        "yarn.scheduler.fair.update-interval-ms":{{env.yarn.scheduler.fair.update-interval-ms}},
-        "yarn.log-aggregation-enable":{{env.yarn_log-aggregation-enable}},
-        "yarn.log-aggregation.retain-seconds":{{env.yarn_log-aggregation_retain-seconds}},
-        "yarn.log-aggregation.retain-check-interval-seconds":{{env.yarn.log-aggregation.retain-check-interval-seconds}},
-        "yarn.nodemanager.remote-app-log-dir":{{env.yarn.nodemanager.remote-app-log-dir}},
-        "yarn.nodemanager.remote-app-log-dir-suffix":{{env.yarn.nodemanager.remote-app-log-dir-suffix}},
-        "yarn.webapp.ui2.enable":{{env.yarn.webapp.ui2.enable}}
+    "env": {
+        "enable_hive": {{env.enable_hive}},
+        "use_remote_mysql": {{env.use_remote_mysql}},
+        "remote_mysql_ip": {{env.remote_mysql_ip}},
+        "hive_metastore_username": {{env.hive_metastore_username}},
+        "hive_metastore_password": {{env.hive_metastore_password}},
+        "hive_execution_engine": {{env.hive_execution_engine}},
+        "hive_exec_parallel": {{env.hive_exec_parallel}},
+        "hive_exec_parallel_thread_number": {{env.hive_exec_parallel_thread_number}},
+        "hive_merge_mapredfiles": {{env.hive_merge_mapredfiles}},
+        "hive_merge_sparkfiles": {{env.hive_merge_sparkfiles}},
+        "hive_merge_size_per_task": {{env.hive_merge_size_per_task}},
+        "hive_merge_smallfiles_avgsize": {{env.hive_merge_smallfiles_avgsize}},
+        "hive_spark_driver_memory": {{env.hive_spark_driver_memory}},
+        "hive_spark_executor_memory": {{env.hive_spark_executor_memory}},
+        "hive_spark_executor_cores": {{env.hive_spark_executor_cores}},
+        "hive_spark_executor_instances": {{env.hive_spark_executor_instances}},
+        "hive_server2_idle_session_timeout": {{env.hive_server2_idle_session_timeout}},
+        "hive_server2_idle_operation_timeout": {{env.hive_server2_idle_operation_timeout}},
+        "hive_server2_session_check_interval": {{env.hive_server2_session_check_interval}},
+        "QingStor": {{env.QingStor}},
+        "QingStor_zone": {{env.QingStor_zone}},
+        "access_key": {{env.access_key}},
+        "secret_key": {{env.secret_key}},
+        "enable_spark_standalone": {{env.enable_spark_standalone}},
+        "spark.master.SPARK_DAEMON_MEMORY": {{env.spark_master_daemon_memory}},
+        "spark.worker.SPARK_DAEMON_MEMORY": {{env.spark_worker_daemon_memory}},
+        "PYSPARK_PYTHON": {{env.PYSPARK_PYTHON}},
+        "spark.worker.cleanup.enabled": {{env.spark_worker_cleanup_enabled}},
+        "spark.worker.cleanup.interval": {{env.spark_worker_cleanup_interval}},
+        "spark.worker.cleanup.appDataTtl": {{env.spark_worker_cleanup_appDataTtl}},
+        "spark.scheduler.mode": {{env.spark.scheduler.mode}},
+        "flink.jobmanager.heap.size": {{env.flink.jobmanager.heap.size}},
+        "flink.taskmanager.heap.size": {{env.flink.taskmanager.heap.size}},
+        "flink.parallelism.default": {{env.flink.parallelism.default}},
+        "flink.jobmanager.archive.expiration-time": {{env.flink.jobmanager.archive.expiration-time}},
+        "flink.slot.idle.timeout": {{env.flink.slot.idle.timeout}},
+        "flink.slot.request.timeout": {{env.flink.slot.request.timeout}},
+        "flink.env.log.max": {{env.flink.env.log.max}},
+        "hadoop.proxyuser": {{env.hadoop_proxyuser}},
+        "hadoop.proxyuser.hosts": {{env.hadoop_proxyuser_hosts}},
+        "hadoop.proxyuser.groups": {{env.hadoop_proxyuser_groups}},
+        "resource_manager.YARN_HEAPSIZE": {{env.resource_manager_yarn_heapsize}},
+        "node_manager.YARN_HEAPSIZE": {{env.node_manager_yarn_heapsize}},
+        "datanode.HADOOP_HEAPSIZE": {{env.datanode_hadoop_heapsize}},
+        "dfs.namenode.handler.count": {{env.dfs_namenode_handler_count}},
+        "dfs.datanode.handler.count": {{env.dfs_datanode_handler_count}},
+        "dfs.replication": {{env.dfs_replication}},
+        "fs.trash.interval": {{env.fs_trash_interval}},
+        "yarn.resourcemanager.scheduler.class": {{env.yarn.resourcemanager.scheduler.class}},
+        "yarn.resourcemanager.client.thread-count": {{env.yarn.resourcemanager.client.thread-count}},
+        "yarn.resourcemanager.amlauncher.thread-count": {{env.yarn.resourcemanager.amlauncher.thread-count}},
+        "yarn.resourcemanager.scheduler.client.thread-count": {{env.yarn.resourcemanager.scheduler.client.thread-count}},
+        "yarn.resourcemanager.resource-tracker.client.thread-count": {{env.yarn.resourcemanager.resource-tracker.client.thread-count}},
+        "yarn.resourcemanager.admin.client.thread-count": {{env.yarn.resourcemanager.admin.client.thread-count}},
+        "yarn.nodemanager.container-manager.thread-count": {{env.yarn.nodemanager.container-manager.thread-count}},
+        "yarn.nodemanager.delete.thread-count": {{env.yarn.nodemanager.delete.thread-count}},
+        "yarn.nodemanager.localizer.client.thread-count": {{env.yarn.nodemanager.localizer.client.thread-count}},
+        "yarn.nodemanager.localizer.fetch.thread-count": {{env.yarn.nodemanager.localizer.fetch.thread-count}},
+        "yarn.nodemanager.pmem-check-enabled": {{env.yarn.nodemanager.pmem-check-enabled}},
+        "yarn.nodemanager.vmem-check-enabled": {{env.yarn.nodemanager.vmem-check-enabled}},
+        "yarn.nodemanager.vmem-pmem-ratio": {{env.yarn.nodemanager.vmem-pmem-ratio}},
+        "yarn.scheduler.minimum-allocation-mb": {{env.yarn.scheduler.minimum-allocation-mb}},
+        "yarn.scheduler.maximum-allocation-mb": {{env.yarn.scheduler.maximum-allocation-mb}},
+        "yarn.scheduler.minimum-allocation-vcores": {{env.yarn.scheduler.minimum-allocation-vcores}},
+        "yarn.scheduler.maximum-allocation-vcores": {{env.yarn.scheduler.maximum-allocation-vcores}},
+        "yarn.scheduler.fair.user-as-default-queue": {{env.yarn.scheduler.fair.user-as-default-queue}},
+        "yarn.scheduler.fair.preemption": {{env.yarn.scheduler.fair.preemption}},
+        "yarn.scheduler.fair.preemption.cluster-utilization-threshold": {{env.yarn.scheduler.fair.preemption.cluster-utilization-threshold}},
+        "yarn.scheduler.fair.sizebasedweight": {{env.yarn.scheduler.fair.sizebasedweight}},
+        "yarn.scheduler.fair.assignmultiple": {{env.yarn.scheduler.fair.assignmultiple}},
+        "yarn.scheduler.fair.max.assign": {{env.yarn.scheduler.fair.max.assign}},
+        "yarn.scheduler.fair.locality.threshold.node": {{env.yarn.scheduler.fair.locality.threshold.node}},
+        "yarn.scheduler.fair.locality.threshold.rack": {{env.yarn.scheduler.fair.locality.threshold.rack}},
+        "yarn.scheduler.fair.allow-undeclared-pools": {{env.yarn.scheduler.fair.allow-undeclared-pools}},
+        "yarn.scheduler.fair.update-interval-ms": {{env.yarn.scheduler.fair.update-interval-ms}},
+        "yarn.log-aggregation-enable": {{env.yarn_log-aggregation-enable}},
+        "yarn.log-aggregation.retain-seconds": {{env.yarn_log-aggregation_retain-seconds}},
+        "yarn.log-aggregation.retain-check-interval-seconds": {{env.yarn.log-aggregation.retain-check-interval-seconds}},
+        "yarn.nodemanager.remote-app-log-dir": {{env.yarn.nodemanager.remote-app-log-dir}},
+        "yarn.nodemanager.remote-app-log-dir-suffix": {{env.yarn.nodemanager.remote-app-log-dir-suffix}},
+        "yarn.webapp.ui2.enable": {{env.yarn.webapp.ui2.enable}}
     },
-    "endpoints":{
-        "hdfs.client_port":{
-            "port":9000,
-            "protocol":"tcp"
+    "endpoints": {
+        "hdfs.client_port": {
+            "port": 9000,
+            "protocol": "tcp"
         },
-        "hdfs.monitor_port":{
-            "port":50070,
-            "protocol":"http"
+        "hdfs.monitor_port": {
+            "port": 50070,
+            "protocol": "http"
         },
-        "hiveserver2.monitor_port":{
-            "port":10002,
-            "protocol":"http"
+        "hiveserver2.monitor_port": {
+            "port": 10002,
+            "protocol": "http"
         },
-        "spark.client_port":{
-            "port":7077,
-            "protocol":"tcp"
+        "spark.client_port": {
+            "port": 7077,
+            "protocol": "tcp"
         },
-        "spark.monitor_port":{
-            "port":8080,
-            "protocol":"http"
+        "spark.monitor_port": {
+            "port": 8080,
+            "protocol": "http"
         },
-        "spark.driver_port":{
-            "port":4040,
-            "protocol":"http"
+        "spark.driver_port": {
+            "port": 4040,
+            "protocol": "http"
         },
-        "livy.port":{
-            "port":8998,
-            "protocol":"tcp"
+        "livy.port": {
+            "port": 8998,
+            "protocol": "tcp"
         }
     }
 }
