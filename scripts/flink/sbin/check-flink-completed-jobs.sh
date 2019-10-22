@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export FLINK_HOME=/opt/flink
+export HADOOP_HOME=/opt/hadoop
 
 CONF_FILE="${FLINK_HOME}/conf/flink-conf.yaml"
 
@@ -18,5 +20,5 @@ done
 t=$(date -d -${jet}day +"%Y-%m-%d %H:%M:%S")
 for file in `hadoop fs -ls $jd | awk '{if ($6" "$7 < "'"$t"'") {print $8}}'`
 do
-  hadoop fs -rm -r $file
+  $HADOOP_HOME/bin/hadoop fs -rm -r $file
 done
