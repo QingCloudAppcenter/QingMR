@@ -16,9 +16,17 @@ if [ "x$snn_pid" = "x" ];then
     ret_val=$[$ret_val + 2]
 fi
 
+js_pid=`ps ax | grep historyserver | grep -v grep | awk '{print $1}'`
+if [ "x$js_pid" = "x" ];then
+    echo "flink historyserver is not running!"
+    ret_val=$[$ret_val + 3]
+fi
+
 HM=`date -d "now" +%H%M`
 if [ $HM -eq "0200" ];then
     find $HADOOP_LOG_PATH -type f -mtime +7 -name "hadoop-root-*" -delete
 fi
+
+sh /opt/flink/sbin/check-flink-completed-jobs.sh
 
 exit $ret_val
