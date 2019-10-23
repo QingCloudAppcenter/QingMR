@@ -109,7 +109,7 @@
                         {
                             "key": "instance_class",
                             "label": "instance class",
-                            "description": "The instance type for the cluster to run, such as Enterprise 2",
+                            "description": "The instance type for the cluster to run, such as Enterprise",
                             "type": "integer",
                             "default": 202,
                             "range": [
@@ -119,7 +119,8 @@
                             "resource_group": [
                                 202,
                                 202
-                            ]
+                            ],
+                            "changeable_when_create": false
                         },
                         {
                             "key": "volume_class",
@@ -134,7 +135,8 @@
                             "resource_group": [
                                 200,
                                 200
-                            ]
+                            ],
+                            "changeable_when_create": false
                         },
                         {
                             "key": "volume_size",
@@ -202,7 +204,7 @@
                         {
                             "key": "instance_class",
                             "label": "instance class",
-                            "description": "The instance type for the cluster to run, such as Enterprise 2",
+                            "description": "The instance type for the cluster to run, such as Enterprise",
                             "type": "integer",
                             "default": 202,
                             "range": [
@@ -212,7 +214,8 @@
                             "resource_group": [
                                 202,
                                 202
-                            ]
+                            ],
+                            "changeable_when_create": false
                         },
                         {
                             "key": "volume_class",
@@ -227,7 +230,8 @@
                             "resource_group": [
                                 200,
                                 200
-                            ]
+                            ],
+                            "changeable_when_create": false
                         },
                         {
                             "key": "volume_size",
@@ -304,7 +308,7 @@
                         {
                             "key": "instance_class",
                             "label": "instance class",
-                            "description": "The instance type for the cluster to run, such as Enterprise 2",
+                            "description": "The instance type for the cluster to run, such as Enterprise",
                             "type": "integer",
                             "default": 202,
                             "range": [
@@ -314,18 +318,18 @@
                             "resource_group": [
                                 202,
                                 202
-                            ]
+                            ],
+                            "changeable_when_create": false
                         },
                         {
                             "key": "volume_class",
                             "label": "volume class",
-                            "description": "The volume type for each instance, such as Enterprise SSD, NeonSAN, High Capacity NeonSAN",
+                            "description": "The volume type for each instance, such as Enterprise SSD, NeonSAN",
                             "type": "integer",
                             "default": 200,
                             "range": [
                                 200,
-                                5,
-                                6
+                                5
                             ],
                             "required": "yes",
                             "resource_group": [
@@ -417,7 +421,8 @@
                             "resource_group": [
                                 101,
                                 101
-                            ]
+                            ],
+                            "changeable_when_create": false
                         },
                         {
                             "key": "volume_class",
@@ -432,7 +437,8 @@
                             "resource_group": [
                                 100,
                                 100
-                            ]
+                            ],
+                            "changeable_when_create": false
                         },
                         {
                             "key": "volume_size",
