@@ -109,7 +109,7 @@
                         {
                             "key": "instance_class",
                             "label": "instance class",
-                            "description": "The instance type for the cluster to run, such as Enterprise 2",
+                            "description": "The instance type for the cluster to run, such as Enterprise",
                             "type": "integer",
                             "default": 202,
                             "range": [
@@ -204,7 +204,7 @@
                         {
                             "key": "instance_class",
                             "label": "instance class",
-                            "description": "The instance type for the cluster to run, such as Enterprise 2",
+                            "description": "The instance type for the cluster to run, such as Enterprise",
                             "type": "integer",
                             "default": 202,
                             "range": [
@@ -308,7 +308,7 @@
                         {
                             "key": "instance_class",
                             "label": "instance class",
-                            "description": "The instance type for the cluster to run, such as Enterprise 2",
+                            "description": "The instance type for the cluster to run, such as Enterprise",
                             "type": "integer",
                             "default": 202,
                             "range": [
