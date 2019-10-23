@@ -13,7 +13,7 @@
 	"count" : "节点数量",
 	"Number of nodes for the cluster to create" : "待创建集群里该类节点数量",
 	"instance class" : "节点类型",
-	"The instance type for the cluster to run, such as Enterprise 2" : "节点为企业型 e2",
+	"The instance type for the cluster to run, such as Enterprise 2" : "节点为企业型",
 	"The instance type for the cluster to run, such as Standard" : "节点为基础型",
 	"volume class" : "数据盘类型",
 	"The volume type for each instance, such as Enterprise SSD" : "数据盘为企业级SSD",

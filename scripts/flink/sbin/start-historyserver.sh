@@ -14,13 +14,13 @@ then
 fi
 
 jd=$(cat $CONF_FILE | grep jobmanager.archive.fs.dir | awk -F: '{print $3}' | cut -c 3-)
-$HADOOP_HOME/bin/hdfs fs -test -e $jd
+$HADOOP_HOME/bin/hdfs dfs -test -e $jd
 if [ $? -ne 0 ]; then
-    $HADOOP_HOME/bin/hdfs fs -mkdir -p $jd
-    $HADOOP_HOME/bin/hdfs fs -chmod 777 $jd
+    $HADOOP_HOME/bin/hdfs dfs -mkdir -p $jd
+    $HADOOP_HOME/bin/hdfs dfs -chmod 777 $jd
 fi
 
-$HADOOP_HOME/bin/hdfs fs -test -e $jd
+$HADOOP_HOME/bin/hdfs dfs -test -e $jd
 if [ $? -ne 0 ]; then
   exit 1
 fi

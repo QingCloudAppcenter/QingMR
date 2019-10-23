@@ -17,7 +17,7 @@ do
   rm -rf $hd$file
 done
 
-for file in `$HADOOP_HOME/bin/hdfs fs -ls $jd | awk '{if ($6" "$7 < "'"$t"'") {print $8}}'`
+for file in `$HADOOP_HOME/bin/hdfs dfs -ls $jd | awk '{if ($6" "$7 < "'"$t"'") {print $8}}'`
 do
-  $HADOOP_HOME/bin/hdfs fs -rm -r $file
+  $HADOOP_HOME/bin/hdfs dfs -rm -r $file
 done
