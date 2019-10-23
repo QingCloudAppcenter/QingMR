@@ -17,8 +17,7 @@ do
   rm -rf $hd$file
 done
 
-t=$(date -d -${jet}day +"%Y-%m-%d %H:%M:%S")
-for file in `hadoop fs -ls $jd | awk '{if ($6" "$7 < "'"$t"'") {print $8}}'`
+for file in `$HADOOP_HOME/bin/hdfs fs -ls $jd | awk '{if ($6" "$7 < "'"$t"'") {print $8}}'`
 do
-  $HADOOP_HOME/bin/hadoop fs -rm -r $file
+  $HADOOP_HOME/bin/hdfs fs -rm -r $file
 done
