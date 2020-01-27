@@ -15,6 +15,12 @@ if [ "x$nm_pid" = "x" ];then
     ret_val=$[$ret_val + 2]
 fi
 
+node_status=`/opt/hadoop/bin/yarn node -list 2>/dev/null | grep \`hostname\` | awk 'print $2'`
+if [ $node_status = "UNHEALTHY" ] || [ $node_status = "LOST" ]; then
+    echo "node `hostname` is: "$node_status
+    ret_val=$[$ret_val + 4]
+fi
+
 HM=`date -d "now" +%H%M`
 if [ $HM -eq "0200" ];then
     find $HADOOP_LOG_PATH/userlogs/ -type d -mtime +7 -name "application_*" -exec rm -rf {} 2>/dev/null \;
