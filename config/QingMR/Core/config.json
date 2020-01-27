@@ -1183,6 +1183,22 @@
                     "required": "no"
                 },
                 {
+                    "key": "yarn.nodemanager.log.retain-seconds",
+                    "label": "yarn.nodemanager.log.retain-seconds",
+                    "description": "Time in seconds to retain user logs. Only applicable if log aggregation is disabled",
+                    "type": "integer",
+                    "default": 10800,
+                    "required": "no"
+                },
+                {
+                    "key": "yarn.nodemanager.delete.debug-delay-sec",
+                    "label": "yarn.nodemanager.delete.debug-delay-sec",
+                    "description": "Number of seconds after an application finishes before the nodemanager's DeletionService will delete the application's localized file directory and log directory.",
+                    "type": "integer",
+                    "default": 0,
+                    "required": "no"
+                },
+                {
                     "key": "yarn.nodemanager.remote-app-log-dir",
                     "label": "yarn.nodemanager.remote-app-log-dir",
                     "description": "Where to aggregate logs to",
