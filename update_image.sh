@@ -54,6 +54,7 @@ else
     	scp -r scripts/hadoop/sbin $server:/opt/hadoop/
     	scp -r scripts/spark/sbin $server:/opt/spark/
 		scp -r scripts/hive/sbin $server:/opt/hive/
+		scp -r scripts/flink/sbin $server:/opt/flink/
 		scp -r scripts/qingcloud/sbin $server:/opt/qingcloud/
 		scp -r scripts/etc/ntp.conf $server:/etc/
     fi
