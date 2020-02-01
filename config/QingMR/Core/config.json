@@ -1187,7 +1187,7 @@
                     "label": "yarn.nodemanager.log.retain-seconds",
                     "description": "Time in seconds to retain user logs. Only applicable if log aggregation is disabled",
                     "type": "integer",
-                    "default": 10800,
+                    "default": 86400,
                     "required": "no"
                 },
                 {
