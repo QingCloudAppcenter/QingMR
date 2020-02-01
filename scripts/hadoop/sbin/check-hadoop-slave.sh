@@ -15,8 +15,8 @@ if [ "x$nm_pid" = "x" ];then
     ret_val=$[$ret_val + 2]
 fi
 
-node_status=`/opt/hadoop/bin/yarn node -list 2>/dev/null | grep \`hostname\` | awk 'print $2'`
-if [ $node_status = "UNHEALTHY" ] || [ $node_status = "LOST" ]; then
+node_status=`timeout 10 /opt/hadoop/bin/yarn node -list 2>/dev/null | grep \`hostname\` | awk '{print $2}'`
+if [ ""$node_status = "UNHEALTHY" ] || [ ""$node_status = "LOST" ] || [ ""$node_status = "" ]; then
     echo "node `hostname` is: "$node_status
     ret_val=$[$ret_val + 4]
 fi
