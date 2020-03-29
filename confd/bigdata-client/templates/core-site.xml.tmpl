@@ -48,7 +48,9 @@
 {{if eq (getv "/env/QingStor") "true"}}
    <property>
      <name>fs.s3a.endpoint</name>
-     <value>s3.{{getv "/env/QingStor_zone"}}.qingstor.com</value>
+     {{if ne (getv "/env/s3_endpoint") ""}}
+     <value>{{getv "/env/s3_endpoint"}}</value>{{else}}
+     <value>s3.{{getv "/env/QingStor_zone"}}.qingstor.com</value>{{end}}
    </property>
    <property>
      <name>fs.s3a.access.key</name>

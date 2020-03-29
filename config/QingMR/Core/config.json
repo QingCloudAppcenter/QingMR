@@ -667,6 +667,14 @@
                     "required": "no"
                 },
                 {
+                    "key": "s3_endpoint",
+                    "label": "s3.endpoint",
+                    "description": "S3 compatible object storage endpoint, QingStor_zone will be ignored if this value is specified. Useful for private cloud senario where public cloud object storage cannot be reached. For public cloud, usually this should not be specified, and should be in s3.<zone>.qingstor.com format if specified.",
+                    "type": "string",
+                    "default": "",
+                    "required": "no"
+                },
+                {
                     "key": "access_key",
                     "label": "access_key",
                     "description": "QingStor access_key",

@@ -6,6 +6,7 @@
         "external_service": {{cluster.external_service}}
     },
     "upgrade_policy":  [
+        "appv-lo20duw6",
         "appv-lknthzu9",
         "appv-t0fv0b9s"
     ],
@@ -161,7 +162,7 @@
             "container": {
                 "zone": "sh1a",
                 "type": "kvm",
-                "image": "img-9m9ma08s"
+                "image": "img-8o180e79"
             },
             "instance_class": {{cluster.yarn-master.instance_class}},
             "count": 1,
@@ -414,7 +415,7 @@
             "container": {
                 "type": "kvm",
                 "zone": "sh1a",
-                "image": "img-7tt2p3yv"
+                "image": "img-3h3tc5bv"
             },
             "instance_class": {{cluster.slave.instance_class}},
             "count": {{cluster.slave.count}},
@@ -585,7 +586,7 @@
             "container": {
                 "type": "kvm",
                 "zone": "sh1a",
-                "image": "img-v0p25vq8"
+                "image": "img-lnpwo583"
             },
             "instance_class": {{cluster.bigdata-client.instance_class}},
             "count": {{cluster.bigdata-client.count}},
@@ -651,6 +652,7 @@
         "hive_server2_session_check_interval": {{env.hive_server2_session_check_interval}},
         "QingStor": {{env.QingStor}},
         "QingStor_zone": {{env.QingStor_zone}},
+        "s3_endpoint": {{env.s3_endpoint}},
         "access_key": {{env.access_key}},
         "secret_key": {{env.secret_key}},
         "enable_spark_standalone": {{env.enable_spark_standalone}},

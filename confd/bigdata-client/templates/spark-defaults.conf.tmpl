@@ -4,8 +4,9 @@ spark.master=spark://{{getv $ip}}:7077{{end}}
 {{else}}spark.master=yarn{{end}}
 spark.scheduler.mode={{getv "/env/spark.scheduler.mode"}}
 spark.scheduler.allocation.file=/opt/hadoop/etc/hadoop/spark-fair-scheduler.xml
-{{if eq (getv "/env/QingStor") "true"}}
-spark.hadoop.fs.s3a.endpoint=s3.{{getv "/env/QingStor_zone"}}.qingstor.com
+{{if eq (getv "/env/QingStor") "true"}}{{if ne (getv "/env/s3_endpoint") ""}}
+spark.hadoop.fs.s3a.endpoint={{getv "/env/s3_endpoint"}}{{else}}
+spark.hadoop.fs.s3a.endpoint=s3.{{getv "/env/QingStor_zone"}}.qingstor.com{{end}}
 spark.hadoop.fs.s3a.access.key={{getv "/env/access_key"}}
 spark.hadoop.fs.s3a.secret.key={{getv "/env/secret_key"}}
 spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem

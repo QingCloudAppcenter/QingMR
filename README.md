@@ -1,13 +1,12 @@
 # 简介
 
-*QingMR* 将 Hadoop 生态圈重要组件包括 *Hadoop* , *Spark* ， *Hive* 和 *Kylin* 集成到一起，以云端应用的形式交付给用户使用。当前支持的组件及版本如下：
+*QingMR* 将 Hadoop 生态圈重要组件包括 *Hadoop* , *Spark*  *Hive* 和 *Flink* 集成到一起，以云端应用的形式交付给用户使用。当前支持的组件及版本如下：
 
 | | Hadoop | Spark | Hive | Flink |
 | :------: | ------: | ------: | ------: | ------: |
 | QingMR - Core 1.2.1 | 2.7.3 | 2.2.0 | 1.2.2 | - |
 | QingMR - Core 1.3.0 | 2.7.3 | 2.2.0 | 2.3.4 | - |
-| QingMR - Core 2.0.0 | 2.9.2 | 2.2.3 | 2.3.5 | - |
-| QingMR - Core 2.5.0 | 2.9.2 | 2.2.3 | 2.3.5 | 1.9.0 | 
+| QingMR - Core 2.5.2 | 2.9.2 | 2.2.3 | 2.3.5 | 1.9.0 | 
 
 备注：*Kyligence Enterprise* 作为 *Kylin* 的企业版也是构建在 *QingMR* 之上，如需使用可以[点击这里](https://appcenter.qingcloud.com/apps/app-66xhycwj/Kyligence%20Enterprise%20%20-%20Apache%20Kylin%20%E4%BC%81%E4%B8%9A%E7%89%88)获取。
  > 更多组件，敬请期待 
