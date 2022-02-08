@@ -1,0 +1,103 @@
+#!/bin/bash
+pid=`ps ax | grep HiveMetaStore | grep -v grep | awk '{print $1}'`
+HIVE_METASTORE_USERNAME={{getv "/env/hive_metastore_username"}}
+HIVE_METASTORE_PASSWORD={{getv "/env/hive_metastore_password"}}
+{{ if eq (getv "/env/use_remote_mysql") "true"}}
+MYSQL_IP={{getv "/env/remote_mysql_ip"}}
+{{else}}
+MYSQL_IP="localhost"
+{{end}}
+
+FLAG=0
+
+# 日志函数
+log(){
+	time_now=`date +%F-%T`
+	echo "$time_now  $1" >> /var/log/updateHive/update.log
+}
+
+# 检查mysql是否正常
+check_mysql(){
+       	MYSQL_STATUS=`mysql -h${MYSQL_IP} -u${HIVE_METASTORE_USERNAME} -p${HIVE_METASTORE_PASSWORD} -e "show databases;" | grep ERROR`
+
+        if [ "x$MYSQL_STATUS" != "x" ];then
+        	log "mysql状态不正确，请先检查mysql..."
+        	exit 19
+       	fi
+}
+
+if [ ! -d /var/log/updateHive ];then
+	log "创建日志目录[mkdir /var/log/updateHive]"
+	mkdir /var/log/updateHive
+fi
+
+if [ ! -d /data/metadata-bak ];then
+	log "创建备份目录[mkdir /data/metadata-bak]"
+        mkdir /data/metadata-bak
+fi
+
+backup(){
+	
+        # 备份元数据
+        log "开始备份元数据..."
+        mysqldump -h${MYSQL_IP}  -u$HIVE_METASTORE_USERNAME -p$HIVE_METASTORE_PASSWORD hive > /data/metadata-bak/mysql-metastore_backup.sql
+        log "元数据备份完成..."
+	
+        # 备份metastore database schema
+        log "开始备份metastore database schema..."
+        mysqldump -h ${MYSQL_IP}  -u$HIVE_METASTORE_USERNAME -p$HIVE_METASTORE_PASSWORD --skip-add-drop-table --no-data hive > /data/metadata-bak/my-schema-x.y.z.mysql.sql
+        log "metastore database schema备份完成..."
+
+
+}
+
+
+updateHive(){
+        # 执行升级命令
+        log "开始执行升升级sql，sql路径【/opt/hive/scripts/metastore/upgrade/mysql/upgrade-2.3.0-to-3.0.0.mysql.sql】..."
+        mysql -f -h ${MYSQL_IP}  -u${HIVE_METASTORE_USERNAME} -p${HIVE_METASTORE_PASSWORD} hive  < /opt/hive/scripts/metastore/upgrade/mysql/upgrade-2.3.0-to-3.0.0.mysql.sql
+        log "开始执行生升级sql，sql路径【/opt/hive/scripts/metastore/upgrade/mysql/upgrade-3.0.0-to-3.1.0.mysql.sql】..."
+        mysql -f -h ${MYSQL_IP}  -u${HIVE_METASTORE_USERNAME} -p${HIVE_METASTORE_PASSWORD} hive < /opt/hive/scripts/metastore/upgrade/mysql/upgrade-3.0.0-to-3.1.0.mysql.sql
+
+}
+
+
+if [ "x$pid" = "x" ];then
+	/opt/hive/sbin/start-mysql.sh
+	check_mysql	
+        tables=`mysql -h${MYSQL_IP}  -u${HIVE_METASTORE_USERNAME} -p${HIVE_METASTORE_PASSWORD} -e "use hive;show tables;"`
+	# 备份
+       	backup
+	# 如果Hive数据库中没有表，不用更新
+        if [ "x$tables" = "x" ];then
+                log "数据库中没有表，不用更新"
+        else
+                # 判断是hive是2.3.x版本还是3.1.x版本，如果是2.3.x版本需要执行升级脚本，否则不需要升级
+                HIVE_VERSION=`mysql -h ${MYSQL_IP}  -u$HIVE_METASTORE_USERNAME -p$HIVE_METASTORE_PASSWORD -e "use hive;select * from VERSION;" | grep 3.1.0`
+                if [ "x$HIVE_VERSION" = "x" ];then
+		        updateHive
+                        #/opt/hive/sbin/stop-mysql.sh
+                else
+			log "已经是3.1.x版本，不需要更新"
+		fi
+        fi
+	/opt/hive/sbin/stop-mysql.sh
+else
+	/opt/hive/sbin/start-mysql.sh
+	check_mysql
+        # 判断是hive是2.3.x版本还是3.1.x版本，如果是2.3.x版本需要执行升级脚本，否则不需要升级
+	#备份
+	backup
+        HIVE_VERSION=`mysql -h ${MYSQL_IP}  -u$HIVE_METASTORE_USERNAME -p$HIVE_METASTORE_PASSWORD  -e "use hive;select * from VERSION;" | grep 3.1.0`
+        if [ "x$HIVE_VERSION" = "x" ];then
+		log "停止metastore..."
+        	/opt/hive/sbin/stop-metastore.sh
+		updateHive
+		log "启动metastore..."
+		/opt/hive/sbin/start-metastore.sh
+        else
+                log "已经是3.1.x版本，不需要更新"
+        fi
+fi
+
+exit 0
