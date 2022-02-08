@@ -6,17 +6,15 @@
         "external_service": {{cluster.external_service}}
     },
     "upgrade_policy":  [
-        "appv-lo20duw6",
-        "appv-lknthzu9",
-        "appv-t0fv0b9s"
+        "appv-v71be1fi"
     ],
     "nodes": [
         {
             "role": "hdfs-master",
             "container": {
                 "type": "kvm",
-                "zone": "sh1a",
-                "image": "img-08xm9quh"
+                "zone": "pek3",
+                "image": "img-smu1sgir"
             },
             "instance_class": {{cluster.hdfs-master.instance_class}},
             "count": 1,
@@ -45,8 +43,18 @@
                 },
                 "scale_in": {
                     "order": 0,
-                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/exclude-node.sh;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/exclude-node.sh;/opt/hadoop/sbin/rec-hosts-exclude.sh",
                     "timeout": 86400
+                },
+                "upgrade": {
+                    "order": 0,
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/hadoop-daemon.sh start namenode -upgrade",
+                    "timeout": 3600
+                },
+                "rollback": {
+                    "order": 0,
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/stop-dfs.sh;/opt/hadoop/bin/hdfs namenode -rollback",
+                    "timeout": 3600
                 }
             },
             "health_check": {
@@ -160,9 +168,9 @@
         {
             "role": "yarn-master",
             "container": {
-                "zone": "sh1a",
+                "zone": "pek3",
                 "type": "kvm",
-                "image": "img-8o180e79"
+                "image": "img-t1vs9vn9"
             },
             "instance_class": {{cluster.yarn-master.instance_class}},
             "count": 1,
@@ -183,16 +191,21 @@
                 },
                 "start": {
                     "order": 1,
-                    "cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/start-all-services.sh;/opt/hadoop/sbin/copy-custom-files.sh",
+                    "cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/start-all-services.sh;/opt/hadoop/sbin/copy-custom-files.sh;",
                     "timeout": 3600
                 },
                 "stop": {
                     "cmd": "export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/stop-all-services.sh",
                     "timeout": 3600
                 },
+                "upgrade": {
+                    "order": 1,
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hive/sbin/update-hive.sh",
+                    "timeout": 3600
+                },
                 "scale_in": {
                     "order": 0,
-                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/refresh-yarn-nodes.sh;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/refresh-yarn-nodes.sh;/opt/hadoop/sbin/rec-hosts-exclude.sh",
                     "timeout": 86400
                 },
                 "update-yarn-scheduler": {
@@ -203,6 +216,16 @@
                 "restart-hive": {
                     "type": "custom",
                     "cmd": "export JAVA_HOME=/usr/jdk;/opt/hive/sbin/restart-hive.sh",
+                    "timeout": 3600
+                },
+                "enable_hive_plugin": {
+                    "type": "custom",
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/ranger-hive/ranger-2.0.0-hive-plugin/enable-hive-plugin.sh",
+                    "timeout": 3600
+                },
+                "disable_hive_plugin": {
+                    "type": "custom",
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/ranger-hive/ranger-2.0.0-hive-plugin/disable-hive-plugin.sh",
                     "timeout": 3600
                 }
             },
@@ -414,8 +437,8 @@
             "role": "slave",
             "container": {
                 "type": "kvm",
-                "zone": "sh1a",
-                "image": "img-3h3tc5bv"
+                "zone": "pek3",
+                "image": "img-gvc8glct"
             },
             "instance_class": {{cluster.slave.instance_class}},
             "count": {{cluster.slave.count}},
@@ -437,11 +460,13 @@
                 },
                 "scale_in": {
                     "order": 1,
+                    "pre_check": "/usr/bin/python /opt/hadoop/sbin/destroy.py;",
                     "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
                     "timeout": 3600
                 },
                 "destroy": {
-                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/spark/sbin/stop-slave.sh",
+                    "allow_force": true,
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/spark/sbin/stop-slave.sh;",
                     "timeout": 3600
                 }
             },
@@ -585,8 +610,8 @@
             "role": "bigdata-client",
             "container": {
                 "type": "kvm",
-                "zone": "sh1a",
-                "image": "img-lnpwo583"
+                "zone": "pek3",
+                "image": "img-6avh8rpb"
             },
             "instance_class": {{cluster.bigdata-client.instance_class}},
             "count": {{cluster.bigdata-client.count}},
@@ -600,16 +625,21 @@
             },
             "services": {
                 "init": {
-                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;mkdir -p /data/flink/log/;chmod 777 /data/flink/log/",
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;mkdir -p /data/flink/log/;chmod 777 /data/flink/log/;chmod 777 /data",
+                    "timeout": 3600
+                },
+                "start": {
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk",
                     "timeout": 3600
                 },
                 "scale_in": {
                     "order": 1,
-                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/rec-hosts-exclude.sh;",
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/hadoop/sbin/rec-hosts-exclude.sh",
                     "timeout": 3600
                 },
                 "upgrade": {
-                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;mkdir -p /data/flink/log/;chmod 777 /data/flink/log/",
+                    "order": 2,
+                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;mkdir -p /data/flink/log/;chmod 777 /data/flink/log/;chmod 777 /data;/opt/hadoop/bin/hdfs dfsadmin -finalizeUpgrade",
                     "timeout": 3600
                 }
             },
