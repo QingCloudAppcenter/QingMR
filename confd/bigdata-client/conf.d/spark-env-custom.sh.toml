@@ -1,4 +1,5 @@
 [template]
 src = "spark-env-custom.sh.tmpl"
 dest = "/opt/spark/conf/spark-env-custom.sh"
+mode = "0777"
 keys = ["/",]

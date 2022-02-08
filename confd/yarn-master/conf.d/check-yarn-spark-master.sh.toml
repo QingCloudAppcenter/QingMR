@@ -1,4 +1,5 @@
 [template]
 src = "check-yarn-spark-master.sh.tmpl"
 dest = "/opt/hadoop/sbin/check-yarn-spark-master.sh"
+mode = "0777"
 keys = ["/",]

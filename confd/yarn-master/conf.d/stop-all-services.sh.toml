@@ -1,4 +1,5 @@
 [template]
 src = "stop-all-services.sh.tmpl"
 dest = "/opt/hadoop/sbin/stop-all-services.sh"
+mode = "0777"
 keys = ["/",]

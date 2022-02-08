@@ -1,0 +1,5 @@
+[template]
+src = "hadoop-workers.tmpl"
+dest = "/opt/hadoop/etc/hadoop/workers"
+keys = ["/",]
+reload_cmd = "/opt/hadoop/sbin/refresh-yarn-nodes.sh"

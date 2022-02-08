@@ -1,4 +1,5 @@
 [template]
 src = "hive-env.sh.tmpl"
 dest = "/opt/hive/conf/hive-env.sh"
+mode = "0777"
 keys = ["/",]

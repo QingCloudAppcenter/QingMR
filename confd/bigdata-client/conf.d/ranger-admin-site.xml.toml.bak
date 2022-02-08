@@ -1,0 +1,4 @@
+[template]
+src = "ranger-admin-site.xml.tmpl"
+dest = "/opt/ranger2.0/ranger-2.0.0-admin/conf/ranger-admin-site.xml"
+keys = ["/",]

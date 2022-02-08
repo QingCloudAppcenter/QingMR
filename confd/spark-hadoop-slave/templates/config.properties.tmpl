@@ -1,0 +1,18 @@
+# 该节点是否作为 coordinator,如果是 true 就允许该 Presto 实例充当协调器
+coordinator=false
+# 允许在协调器上调度工作(即配置 worker 节点).为 false 就是不允许.对于较大的集群,协调器上的处理工作可能会影响查询性能,因为机器的资源无法用于调度,管理和监视查询执行的关键任务
+# 如果需要在协调器所在节点配置 worker 节点改为 true 即可
+node-scheduler.include-coordinator=false
+# 指定 HTTP 服务器的端口.Presto 使用 HTTP 进行所有内部和外部通信
+http-server.http.port=7080
+# 每个查询可以使用的最大分布式内存量
+query.max-memory=50GB
+#查询可在任何一台计算机上使用的最大用户内存量
+query.max-memory-per-node=1GB
+# 查询可在任何一台计算机上使用的最大用户和系统内存量，其中系统内存是读取器，写入器和网络缓冲区等在执行期间使用的内存
+query.max-total-memory-per-node=2GB
+# discover-server 是 coordinator 内置的服务,负责监听 worker
+discovery-server.enabled=true
+# 发现服务器的 URI.因为已经在 Presto 协调器中启用了 discovery,所以这应该是 Presto 协调器的 URI
+discovery.uri=http://{{getv "/hosts/hdfs-master/ip"}}:7080
+

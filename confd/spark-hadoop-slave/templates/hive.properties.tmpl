@@ -1,0 +1,12 @@
+#代表 hadoop2 代版本,并不是单单指 hadoop2.x 的版本,而是 hadoop 第二代.固定写法
+connector.name=connector-test
+#指定 hive 的 metastore 的地址(hive 必须启用 metastore)
+hive.metastore.uri=thrift://{{ getv "/hosts/hdfs-master/ip" }}:9083
+#如果 hdfs 是高可用必须增加这个配置.如果不是高可用,可省略.如果 Presto 所在的节点>没 有安装 Hadoop,需要从其它 hadoop 节点复制这些文件到 Presto 的节点
+hive.allow-drop-table=true
+hive.storage-format=ORC
+hive.metastore-cache-ttl=1s
+hive.metastore-refresh-interval=1s
+hive.metastore-timeout=35m
+hive.max-partitions-per-writers=1000
+

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <!-- Hive Execution Parameters -->
+  <property>
+    <name>hive.exec.local.scratchdir</name>
+    <value>/tmp/hive</value>
+  </property>
+  <property>
+    <name>hive.downloaded.resources.dir</name>
+    <value>/tmp/${hive.session.id}_resources</value>
+  </property>
+  <property>
+    <name>hive.scratch.dir.permission</name>
+    <value>777</value>
+  </property>
+  <property>
+    <name>hive.exec.parallel</name>
+    <value>{{getv "/env/hive_exec_parallel" "false"}}</value>
+  </property>
+  <property>
+    <name>hive.exec.parallel.thread.number</name>
+    <value>{{getv "/env/hive_exec_parallel_thread_number" "8"}}</value>
+  </property>
+  {{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}
+  <property>
+    <name>hive.metastore.uris</name>
+    <value>thrift://{{getv $ip}}:9083</value>
+  </property>
+  {{end}}
+  {{if eq (getv "/env/use_remote_mysql") "false"}}
+  <property>
+    <name>javax.jdo.option.ConnectionURL</name>
+    <value>jdbc:mysql://localhost:3306/hive?createDatabaseIfNotExist=true</value>
+  </property>
+  {{else}}
+  <property>
+    <name>javax.jdo.option.ConnectionURL</name>
+    <value>jdbc:mysql://{{getv "/env/remote_mysql_ip"}}:3306/hive?createDatabaseIfNotExist=true</value>
+  </property>
+  {{end}}
+  <property>
+    <name>javax.jdo.option.ConnectionDriverName</name>
+    <value>com.mysql.jdbc.Driver</value>
+  </property>
+  <property>
+    <name>javax.jdo.option.ConnectionUserName</name>
+    <value>{{getv "/env/hive_metastore_username" "hive"}}</value>
+  </property>
+  <property>
+    <name>javax.jdo.option.ConnectionPassword</name>
+    <value>{{getv "/env/hive_metastore_password" "hive"}}</value>
+  </property>
+  <property>
+    <name>hive.querylog.location</name>
+    <value>/tmp/hive</value>
+  </property>
+  <property>
+    <name>hive.merge.mapredfiles</name>
+    <value>{{getv "/env/hive_merge_mapredfiles" "false"}}</value>
+  </property>
+  <property>
+    <name>hive.merge.sparkfiles</name>
+    <value>{{getv "/env/hive_merge_sparkfiles" "false"}}</value>
+  </property>
+  <property>
+    <name>hive.merge.size.per.task</name>
+    <value>{{getv "/env/hive_merge_size_per_task" "256000000"}}</value>
+  </property>
+  <property>
+    <name>hive.merge.smallfiles.avgsize</name>
+    <value>{{getv "/env/hive_merge_smallfiles_avgsize" "16000000"}}</value>
+  </property>
+  <property>
+    <name>hive.server2.logging.operation.log.location</name>
+    <value>/tmp/hive/operation_logs</value>
+  </property>
+  <property>
+    <name>hive.server2.idle.session.timeout</name>
+    <value>{{getv "/env/hive_server2_idle_session_timeout" "7d"}}</value>
+  </property>
+  <property>
+    <name>hive.server2.idle.operation.timeout</name>
+    <value>{{getv "/env/hive_server2_idle_operation_timeout" "5d"}}</value>
+  </property>
+  <property>
+    <name>hive.server2.session.check.interval</name>
+    <value>{{getv "/env/hive_server2_session_check_interval" "6h"}}</value>
+  </property>
+  <property>
+    <name>hive.execution.engine</name>
+    <value>{{getv "/env/hive_execution_engine" "mr"}}</value>
+  </property>
+  <property>
+    <name>spark.master</name>
+    <value>yarn</value>
+  </property>
+  <property>
+    <name>spark.submit.deployMode</name>
+    <value>cluster</value>
+  </property>
+  <property>
+    <name>spark.driver.memory</name>
+    <value>{{getv "/env/hive_spark_driver_memory" "1g"}}</value>
+  </property>
+  <property>
+    <name>spark.executor.memory</name>
+    <value>{{getv "/env/hive_spark_executor_memory" "1g"}}</value>
+  </property>
+  <property>
+    <name>spark.executor.cores</name>
+    <value>{{getv "/env/hive_spark_executor_cores" "1"}}</value>
+  </property>
+  <property>
+    <name>spark.executor.instances</name>
+    <value>{{getv "/env/hive_spark_executor_instances" "3"}}</value>
+  </property>
+</configuration>
+

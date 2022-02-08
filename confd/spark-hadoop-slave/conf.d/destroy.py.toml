@@ -1,0 +1,7 @@
+[template]
+src = "destroy.py.tmpl"
+dest = "/opt/hadoop/sbin/destroy.py"
+mode = "0777"
+keys = [
+  "/",
+]
