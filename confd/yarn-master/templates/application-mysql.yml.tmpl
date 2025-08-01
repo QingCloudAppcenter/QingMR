@@ -1,0 +1,15 @@
+{{if eq (getv "/env/use_remote_mysql") "true"}}
+spring:
+  datasource:
+    url: jdbc:mysql://{{getv "/env/remote_mysql_ip"}}:3306/${MYSQL_DATABASE:dinky}?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USERNAME:dinky}
+    password: ${MYSQL_PASSWORD:dinky}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+{{else}}
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/${MYSQL_DATABASE:dinky}?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USERNAME:dinky}
+    password: ${MYSQL_PASSWORD:dinky}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+{{end}}

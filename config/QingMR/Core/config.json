@@ -725,18 +725,6 @@
                     "required": "no"
                 },
                 {
-                    "key": "PYSPARK_PYTHON",
-                    "label": "PYSPARK_PYTHON",
-                    "description": "Specify the python version used by a python spark job, current supported python versions are 2.7.13 and 3.6.1. Anaconda distribution data science packages numpy, scikit-learn, scipy, Pandas, NLTK and Matplotlib are also included.",
-                    "type": "string",
-                    "default": "python2",
-                    "range": [
-                        "python2",
-                        "python3"
-                    ],
-                    "required": "yes"
-                },
-                {
                     "key": "spark_worker_cleanup_enabled",
                     "label": "spark.worker.cleanup.enabled",
                     "description": "Enable periodic cleanup of worker/application directories. Only the directories of stopped applications are cleaned up",

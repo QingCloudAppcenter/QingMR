@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
 
-export JAVA_HOME=/usr/jdk
+export JAVA_HOME=/usr/jdk11
 export FLINK_HOME=/opt/flink
 export HADOOP_HOME=/opt/hadoop
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 
-flink_log="/data/flink/log/"
+export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$FLINK_HOME/bin:$PATH
+
+export HADOOP_CLASSPATH=$($HADOOP_HOME/bin/hadoop classpath)
+
+mkdir -p /data/flink/history
+mkdir -p /data/flink/web
+mkdir -p /data/flink/log
+
 CONF_FILE="${FLINK_HOME}/conf/flink-conf.yaml"
 
 logdir=$(cat $CONF_FILE | grep env.log.dir | sed s/[[:space:]]//g | awk -F: '{print $2}')

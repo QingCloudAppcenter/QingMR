@@ -29,3 +29,5 @@ doc/
 hs_err_pid*
 /.project
 config4local
+
+.idea

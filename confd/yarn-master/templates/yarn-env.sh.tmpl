@@ -3,6 +3,9 @@
 
 export HADOOP_YARN_USER=${HADOOP_YARN_USER:-yarn}
 export YARN_CONF_DIR="${YARN_CONF_DIR:-$HADOOP_YARN_HOME/etc/hadoop}"
+export YARN_RESOURCEMANAGER_USER=$USER
+export YARN_NODEMANAGER_USER=$USER
+
 if [ "$JAVA_HOME" != "" ]; then
   #echo "run java in $JAVA_HOME"
   JAVA_HOME=$JAVA_HOME

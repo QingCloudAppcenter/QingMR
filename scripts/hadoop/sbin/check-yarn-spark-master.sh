@@ -20,5 +20,8 @@ ret_metastore=$?
 /opt/hive/sbin/check-hiveserver2.sh
 ret_hiveserver2=$?
 
-ret_val=$[$ret_spark + 10*$ret_yarn + 100*$ret_mysql + 200*$ret_metastore + 1000*$ret_hiveserver2]
+/opt/flink/sbin/check-dinky.sh
+ret_dinky=$?
+
+ret_val=$[$ret_spark + 10*$ret_yarn + 100*$ret_mysql + 200*$ret_metastore + 1000*$ret_hiveserver2 + 10000*$ret_dinky]
 exit $ret_val

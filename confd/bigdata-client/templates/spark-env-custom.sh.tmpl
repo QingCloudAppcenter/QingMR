@@ -1,5 +1,5 @@
 #! /bin/bash
-export PYSPARK_PYTHON=/opt/{{getv "/env/PYSPARK_PYTHON"}}/bin/python
+export PYSPARK_PYTHON=/opt/python3/bin/python
 {{if eq (getv "/env/enable_spark_standalone") "false"}}
 export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 {{end}}

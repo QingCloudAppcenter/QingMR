@@ -15,3 +15,7 @@ spark.hadoop.fs.s3a.connection.timeout=300000
 spark.hadoop.ipc.client.connect.timeout=200000
 spark.hadoop.ipc.client.connect.max.retries.on.timeouts=3
 {{end}}
+
+spark.yarn.appMasterEnv.JAVA_HOME=/usr/jdk
+spark.driverEnv.JAVA_HOME=/usr/jdk
+spark.executorEnv.JAVA_HOME=/usr/jdk

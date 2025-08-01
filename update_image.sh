@@ -53,14 +53,15 @@ else
     	scp -r scripts/hadoop/etc $server:/opt/hadoop/
     	scp -r scripts/hadoop/sbin $server:/opt/hadoop/
     	scp -r scripts/spark/sbin $server:/opt/spark/
-		scp -r scripts/hive/sbin $server:/opt/hive/
-		scp -r scripts/flink/sbin $server:/opt/flink/
-		scp -r scripts/qingcloud/sbin $server:/opt/qingcloud/
-		scp -r scripts/etc/ntp.conf $server:/etc/
+      scp -r scripts/hive/sbin $server:/opt/hive/
+      scp -r scripts/flink/sbin $server:/opt/flink/
+      scp -r scripts/qingcloud/sbin $server:/opt/qingcloud/
+      scp -r scripts/etc/ntp.conf $server:/etc/
+      scp -r scripts/mysql/sbin $server:/opt/mysql/
     fi
 
     if [ "x$role" = "xbigdata-client" ] || [ "x$role" = "xyarn-master" ];then
-    	scp jars/mysql-connector-java-5.1.45-bin.jar $server:/opt/hive/lib/
+    	scp jars/mysql-connector-j-8.0.33.jar $server:/opt/hive/lib/
     fi
 
     if [ "x$package" = "xlzo" ];then

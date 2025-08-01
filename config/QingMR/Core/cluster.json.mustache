@@ -5,16 +5,13 @@
     "links": {
         "external_service": {{cluster.external_service}}
     },
-    "upgrade_policy":  [
-        "appv-v71be1fi"
-    ],
     "nodes": [
         {
             "role": "hdfs-master",
             "container": {
                 "type": "kvm",
-                "zone": "pek3",
-                "image": "img-smu1sgir"
+                "zone": "pek3a",
+                "image": "img-jrcs1qz3"
             },
             "instance_class": {{cluster.hdfs-master.instance_class}},
             "count": 1,
@@ -168,9 +165,9 @@
         {
             "role": "yarn-master",
             "container": {
-                "zone": "pek3",
+                "zone": "pek3a",
                 "type": "kvm",
-                "image": "img-t1vs9vn9"
+                "image": "img-ohhvleb7"
             },
             "instance_class": {{cluster.yarn-master.instance_class}},
             "count": 1,
@@ -216,16 +213,6 @@
                 "restart-hive": {
                     "type": "custom",
                     "cmd": "export JAVA_HOME=/usr/jdk;/opt/hive/sbin/restart-hive.sh",
-                    "timeout": 3600
-                },
-                "enable_hive_plugin": {
-                    "type": "custom",
-                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/ranger-hive/ranger-2.0.0-hive-plugin/enable-hive-plugin.sh",
-                    "timeout": 3600
-                },
-                "disable_hive_plugin": {
-                    "type": "custom",
-                    "cmd": "USER=root export JAVA_HOME=/usr/jdk;/opt/ranger-hive/ranger-2.0.0-hive-plugin/disable-hive-plugin.sh",
                     "timeout": 3600
                 }
             },
@@ -437,8 +424,8 @@
             "role": "slave",
             "container": {
                 "type": "kvm",
-                "zone": "pek3",
-                "image": "img-gvc8glct"
+                "zone": "pek3a",
+                "image": "img-addltrxi"
             },
             "instance_class": {{cluster.slave.instance_class}},
             "count": {{cluster.slave.count}},
@@ -610,8 +597,8 @@
             "role": "bigdata-client",
             "container": {
                 "type": "kvm",
-                "zone": "pek3",
-                "image": "img-6avh8rpb"
+                "zone": "pek3a",
+                "image": "img-ady99lr1"
             },
             "instance_class": {{cluster.bigdata-client.instance_class}},
             "count": {{cluster.bigdata-client.count}},
@@ -688,7 +675,6 @@
         "enable_spark_standalone": {{env.enable_spark_standalone}},
         "spark.master.SPARK_DAEMON_MEMORY": {{env.spark_master_daemon_memory}},
         "spark.worker.SPARK_DAEMON_MEMORY": {{env.spark_worker_daemon_memory}},
-        "PYSPARK_PYTHON": {{env.PYSPARK_PYTHON}},
         "spark.worker.cleanup.enabled": {{env.spark_worker_cleanup_enabled}},
         "spark.worker.cleanup.interval": {{env.spark_worker_cleanup_interval}},
         "spark.worker.cleanup.appDataTtl": {{env.spark_worker_cleanup_appDataTtl}},
@@ -777,6 +763,10 @@
         },
         "flink.monitor_port": {
             "port": 8082,
+            "protocol": "http"
+        },
+        "dinky.webui_port": {
+            "port": 8888,
             "protocol": "http"
         }
     }

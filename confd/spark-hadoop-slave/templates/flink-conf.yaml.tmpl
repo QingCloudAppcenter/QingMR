@@ -287,4 +287,10 @@ historyserver.archive.fs.dir: hdfs:///flink/completed-jobs/
 
 historyserver.web.tmpdir: /data/flink/history/
 
+env.java.home: /usr/jdk11
+
+containerized.master.env.JAVA_HOME: /usr/jdk11
+
+containerized.taskmanager.env.JAVA_HOME: /usr/jdk11
+
 classloader.check-leaked-classloader: false
