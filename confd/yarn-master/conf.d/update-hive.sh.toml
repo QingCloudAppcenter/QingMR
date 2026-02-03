@@ -1,0 +1,5 @@
+[template]
+src = "update-hive.sh.tmpl"
+dest = "/opt/hive/sbin/update-hive.sh"
+mode = "0777"
+keys = ["/",]

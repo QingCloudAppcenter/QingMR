@@ -1,5 +1,6 @@
 [template]
 src = "enable-hive.sh.tmpl"
 dest = "/opt/hive/sbin/enable-hive.sh"
+mode = "0777"
 keys = ["/",]
 reload_cmd = "/opt/hive/sbin/enable-hive.sh"

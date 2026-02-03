@@ -1,0 +1,4 @@
+[template]
+src = "ranger-hive-plugin.properties.tmpl"
+dest = "/opt/ranger-hive/ranger-2.0.0-hive-plugin/install.properties"
+keys = ["/",]

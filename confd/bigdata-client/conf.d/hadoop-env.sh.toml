@@ -1,4 +1,5 @@
 [template]
 src = "hadoop-env.sh.tmpl"
 dest = "/opt/hadoop/etc/hadoop/hadoop-env.sh"
+mode = "0777"
 keys = ["/",]

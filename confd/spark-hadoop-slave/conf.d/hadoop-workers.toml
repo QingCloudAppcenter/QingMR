@@ -1,0 +1,4 @@
+[template]
+src = "hadoop-workers.tmpl"
+dest = "/opt/hadoop/etc/hadoop/workers"
+keys = ["/",]

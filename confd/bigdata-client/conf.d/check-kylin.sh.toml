@@ -1,5 +1,6 @@
 [template]
 src = "check-kylin.sh.tmpl"
 dest = "/opt/kap-plus/sbin/check-kylin.sh"
+mode = "0777"
 keys = ["/",]    
  

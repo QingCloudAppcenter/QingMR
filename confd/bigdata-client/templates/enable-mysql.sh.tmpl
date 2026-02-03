@@ -1,0 +1,6 @@
+#!/bin/bash
+{{if eq (getv "/env/enable_hive") "true"}}
+/opt/hive/sbin/action-mysql.sh
+{{else}}
+/opt/hive/sbin/stop-mysql.sh
+{{end}}

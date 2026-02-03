@@ -1,4 +1,5 @@
 [template]
 src = "check-slave.sh.tmpl"
 dest = "/opt/spark/sbin/check-slave.sh"
+mode = "0777"
 keys = ["/",]

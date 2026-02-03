@@ -9,6 +9,10 @@ fi
 
 ret_spark=0
 ret_hadoop=0
+
+# 删除 /data/hadoop/pids/ 中 nodemanager 的 pid
+echo > /data/hadoop/pids/hadoop-root-nodemanager.pid
+
 {{if eq (getv "/env/enable_spark_standalone") "true"}}
 /opt/spark/sbin/action-spark-slave.sh
 ret_spark=$?

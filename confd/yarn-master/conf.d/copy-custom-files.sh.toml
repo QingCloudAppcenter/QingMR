@@ -1,4 +1,5 @@
 [template]
 src = "copy-custom-files.sh.tmpl"
 dest = "/opt/hadoop/sbin/copy-custom-files.sh"
+mode = "0777"
 keys = ["/",]

@@ -1,0 +1,4 @@
+[template]
+src = "hive.properties.tmpl"
+dest = "/opt/presto/etc/catalog/hive.properties"
+keys = ["/",]

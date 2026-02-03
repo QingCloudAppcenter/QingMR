@@ -106,7 +106,7 @@ if __name__ == '__main__':
     stats = {}
 	
     role = DFS_ROLE_SLAVE
-    port = "50075"
+    port = "9864"
     res = urllib2.urlopen("http://%s:%s/jmx?qry=Hadoop:service=DataNode,name=*" % (ip, port))
     pjson = json.loads(res.read())
     parse_dfs_stat(role, pjson, stats)

@@ -1,0 +1,17 @@
+{{if eq (getv "/env/enable_spark_standalone") "true"}}
+{{range $dir := lsdir "/hosts/yarn-master/"}}{{$ip := printf "/hosts/yarn-master/%s/ip" $dir}}
+spark.master=spark://{{getv $ip}}:7077{{end}}
+{{else}}spark.master=yarn{{end}}
+spark.scheduler.mode={{getv "/env/spark.scheduler.mode"}}
+spark.scheduler.allocation.file=/opt/hadoop/etc/hadoop/spark-fair-scheduler.xml
+{{if eq (getv "/env/QingStor") "true"}}
+spark.hadoop.fs.s3a.endpoint=s3.{{getv "/cluster/zone"}}.qingstor.com
+spark.hadoop.fs.s3a.access.key={{getv "/env/access_key"}}
+spark.hadoop.fs.s3a.secret.key={{getv "/env/secret_key"}}
+spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
+spark.hadoop.fs.s3a.connection.ssl.enabled=false
+spark.hadoop.fs.s3a.paging.maximum=1000
+spark.hadoop.fs.s3a.connection.timeout=300000
+spark.hadoop.ipc.client.connect.timeout=200000
+spark.hadoop.ipc.client.connect.max.retries.on.timeouts=3
+{{end}}

@@ -1,6 +1,7 @@
 [template]
 src = "j-start-kylin.sh.tmpl"
 dest = "/opt/kap-plus/sbin/j-start-kylin.sh"
+mode = "0777"
 keys = ["/",]   
  
   

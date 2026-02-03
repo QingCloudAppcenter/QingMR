@@ -1,5 +1,6 @@
 [template]
 src = "action-spark-slave.sh.tmpl"
 dest = "/opt/spark/sbin/action-spark-slave.sh"
+mode = "0777"
 keys = ["/",]
 reload_cmd = "/opt/spark/sbin/action-spark-slave.sh"

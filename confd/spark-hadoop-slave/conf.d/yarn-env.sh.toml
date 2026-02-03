@@ -1,5 +1,6 @@
 [template]
 src = "yarn-env.sh.tmpl"
 dest = "/opt/hadoop/etc/hadoop/yarn-env.sh"
+mode = "0777"
 keys = ["/",]
 reload_cmd = "/opt/hadoop/sbin/restart-yarn-slave.sh"

@@ -1,0 +1,13 @@
+import sys
+
+SLAVE = "slave"
+
+if __name__ == '__main__':
+    role = '{{getv "/host/role"}}'
+    delete_slave_nodes = int({{len (gets "/deleting-hosts/slave/*/ip")}})
+    if delete_slave_nodes == 0:
+        sys.exit(0)
+    else:
+        if role == SLAVE and delete_slave_nodes == 1:
+            sys.exit(0)
+        sys.exit(18)

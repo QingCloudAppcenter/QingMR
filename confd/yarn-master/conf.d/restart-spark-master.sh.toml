@@ -1,4 +1,5 @@
 [template]
 src = "restart-spark-master.sh.tmpl"
 dest = "/opt/spark/sbin/restart-spark-master.sh"
+mode = "0777"
 keys = ["/",]

@@ -1,0 +1,6 @@
+[template]
+src = "enable-mysql.sh.tmpl"
+dest = "/opt/hive/sbin/enable-mysql.sh"
+keys = ["/",]   
+mode = "0777"
+reload_cmd ="/opt/hive/sbin/enable-mysql.sh"

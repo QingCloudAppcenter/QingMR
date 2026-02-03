@@ -1,0 +1,66 @@
+#!/bin/bash
+pid=`ps ax | grep HiveMetaStore | grep -v grep | awk '{print $1}'`
+{{ if eq (getv "/env/use_remote_mysql") "true" }}
+# 如果用户采用了远程mysql
+if [ "x$pid" = "x" ];then
+        # 如果Hive数据库中没有数据，那么不用更新
+        tables=`mysql -uhive -phive -e "use hive;show tables;"`
+        if [ "x$tables" = "x" ];then
+		:               
+        else
+                # 备份元数据
+                mysqldump -h {{getv "/env/remote_mysql_ip"}}  -u{{getv "/env/hive_metastore_username"}} -p{{getv "/env/hive_metastore_password"}} hive > /opt/hive/scripts/metastore/upgrade/mysqlmetastore_backup.sql
+                # 备份metastore database schema
+                mysqldump -h {{getv "/env/remote_mysql_ip"}}  -u{{getv "/env/hive_metastore_username"}} -p{{getv "/env/hive_metastore_password"}} --skip-add-drop-table --no-data hive > /opt/hive/scripts/metastore/upgrade/my-schema-x.y.z.mysql.sql
+                # 执行升级命令
+                mysql -f -h {{getv "/env/remote_mysql_ip"}}  -u{{getv "/env/hive_metastore_username"}} -p{{getv "/env/hive_metastore_password"}} hive  < /data/metadata-bak/upgrade-2.3.0-to-3.0.0.mysql.sql
+                mysql -f -h {{getv "/env/remote_mysql_ip"}}  -u{{getv "/env/hive_metastore_username"}} -p{{getv "/env/hive_metastore_password"}} hive < /data/metadata-bak/upgrade-3.0.0-to-3.1.0.mysql.sql
+        fi        
+else
+        # 已经启动HiveMetaStore，关闭MetaStore
+        /opt/hive/sbin/stop-metastore.sh
+        # 备份元数据
+        mysqldump -h {{getv "/env/remote_mysql_ip"}}  -u{{getv "/env/hive_metastore_username"}} -p{{getv "/env/hive_metastore_password"}} hive > /data/metadata-bak/mysqlmetastore_backup.sql
+        # 备份metastore database schema
+        mysqldump -h {{getv "/env/remote_mysql_ip"}}  -u{{getv "/env/hive_metastore_username"}} -p{{getv "/env/hive_metastore_password"}} --skip-add-drop-table --no-data hive > /data/metadata-bak/my-schema-x.y.z.mysql.sql
+        # 执行升级命令
+        mysql -f -h {{getv "/env/remote_mysql_ip"}}  -u{{getv "/env/hive_metastore_username"}} -p{{getv "/env/hive_metastore_password"}} hive  < /opt/hive/scripts/metastore/upgrade/mysql/upgrade-2.3.0-to-3.0.0.mysql.sql
+        mysql -f -h {{getv "/env/remote_mysql_ip"}}  -u{{getv "/env/hive_metastore_username"}} -p{{getv "/env/hive_metastore_password"}} hive < /opt/hive/scripts/metastore/upgrade/mysql/upgrade-3.0.0-to-3.1.0.mysql.sql
+        # 重新启动metastore
+        /opt/hive/sbin/action-metastore.sh
+fi
+{{else}}
+# 用户使用本地mysql
+if [ "x$pid" = "x" ];then
+        # 启动mysql
+        /opt/hive/sbin/start-mysql.sh
+        # 如果Hive数据库中没有数据，不用更新
+        tables=`mysql -uhive -phive -e "use hive;show tables;"`
+        if [ "x$tables" = "x" ];then
+            :    
+        else
+                # 备份元数据
+                mysqldump -uhive -phive hive > /data/metadata-bak/metastore_backup.sql
+                # 备份metastore database schema
+                mysqldump -uhive -phive --skip-add-drop-table --no-data hive > /data/metadata-bak/my-schema-x.y.z.mysql.sql
+                # 执行升级命令
+                mysql -f -u{{getv "/env/hive_metastore_username"}} -p{{getv "/env/hive_metastore_password"}} hive  < /opt/hive/scripts/metastore/upgrade/mysql/upgrade-2.3.0-to-3.0.0.mysql.sql
+                mysql -f -u{{getv "/env/hive_metastore_username"}} -p{{getv "/env/hive_metastore_password"}} hive  < /opt/hive/scripts/metastore/upgrade/mysql/upgrade-3.0.0-to-3.1.0.mysql.sql
+		/opt/hive/sbin/stop-mysql.sh
+        fi 
+else
+        /opt/hive/sbin/stop-metastore.sh
+        /opt/hive/sbin/start-mysql.sh
+        # 备份元数据
+        mysqldump -uhive -phive hive > /data/metadata-bak/metastore_backup.sql
+        # 备份metastore database schema
+        mysqldump -uhive -phive --skip-add-drop-table --no-data hive > /data/metadata-bak/my-schema-x.y.z.mysql.sql
+        # 执行升级命令
+        mysql -f -u{{getv "/env/hive_metastore_username"}} -p{{getv "/env/hive_metastore_password"}} hive  < /opt/hive/scripts/metastore/upgrade/mysql/upgrade-2.3.0-to-3.0.0.mysql.sql
+        mysql -f -u{{getv "/env/hive_metastore_username"}} -p{{getv "/env/hive_metastore_password"}} hive  < /opt/hive/scripts/metastore/upgrade/mysql/upgrade-3.0.0-to-3.1.0.mysql.sql
+        # 重启metastore
+        /opt/hive/sbin/action-metastore.sh
+fi
+{{end}}
+
+exit 0
