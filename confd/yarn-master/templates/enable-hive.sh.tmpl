@@ -7,19 +7,16 @@ fi
 
 {{if eq (getv "/env/enable_hive") "true"}}
 {{if eq (getv "/env/use_remote_mysql") "false"}}
-/opt/hive/sbin/action-mysql.sh
+/opt/mysql/sbin/action-mysql.sh
 {{else}}
 /opt/hive/sbin/stop-hiveserver2.sh
 /opt/hive/sbin/stop-metastore.sh
-/opt/hive/sbin/stop-mysql.sh
 {{end}}
 /opt/hive/sbin/action-metastore.sh
 /opt/hive/sbin/action-hiveserver2.sh
 {{else}}
 /opt/hive/sbin/stop-hiveserver2.sh
 /opt/hive/sbin/stop-metastore.sh
-{{if eq (getv "/env/use_remote_mysql") "false"}}
-/opt/hive/sbin/stop-mysql.sh
 {{end}}
-{{end}}
+
 exit 0

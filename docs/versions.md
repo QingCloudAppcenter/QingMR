@@ -14,12 +14,8 @@ SparkMR on QingCloud 将 Hadoop 生态圈重要组件包括 Apache Hadoop , Apac
 
 支持上传自定义的Spark应用内调度器和YARN调度器。
 
-支持Python及Anaconda发行版的数据科学包并可在Python2和Python3之间切换。
-
-支持R语言。
-
 ## V1.1.0
 
-支持 Apache Hadoop 2.7.3 和 Apache Spark 2.2.0 。
-新增对 Apache Hive 1.2.2 的支持。
-支持 Anaconda 发行版的 Python 2.7.13 和 Python 3.6.1 及其对应的数据科学包如 numpy, scikit-learn, scipy, Pandas, NLTK and Matplotlib等.
+支持 Apache Hadoop 3.1.3 和 Apache Spark 2.4.8
+新增对 Apache Hive 3.1.2 的支持
+支持 Python 3.9.23

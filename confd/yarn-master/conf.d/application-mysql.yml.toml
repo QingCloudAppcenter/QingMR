@@ -1,0 +1,5 @@
+[template]
+src = "application-mysql.yml.tmpl"
+dest = "/opt/dinky/config/application-mysql.yml"
+mode = "0777"
+keys = ["/",]

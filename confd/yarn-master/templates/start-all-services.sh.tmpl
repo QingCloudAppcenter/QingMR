@@ -14,9 +14,9 @@ fi
 /opt/hadoop/sbin/start-yarn-services.sh
 {{end}}
 
-{{if and (eq (getv "/env/use_remote_mysql") "false") (eq (getv "/env/enable_hive") "true")}}
-/opt/hive/sbin/action-mysql.sh
-{{end}}
+/opt/mysql/sbin/action-mysql.sh
+
+/opt/flink/sbin/action-dinky.sh
 
 {{if eq (getv "/env/enable_hive") "true"}}
 /opt/hive/sbin/stop-metastore.sh

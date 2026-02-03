@@ -2,9 +2,6 @@
         "name": {{cluster.name}},
         "description": {{cluster.description}},
         "vxnet": {{cluster.vxnet}},
-        "upgrade_policy": [
-            "appv-bjg2kbm2"
-    	],
         "links": {
         	"zookeeper4kylin": {{cluster.zookeeper4kylin}},
             "external_service":{{cluster.external_service}}            
@@ -540,7 +537,6 @@
 			"enable_spark_standalone": {{env.enable_spark_standalone}},
 			"spark.master.SPARK_DAEMON_MEMORY": {{env.spark_master_daemon_memory}},
 			"spark.worker.SPARK_DAEMON_MEMORY": {{env.spark_worker_daemon_memory}},
-			"PYSPARK_PYTHON": {{env.PYSPARK_PYTHON}},
 			"spark.worker.cleanup.enabled": {{env.spark_worker_cleanup_enabled}},
 			"spark.worker.cleanup.interval": {{env.spark_worker_cleanup_interval}},
 			"spark.worker.cleanup.appDataTtl": {{env.spark_worker_cleanup_appDataTtl}},
